@@ -15,13 +15,13 @@ tags:
 
 注意：以下分析基于**HTTP**请求，并且Web容器使用**Tomcat**，后端框架使用**SSM**
 
-![image-20211130170837411](../Download/Typora/image/image-20211130170837411.png)
+![image-20211130170837411](/img/image/image-20211130170837411.png)
 
 > 从图中可以知道，当用户发起http请求后，客户端与服务端会通过三次握手建立连接，并发送http请求数据包到tomcat，进过一系列流程处理之后，tomcat返回响应数据包到浏览器，浏览器渲染并呈现给用户。
 
 Web 应用处理完请求并将结果返回给 Web 容器后，容器会将响应结果返回给客户端，这是上面流程的逆过程。浏览器收到响应结果后，会对结果进行解析和渲染。这样我们就能看到浏览器给我们显示的网页了。20201210113745.png
 
-![](../Download/Typora/image/20201210113745.png)
+![](/img/image/20201210113745.png)
 
 # URL解析
 
@@ -39,13 +39,13 @@ Web 应用处理完请求并将结果返回给 Web 容器后，容器会将响�
 
 浏览器会先检测是否缓存了目标URL的页面，如果有且缓存未过期，则直接展示缓存页面，无需再向服务器进行请求。
 
-<img src="../Download/Typora/image/image-20211130174310851.png" alt="image-20211130174310851" style="zoom:67%;" />
+<img src="/img/image/image-20211130174310851.png" alt="image-20211130174310851" style="zoom:67%;" />
 
 ## DNS解析
 
 **DNS解析是寻找所需要的资源的IP地址的过程**。因为互联网中每一台连网的机器都有**唯一IP作为标识**，但是它是一串数字，记忆太过困难。所以就需要将网址和IP地址进行转换，也就是DNS解析。其具体步骤如下。
 
-<img src="../Download/Typora/image/image-20211130174523666.png" alt="image-20211130174523666" style="zoom:80%;" />
+<img src="/img/image/image-20211130174523666.png" alt="image-20211130174523666" style="zoom:80%;" />
 
 ### 1、查询缓存
 
@@ -67,13 +67,13 @@ Web 应用处理完请求并将结果返回给 Web 容器后，容器会将响�
 
 TCP/IP 分为四层，在发送数据时，**每层都要对数据进行封装**
 
-<img src="../Download/Typora/image/image-20211130174800466.png" alt="image-20211130174800466" style="zoom:67%;" />
+<img src="/img/image/image-20211130174800466.png" alt="image-20211130174800466" style="zoom:67%;" />
 
 TCP提供一种**面向连接的，可靠的字节流**服务，是一种可靠传输。接下来将会讲解TCP的**首部、三次握手与四次挥手**。
 
 ## TCP的首部
 
-![image-20211205152822139](../Download/Typora/image/image-20211205152822139.png)
+![image-20211205152822139](/img/image/image-20211205152822139.png)
 
 - **源端口**（2个字节）：源端口和IP地址的作用是标识**报文的发送地址和返回地址**
 - **目的端口**：端口指明**接收方**计算机上的应用程序接口
@@ -107,7 +107,7 @@ TCP提供一种**面向连接的，可靠的字节流**服务，是一种可靠�
 
 ## 三次握手
 
-<img src="../Download/Typora/image/image-20211205153959927.png" alt="image-20211205153959927" style="zoom:67%;" />
+<img src="/img/image/image-20211205153959927.png" alt="image-20211205153959927" style="zoom:67%;" />
 
 ==握手过程中传送的包里不包含数据==，三次握手完毕后，客户端与服务器才正式开始传送数据。理想状态下，TCP连接一旦建立，在通信双方中的任何一方主动关闭连接之前，TCP 连接都将被一直保持下去。
 
@@ -119,7 +119,7 @@ TCP提供一种**面向连接的，可靠的字节流**服务，是一种可靠�
 >
 > 如果只进行两次握手，如果客户端向服务器第一次发送的建立连接的请求因为某原因，**兜兜转转绕了一大圈才到达服务器**。这期间客户端因为未收到服务器的响应，就会再次发送连接请求，这时服务器收到了，向客户端发送连接请求后，连接便建立了。然后数据传输完毕后，释放连接。**这时刚刚兜兜转转一大圈的建立连接的请求到了服务器**，服务器收到后再次向客户端发送请求，发送后又建立了连接，但是建立连接后客户端没有再理会服务器，客户端与服务器之间没有传输数据，此时服务器的资源就会被浪费
 >
-> <img src="../Download/Typora/image/image-20211205154532854.png" alt="image-20211205154532854" style="zoom:50%;" />
+> <img src="/img/image/image-20211205154532854.png" alt="image-20211205154532854" style="zoom:50%;" />
 >
 > **为什么不是四次握手？**
 >
@@ -133,7 +133,7 @@ TCP提供一种**面向连接的，可靠的字节流**服务，是一种可靠�
 
 ## 四次挥手
 
-<img src="../Download/Typora/image/image-20211205154907983.png" alt="image-20211205154907983" style="zoom:67%;" />
+<img src="/img/image/image-20211205154907983.png" alt="image-20211205154907983" style="zoom:67%;" />
 
 - 第一次挥手
   - 客户端发送一个**FIN=1**，用来关闭客户端到服务器的数据传送，此后客户端不会再向服务器发送数据(当然，在fin包之前发送出去的数据，如果没有收到对应的ack确认报文，客户端依然会重发这些数据)，但是，此时客户端还可以接受数据。 FIN=1，其序列号为seq=u（等于前面已经传送过来的数据的最后一个字节的序号加1），此时，**客户端进入FIN-WAIT-1**（终止等待1）状态。 TCP规定，FIN报文段即使不携带数据，也要消耗一个序号
@@ -176,7 +176,7 @@ HTTP(HyperText Transfer Protocol)，超文本传输协议,**HTTP协议是用于�
 
 **Client客户端请求Server服务端，Server服务端响应给Client客户端。**HTTP是基于客户端/服务端的架构模型，浏览器或其他任何客户端都可以用HTTP协议的，通过URL地址向HTTP的服务器即Web服务器发送所有请求，Web服务器端在接收到请求后会做出反应，响应给对方，就是向客户端回传响应的信息。
 
-<img src="../Download/Typora/image/image-20211205160332113.png" alt="image-20211205160332113" style="zoom:67%;" />
+<img src="/img/image/image-20211205160332113.png" alt="image-20211205160332113" style="zoom:67%;" />
 
 注意：在使用HTTP协议的时候，我们一端必定是客户端，另一端必定是服务器端。
 
@@ -214,9 +214,9 @@ HTTP(HyperText Transfer Protocol)，超文本传输协议,**HTTP协议是用于�
 > // 要求服务器关闭TCP连接
 > ```
 
-<img src="../Download/Typora/image/image-20211205160736832.png" alt="image-20211205160736832" style="zoom: 67%;" />
+<img src="/img/image/image-20211205160736832.png" alt="image-20211205160736832" style="zoom: 67%;" />
 
-<img src="../Download/Typora/image/image-20211205160801893.png" alt="image-20211205160801893" style="zoom:67%;" />
+<img src="/img/image/image-20211205160801893.png" alt="image-20211205160801893" style="zoom:67%;" />
 
 ### HTTP的消息结构
 
@@ -243,7 +243,7 @@ Content.Type: text/html
 ...
 ```
 
-<img src="../Download/Typora/image/image-20211205161325436.png" alt="image-20211205161325436" style="zoom:80%;" />
+<img src="/img/image/image-20211205161325436.png" alt="image-20211205161325436" style="zoom:80%;" />
 
 GET，Request Method（请求方法），Request URL（为请求的url的地址），Status Code（状态码），Remote Address（地址）。
 
@@ -253,17 +253,17 @@ GET，Request Method（请求方法），Request URL（为请求的url的地址�
 
 **HTTP发送请求的例子：**
 
-<img src="../Download/Typora/image/image-20211205161623416.png" alt="image-20211205161623416" style="zoom:80%;" />
+<img src="/img/image/image-20211205161623416.png" alt="image-20211205161623416" style="zoom:80%;" />
 
 **服务器回应消息格式：**
 
-<img src="../Download/Typora/image/image-20211205161637944.png" alt="image-20211205161637944" style="zoom:80%;" />
+<img src="/img/image/image-20211205161637944.png" alt="image-20211205161637944" style="zoom:80%;" />
 
 **响应头：**
 
 Server为服务器的名称，Location为通知客户端新的资源位置，Content-Type响应数据的类型，Content-Encoding为响应数据的编码格式。
 
-<img src="../Download/Typora/image/image-20211205161808294.png" alt="image-20211205161808294" style="zoom:67%;" />
+<img src="/img/image/image-20211205161808294.png" alt="image-20211205161808294" style="zoom:67%;" />
 
 头部信息回应的是ASCII码，后面的数据可以是任何形式，服务器返回信息的时候，告诉客户端数据是什么格式的，由Content-Type字段体现。
 
@@ -285,7 +285,7 @@ application/zip
 application/atom+xml
 ```
 
-<img src="../Download/Typora/image/image-20211205161937052.png" alt="image-20211205161937052" style="zoom:67%;" />
+<img src="/img/image/image-20211205161937052.png" alt="image-20211205161937052" style="zoom:67%;" />
 
 
 
@@ -305,7 +305,7 @@ Accept: */*
 
 ### 请求消息
 
-<img src="../Download/Typora/image/image-20211205162108906.png" alt="image-20211205162108906" style="zoom:67%;" />
+<img src="/img/image/image-20211205162108906.png" alt="image-20211205162108906" style="zoom:67%;" />
 
 ```json
 GET /index.htm HTTP/1.1
@@ -329,15 +329,15 @@ URL为请求的URL地址，协议版本为代表在向服务器发送请求时�
 
 请求URI定位资源：HTTP协议使用URI定位互联网上的资源。
 
-<img src="../Download/Typora/image/image-20211205162432054.png" alt="image-20211205162432054" style="zoom:80%;" />
+<img src="/img/image/image-20211205162432054.png" alt="image-20211205162432054" style="zoom:80%;" />
 
 URI,URL,URN是用来识别，定位和命名互联网上的资源。
 
-<img src="../Download/Typora/image/image-20211205162459613.png" alt="image-20211205162459613" style="zoom: 67%;" />
+<img src="/img/image/image-20211205162459613.png" alt="image-20211205162459613" style="zoom: 67%;" />
 
-<img src="../Download/Typora/image/image-20211205162524807.png" alt="image-20211205162524807" style="zoom:67%;" />
+<img src="/img/image/image-20211205162524807.png" alt="image-20211205162524807" style="zoom:67%;" />
 
-<img src="../Download/Typora/image/image-20211205162630887.png" alt="image-20211205162630887" style="zoom:67%;" />
+<img src="/img/image/image-20211205162630887.png" alt="image-20211205162630887" style="zoom:67%;" />
 
 ```json
 
@@ -354,9 +354,9 @@ URN：
 Uniform Resource Name，统一资源名称
 ```
 
-<img src="../Download/Typora/image/image-20211205162724230.png" alt="image-20211205162724230" style="zoom:67%;" />
+<img src="/img/image/image-20211205162724230.png" alt="image-20211205162724230" style="zoom:67%;" />
 
-<img src="../Download/Typora/image/image-20211205162755689.png" alt="image-20211205162755689" style="zoom:67%;" />
+<img src="/img/image/image-20211205162755689.png" alt="image-20211205162755689" style="zoom:67%;" />
 
 由HTTP版本，状态码，状态描述文字构成：
 
@@ -375,9 +375,9 @@ GET /hello.htm HTTP/1.1
 
 **消息报头**
 
-<img src="../Download/Typora/image/image-20211205162929687.png" alt="image-20211205162929687" style="zoom:50%;" />
+<img src="/img/image/image-20211205162929687.png" alt="image-20211205162929687" style="zoom:50%;" />
 
-<img src="../Download/Typora/image/image-20211205162939119.png" alt="image-20211205162939119" style="zoom: 67%;" />
+<img src="/img/image/image-20211205162939119.png" alt="image-20211205162939119" style="zoom: 67%;" />
 
 响应报文由协议版本，状态码，响应的首部字段，以及实体主体构成。
 
@@ -387,19 +387,19 @@ HTTP的请求方法有很多，但是最常见的两种请求方法是GET和POST
 
 提交HTML表单或上传文件
 
-<img src="../Download/Typora/image/image-20211205163034953.png" alt="image-20211205163034953" style="zoom:67%;" />
+<img src="/img/image/image-20211205163034953.png" alt="image-20211205163034953" style="zoom:67%;" />
 
 POST：传输实体主体 
 
 POST 方法用来传输实体的主体。 
 
-<img src="../Download/Typora/image/image-20211205163106751.png" alt="image-20211205163106751" style="zoom:67%;" />
+<img src="/img/image/image-20211205163106751.png" alt="image-20211205163106751" style="zoom:67%;" />
 
 PUT：传输文件 
 
 PUT 方法用来传输文件。
 
-<img src="../Download/Typora/image/image-20211205163123195.png" alt="image-20211205163123195" style="zoom:67%;" />
+<img src="/img/image/image-20211205163123195.png" alt="image-20211205163123195" style="zoom:67%;" />
 
 HEAD：获得报文首部 
 
@@ -466,7 +466,7 @@ url地址a可以向url地址b上跳转，但这并不意味着是永久性的，
 
 而状态码301代表的是永久性的重定向。
 
-<img src="../Download/Typora/image/image-20211205163421903.png" alt="image-20211205163421903" style="zoom: 80%;" />
+<img src="/img/image/image-20211205163421903.png" alt="image-20211205163421903" style="zoom: 80%;" />
 
 2xx:
 
@@ -530,7 +530,7 @@ HTTP过程中包含3个重要部分，**消息头，响应头和状态码。**
 
 ### HTTP工作原理
 
-<img src="../Download/Typora/image/image-20211205163653797.png" alt="image-20211205163653797" style="zoom:67%;" />
+<img src="/img/image/image-20211205163653797.png" alt="image-20211205163653797" style="zoom:67%;" />
 
 ## HTTPS简介
 
@@ -538,7 +538,7 @@ HTTP过程中包含3个重要部分，**消息头，响应头和状态码。**
 
 为了应付HTTP是明文传输的缺点，容易被中间人窃听或者篡改，导致隐私和信息安全出现问题的解决方案。
 
-<img src="../Download/Typora/image/image-20211205190831423.png" alt="image-20211205190831423" style="zoom:48%;" />
+<img src="/img/image/image-20211205190831423.png" alt="image-20211205190831423" style="zoom:48%;" />
 
 从上图看出，SSL和TLS在应用层中“垫”了一层SSL/TLS ，安全协议。
 
@@ -548,11 +548,11 @@ HTTP过程中包含3个重要部分，**消息头，响应头和状态码。**
 
 如果在通信链路上出现Hacker，由于通信内容都是明文可见，所以Hacker可以嗅探看这些，也可以篡改内容。
 
-<img src="../Download/Typora/image/image-20211205191004522.png" alt="image-20211205191004522" style="zoom:80%;" />
+<img src="/img/image/image-20211205191004522.png" alt="image-20211205191004522" style="zoom:80%;" />
 
 比如我们以前在访问网页时会发现某些网页中间底部或者顶部出现横栏广告。这就是被劫持之后的效果。
 
-<img src="../Download/Typora/image/image-20211205191058566.png" alt="image-20211205191058566" style="zoom:80%;" />
+<img src="/img/image/image-20211205191058566.png" alt="image-20211205191058566" style="zoom:80%;" />
 
 那么问题来了，怎么制止被窃听和篡改呢。第一时间我们会想到给报文数据加密阿。
 
@@ -562,7 +562,7 @@ HTTP过程中包含3个重要部分，**消息头，响应头和状态码。**
 
 加入对2个二进制数A和B进行异或运算得到结果C，那C和B再异或一次就会得到A。
 
-![image-20211206112824731](../Download/Typora/image/image-20211206112824731.png)
+![image-20211206112824731](/img/image/image-20211206112824731.png)
 
 所谓**对称加密**，就是这个意思，可以看到加密解密同时运用同一个密钥B。
 
@@ -572,17 +572,17 @@ HTTP过程中包含3个重要部分，**消息头，响应头和状态码。**
 
 **非对称加密**加密指的是，加密和解密用的并不是同一把钥匙，
 
-<img src="../Download/Typora/image/image-20211206113011516.png" alt="image-20211206113011516" style="zoom:50%;" />
+<img src="/img/image/image-20211206113011516.png" alt="image-20211206113011516" style="zoom:50%;" />
 
 这就是非对称加密，任何人都可以通过拿到Bob公开的公钥对内容进行加密，然后只有Bob自己私有的钥匙才能解密还原出原来内容。
 
-<img src="../Download/Typora/image/image-20211206113141681.png" style="zoom:50%;" />
+<img src="/img/image/image-20211206113141681.png" style="zoom:50%;" />
 
 而HTTPS的加密解密方式结合了**对称加密**和**非对称加密**，由于非对称加密的性能低，因此我们用这种方式来对密钥（解开门的钥匙）进行非对称加密，防止被中间人猜出保证密钥不泄露。然后针对报文数据的加解密用的是对称加密。
 
 问：密钥配送问题解决了，那怎么确定一直是不是都是Alice和Bob呢？
 
-<img src="../Download/Typora/image/image-20211206113422119.png" alt="image-20211206113422119" style="zoom:50%;" />
+<img src="/img/image/image-20211206113422119.png" alt="image-20211206113422119" style="zoom:50%;" />
 
 因为中间人是有可能冒充身份的，又不需要给证明。这就会出现，
 
@@ -612,13 +612,13 @@ HTTP过程中包含3个重要部分，**消息头，响应头和状态码。**
 
 答：因为这是private-key是CA提供的，而CA是个权威组织，客户端是相信CA的，通过这种方式证明公钥来源。
 
-<img src="../Download/Typora/image/image-20211206113707983.png" alt="image-20211206113707983" style="zoom:50%;" />
+<img src="/img/image/image-20211206113707983.png" alt="image-20211206113707983" style="zoom:50%;" />
 
 ### 数据完整性
 
 现在已经解决了**密钥传输**、**认证问题**，但是在数据完整性上没有保障，虽然Hacker看不懂也解密不了内容，但是可以瞎改阿。那此时Bob看到的可能是很乱的内容，它不确定是Alice发的，还是被Hacker中途篡改的。
 
-<img src="../Download/Typora/image/image-20211206113749311.png" alt="image-20211206113749311" style="zoom:50%;" />
+<img src="/img/image/image-20211206113749311.png" alt="image-20211206113749311" style="zoom:50%;" />
 
 这就需要延续刚才说到数字签名认证问题的第二点了，自public-key成功解开之后，下一步就是检验数据完整性了。
 
@@ -626,7 +626,7 @@ HTTP过程中包含3个重要部分，**消息头，响应头和状态码。**
 
 ps：注意，这里的Hash指的是单向Hash，只能内容生成Hash，而Hash是不能逆向推出内容的。并且不同的输入几乎不可能产生相同的输出，即便你要特意去找也非常难找到这样的输入（抗碰撞性）。因此Alice只要将明文内容做一个Hash运算得到一个Hash值，并一起加密传递过去给Bob。Hacker即便篡改了内容，Bob解密之后发现拿到的内容以及对应计算出来的Hash值与传递过来的不一致，说明这个包的完整性被破坏了。
 
-<img src="../Download/Typora/image/image-20211206113904228.png" alt="image-20211206113904228" style="zoom: 50%;" />
+<img src="/img/image/image-20211206113904228.png" alt="image-20211206113904228" style="zoom: 50%;" />
 
 总结一下，安全可靠的保障：
 
@@ -636,31 +636,31 @@ ps：注意，这里的Hash指的是单向Hash，只能内容生成Hash，而Has
 
 数据的完整性问题？
 
-![image-20211206114015942](../Download/Typora/image/image-20211206114015942.png)
+![image-20211206114015942](/img/image/image-20211206114015942.png)
 
 ### HTTPS通信过程
 
 上面指出了明文传输的问题及解决方案时，并解释完对称加密、非对称加密等概念之后。现在来完整地看下SSL协议握手的过程
 
-![image-20211206114130409](../Download/Typora/image/image-20211206114130409.png)
+![image-20211206114130409](/img/image/image-20211206114130409.png)
 
 1. Client Hello
 
 握手第一步是客户端向服务端发送 Client Hello 消息，这个消息里包含了一个客户端生成的[随机数](https://www.zhihu.com/search?q=随机数&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A158593966}) **Random1**、客户端支持的加密套件（Support Ciphers）和 SSL Version 等信息。
 
-<img src="../Download/Typora/image/image-20211206114207405.png" alt="image-20211206114207405" style="zoom: 67%;" />
+<img src="/img/image/image-20211206114207405.png" alt="image-20211206114207405" style="zoom: 67%;" />
 
 2. Server Hello
 
 第二步是服务端向客户端发送 Server Hello 消息，这个消息会从 Client Hello 传过来的 Support Ciphers 里确定一份加密套件，这个套件决定了后续加密和生成摘要时具体使用哪些算法，另外还会生成一份随机数 **Random2**。注意，至此客户端和服务端都拥有了两个随机数（Random1+ Random2），这两个随机数会在后续生成对称秘钥时用到。
 
-<img src="../Download/Typora/image/image-20211206114258565.png" alt="image-20211206114258565" style="zoom: 67%;" />
+<img src="/img/image/image-20211206114258565.png" alt="image-20211206114258565" style="zoom: 67%;" />
 
 3. Certificate
 
 这一步是服务端将自己的证书下发给客户端，让客户端验证自己的身份，客户端验证通过后取出证书中的公钥。
 
-![image-20211206114352517](../Download/Typora/image/image-20211206114352517.png)
+![image-20211206114352517](/img/image/image-20211206114352517.png)
 
 4. Certificate Verify
 
@@ -670,13 +670,13 @@ ps：注意，这里的Hash指的是单向Hash，只能内容生成Hash，而Has
 
 上面客户端根据服务器传来的公钥生成了 **PreMaster Key**，Client Key Exchange 就是将这个 key 传给服务端，服务端再用自己的私钥解出这个 **PreMaster Key** 得到客户端生成的 **Random3**。至此，客户端和服务端都拥有 **Random1** + **Random2** + **Random3**，两边再根据同样的算法就可以生成一份秘钥，握手结束后的应用层数据都是使用这个秘钥进行对称加密。为什么要使用三个随机数呢？这是因为 SSL/TLS 握手过程的数据都是明文传输的，并且多个[随机数种子](https://www.zhihu.com/search?q=随机数种子&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A158593966})来生成秘钥不容易被暴力破解出来。客户端将 **PreMaster Key** 传给[服务端](https://www.zhihu.com/search?q=服务端&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"article"%2C"sourceId"%3A158593966})的过程如下图所示：
 
-![image-20211206114450997](../Download/Typora/image/image-20211206114450997.png)
+![image-20211206114450997](/img/image/image-20211206114450997.png)
 
 6. Encrypted Handshake Message(Client)
 
 这一步对应的是 Client Finish 消息，客户端将前面的握手消息生成摘要再用协商好的秘钥加密，这是客户端发出的第一条加密消息。服务端接收后会用秘钥解密，能解出来说明前面协商出来的秘钥是一致的。
 
-![image-20211206114511422](../Download/Typora/image/image-20211206114511422.png)
+![image-20211206114511422](/img/image/image-20211206114511422.png)
 
 7. Change Cipher Spec(Server)
 
@@ -686,7 +686,7 @@ ps：注意，这里的Hash指的是单向Hash，只能内容生成Hash，而Has
 
 这一步对应的是 Server Finish 消息，服务端也会将握手过程的消息生成摘要再用秘钥加密，这是服务端发出的第一条加密消息。客户端接收后会用秘钥解密，能解出来说明协商的秘钥是一致的。
 
-![image-20211206114534804](../Download/Typora/image/image-20211206114534804.png)
+![image-20211206114534804](/img/image/image-20211206114534804.png)
 
 9. Application Data
 
@@ -704,11 +704,11 @@ ps：注意，这里的Hash指的是单向Hash，只能内容生成Hash，而Has
 
 下图是HTTP传输的过程，
 
-![image-20211206114630876](../Download/Typora/image/image-20211206114630876.png)
+![image-20211206114630876](/img/image/image-20211206114630876.png)
 
 下面是HTTPS传输过程：
 
-![image-20211206114655671](../Download/Typora/image/image-20211206114655671.png)
+![image-20211206114655671](/img/image/image-20211206114655671.png)
 
 **相比较两图，HTTPS传输过程最多会比HTTP多7个RTT。**
 
@@ -738,7 +738,7 @@ step8：主要进行密钥协商。
 
 如果每次重连都要重新握手还是比较耗时的，所以可以对握手过程进行优化。从下图里我们看到 Client Hello 消息里还附带了上一次的 Session ID，服务端接收到这个 Session ID 后如果能复用就不再进行后续的握手过程。
 
-![image-20211206114746213](../Download/Typora/image/image-20211206114746213.png)
+![image-20211206114746213](/img/image/image-20211206114746213.png)
 
 ## 查询MAC地址
 
@@ -758,7 +758,7 @@ Tomcat的核心组件主要有：**Server、Service、Connector、Engine、Host�
 
 **一个Server可以包含多个Service，一个Service可以包含多个Connector，但只能包含一个Engine，一个Engine可以包含多个Host，一个Host可以包含多个Context**。
 
-![image-20211205193912963](../Download/Typora/image/image-20211205193912963.png)
+![image-20211205193912963](/img/image/image-20211205193912963.png)
 
 图中tomcat核心组件分别是连接器Connector和容器Container
 
@@ -781,7 +781,7 @@ Coyote是Tomcat中连接器组件的名称,从图中可以知道它内部由EndP
 - 作为Web服务器，直接接收客户端的请求
 - 作为Java Web服务器，接收前置Web服务器的请求
 
-<img src="../Download/Typora/image/image-20211205195555845.png" alt="image-20211205195555845" style="zoom:67%;" />
+<img src="/img/image/image-20211205195555845.png" alt="image-20211205195555845" style="zoom:67%;" />
 
 每个 Service 可以有一个或多个 Connector，不同工作模式下，Tomcat 需要为各种类型的请求分别定义相应的 Connector，这样才能正确接收客户端对应协议的请求。定义 Connector 可以使用多种属性，某些属性只适用于某种特定的 Connector 类型。
 
@@ -792,7 +792,7 @@ Coyote是Tomcat中连接器组件的名称,从图中可以知道它内部由EndP
 - **AJP**
 - **Proxy**
 
-<img src="../Download/Typora/image/image-20211205195725144.png" alt="image-20211205195725144" style="zoom:67%;" />
+<img src="/img/image/image-20211205195725144.png" alt="image-20211205195725144" style="zoom:67%;" />
 
 Connector作为通信接口，**它为其所属特定的 Service 接收外部客户端请求，以及回送应答至外部客户端**。具体职责包括创建 Request、Response 对象用于跟外部客户端交换数据，并**将 Request 交给配套的 Engine 来处理**。
 
@@ -1094,7 +1094,7 @@ Web 应用处理 HTTP 请求的流程主要是**穿越 Listener 和多个 Filter
 
 **具体流程如下图**
 
-<img src="../Download/Typora/image/image-20211205201638812.png" alt="image-20211205201638812" style="zoom: 67%;" />
+<img src="/img/image/image-20211205201638812.png" alt="image-20211205201638812" style="zoom: 67%;" />
 
 # 请求在Spring Web应用中的处理流程
 
@@ -1133,7 +1133,7 @@ Web 应用处理 HTTP 请求的流程主要是**穿越 Listener 和多个 Filter
 
 **处理的流程图如下**
 
-<img src="../Download/Typora/image/image-20211206112236358.png" alt="image-20211206112236358" style="zoom: 60%;" />
+<img src="/img/image/image-20211206112236358.png" alt="image-20211206112236358" style="zoom: 60%;" />
 
 
 
