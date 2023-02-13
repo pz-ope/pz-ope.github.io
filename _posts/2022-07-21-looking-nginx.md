@@ -4,15 +4,15 @@
 
 > 网站上线初期，并发量小，用户使用少，一个jar包启动应用就够了，内部使用tomatf返回内容给用户。
 
-<img src="../../../../../Download/Typora/image/image-20220721214403331.png" alt="image-20220721214403331" style="zoom:80%;" />
+<img src="/img/image/image-20220721214403331.png" alt="image-20220721214403331" style="zoom:80%;" />
 
 > 随着用户量增加，并发量增多，一台服务器不能满足需求
 
-<img src="../../../../../Download/Typora/image/image-20220721214430540.png" alt="image-20220721214430540" style="zoom:80%;" />
+<img src="/img/image/image-20220721214430540.png" alt="image-20220721214430540" style="zoom:80%;" />
 
 > 使用横向扩张的方式增加服务器，这时候几个项目在不同的服务器上（由于服务器是独立的，tomcat之间不共享，例如一个用户在服务器1上登录了，在服务器2由于不知道用户已经登录的，就会导致错误，用户在服务器2中也会登录），用户要访问就需要增加一个代理服务器。通过代理服务器来帮我们转发和处理请求。
 
-<img src="../../../../../Download/Typora/image/image-20220721214506579.png" alt="image-20220721214506579" style="zoom:80%;" />
+<img src="/img/image/image-20220721214506579.png" alt="image-20220721214506579" style="zoom:80%;" />
 
 我们希望这个代理服务器可以帮助我们接收用户的请求,然后将用户的请求按照规则帮我们转发到不同的服务器节点之上。这个过程用户是无感知的，用户并不知道是哪个服务器返回的结果,我们还希望他可以按照服务器的性能提供不同的权重选择。保证最佳体验!所以我们使用了Nginx.
 
@@ -49,7 +49,7 @@ Http代理，反向代理:作为web服务器最常用的功能之一，尤其反
 >
 > 　　（4）代理可以记录用户访问记录（上网行为管理），对外隐藏用户信息
 
-<img src="../../../../../Download/Typora/image/image-20220721214849079.png" alt="image-20220721214849079" style="zoom:80%;" />
+<img src="/img/image/image-20220721214849079.png" alt="image-20220721214849079" style="zoom:80%;" />
 
 ## 反向代理
 
@@ -61,19 +61,19 @@ Http代理，反向代理:作为web服务器最常用的功能之一，尤其反
 >
 > （2）负载均衡，通过反向代理服务器来优化网站的负载
 
-<img src="../../../../../Download/Typora/image/image-20220721215017342.png" alt="image-20220721215017342" style="zoom:80%;" />
+<img src="/img/image/image-20220721215017342.png" alt="image-20220721215017342" style="zoom:80%;" />
 
 > Nginx提供的负载均衡策略有2种:内置策略和扩展策略。内置策略为轮殉，加权轮询，Ip hash.扩展策略，就天马行空，只有你想不到的没有他做不到的。
 
 ### 轮询
 
-<img src="../../../../../Download/Typora/image/image-20220721215100275.png" alt="image-20220721215100275" style="zoom:80%;" />
+<img src="/img/image/image-20220721215100275.png" alt="image-20220721215100275" style="zoom:80%;" />
 
 ### 加权轮询
 
 更多的请求发送到权重大的服务器上
 
-<img src="../../../../../Download/Typora/image/image-20220721215118650.png" alt="image-20220721215118650" style="zoom:80%;" />
+<img src="/img/image/image-20220721215118650.png" alt="image-20220721215118650" style="zoom:80%;" />
 
 ### iphash
 
@@ -83,13 +83,13 @@ iphash对客户端请求的ip进行hash操作，然后根据hash结果将同一�
 >
 > 但iphash的性能不好，大部分是使用redis做到session共享。
 
-<img src="../../../../../Download/Typora/image/image-20220721215217523.png" alt="image-20220721215217523" style="zoom:80%;" />
+<img src="/img/image/image-20220721215217523.png" alt="image-20220721215217523" style="zoom:80%;" />
 
 ### 动静分离
 
 > 动静分离，在我们的软件开发中，有些请求是需要后台处理的，有些请求是不需要经过后台处理的(如: Css、html. jpg、 js等等文件)，这些不需要经过后台处理的文件称为静态文件。让动态网站里的动态网页根据一定规则把不变的资源和经常变的资源区分开来， 动静资源做好了拆分以后，我们就可以根据静态资源的特点将其做缓存操作。提高资源响应的速度。
 
-<img src="../../../../../Download/Typora/image/image-20220721215417214.png" alt="image-20220721215417214" style="zoom:80%;" />
+<img src="/img/image/image-20220721215417214.png" alt="image-20220721215417214" style="zoom:80%;" />
 
 # Nginx安装
 
@@ -117,15 +117,15 @@ iphash对客户端请求的ip进行hash操作，然后根据hash结果将同一�
 
 再来执行：make install 
 
-<img src="../../../../../Download/Typora/image/image-20220721215556165.png" alt="image-20220721215556165" style="zoom:80%;" />
+<img src="/img/image/image-20220721215556165.png" alt="image-20220721215556165" style="zoom:80%;" />
 
 运行nginx：./nginx
 
-<img src="../../../../../Download/Typora/image/image-20220721215637991.png" alt="image-20220721215637991" style="zoom:80%;" />
+<img src="/img/image/image-20220721215637991.png" alt="image-20220721215637991" style="zoom:80%;" />
 
 查看配置文件：cat nginx.conf
 
-<img src="../../../../../Download/Typora/image/image-20220721215655860.png" alt="image-20220721215655860" style="zoom:80%;" />
+<img src="/img/image/image-20220721215655860.png" alt="image-20220721215655860" style="zoom:80%;" />
 
 访问端口ip+端口号：
 
@@ -187,13 +187,13 @@ proxy_pass http://lb;
 }
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220721220220217.png" alt="image-20220721220220217" style="zoom:80%;" />
+<img src="/img/image/image-20220721220220217.png" alt="image-20220721220220217" style="zoom:80%;" />
 
-![image-20220721220242636](../../../../../Download/Typora/image/image-20220721220242636.png)
+![image-20220721220242636](/img/image/image-20220721220242636.png)
 
-<img src="../../../../../Download/Typora/image/image-20220721220338195.png" alt="image-20220721220338195" style="zoom:80%;" />
+<img src="/img/image/image-20220721220338195.png" alt="image-20220721220338195" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220721220353620.png" alt="image-20220721220353620" style="zoom:80%;" />
+<img src="/img/image/image-20220721220353620.png" alt="image-20220721220353620" style="zoom:80%;" />
 
 # netty实现代理
 

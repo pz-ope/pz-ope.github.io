@@ -20,7 +20,7 @@ MySQL采⽤的是类似继承的⽅式指定字符集的默认值，每个数据
 mysql> show engines;
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220825175830566.png" alt="image-20220825175830566" style="zoom:80%;" />
+<img src="/img/image/image-20220825175830566.png" alt="image-20220825175830566" style="zoom:80%;" />
 
 们可以查看出 MySQL 当前默认的存储引擎是InnoDB,并且在5.7版本所有的存储引擎中只有InnoDB 是事务性存储引擎，也就是说只有 InnoDB ⽀持事务。
 
@@ -37,7 +37,7 @@ mysql> show variables like '%storage_engine%';
 show table status like "table_name" ;
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220825180007950.png" alt="image-20220825180007950" style="zoom:80%;" />
+<img src="/img/image/image-20220825180007950.png" alt="image-20220825180007950" style="zoom:80%;" />
 
 MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，⽽且提供了⼤量的特性，包括全⽂索引、压缩、空间函数等，但MyISAM不⽀持事务和⾏级锁，⽽且最⼤的缺陷就是崩溃后⽆法安全恢复。不过，5.5版本之后，MySQL引⼊了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB。
 
@@ -130,7 +130,7 @@ create table student(
 describe table;
 ```
 
-<img src="../../../../../Download/Typora/image/image-20211206145411910.png" alt="image-20211206145411910" style="zoom:67%;" />
+<img src="/img/image/image-20211206145411910.png" alt="image-20211206145411910" style="zoom:67%;" />
 
 ## 数据的操作
 
@@ -174,7 +174,7 @@ inner join ... on ...
 select * from person as p inner join card as c on p.card_id = c.id
 ```
 
-<img src="../../../../../Download/Typora/image/image-20211206152229010.png" alt="image-20211206152229010" style="zoom:80%;" />
+<img src="/img/image/image-20211206152229010.png" alt="image-20211206152229010" style="zoom:80%;" />
 
 **内联查询：两张表通过某个字段合并起来，查询出相关数据**
 
@@ -427,7 +427,7 @@ CREATE TABLE customer(
 
 ## 事务的四⼤特性(ACID)
 
-<img src="../../../../../Download/Typora/image/image-20220825171218325.png" alt="image-20220825171218325" style="zoom:80%;" />
+<img src="/img/image/image-20220825171218325.png" alt="image-20220825171218325" style="zoom:80%;" />
 
 * 原⼦性（**Atomicity**）： 事务是最⼩的执⾏单位，不允许分割。事务的原⼦性确保动作要么全部完成，要么完全不起作⽤；
 *  ⼀致性（**Consistency**）： 执⾏事务前后，数据保持⼀致，多个事务对同⼀个数据读取的结果是相同的；
@@ -461,7 +461,7 @@ CREATE TABLE customer(
 
   **插入数据前**
 
-  <img src="../../../../../Download/Typora/image/image-20211206153127183.png" alt="image-20211206153127183" style="zoom:80%;" />
+  <img src="/img/image/image-20211206153127183.png" alt="image-20211206153127183" style="zoom:80%;" />
 
   **插入数据后**
 
@@ -487,7 +487,7 @@ CREATE TABLE customer(
   INSERT INTO person VALUES (5, '老七', 9);
   ```
 
-  <img src="../../../../../Download/Typora/image/image-20211206153203918.png" alt="image-20211206153203918" style="zoom:80%;" />
+  <img src="/img/image/image-20211206153203918.png" alt="image-20211206153203918" style="zoom:80%;" />
 
   **回滚后**
 
@@ -495,7 +495,7 @@ CREATE TABLE customer(
   ROLLBACK;
   ```
 
-  <img src="../../../../../Download/Typora/image/image-20211206153229921.png" alt="image-20211206153229921" style="zoom:80%;" />
+  <img src="/img/image/image-20211206153229921.png" alt="image-20211206153229921" style="zoom:80%;" />
 
  ## 并发事务问题
 

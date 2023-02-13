@@ -1059,7 +1059,7 @@ mvn spring-boot:run
 
 将打包好的war文件解压，我们看下War文件的结构：
 
-<img src="../../../../../Download/Typora/image/image-20220717193231181.png" alt="image-20220717193231181" style="zoom:80%;" />
+<img src="/img/image-20220717193231181.png" alt="image-20220717193231181" style="zoom:80%;" />
 
 里面有三部分：
 
@@ -1100,7 +1100,7 @@ Main-Class: org.springframework.boot.loader.WarLauncher
 
 我们再来看下jar文件：
 
-<img src="../../../../../Download/Typora/image/image-20220717193650399.png" alt="image-20220717193650399" style="zoom:80%;" />
+<img src="/img/image-20220717193650399.png" alt="image-20220717193650399" style="zoom:80%;" />
 
 jar文件和war文件有一点不同，没有WEB-INF，改成了BOOT-INF。
 

@@ -444,7 +444,7 @@ JMM关于同步的规定：
 
 由于JVM运行程序的实体是**线程**，而每个线程创建时JVM都会为其创建一个**工作内存**（有些地方称为栈空间），工作内存是每个线程的私有数据区域，而**Java内存模型**中规定所有变量都存储在主内存，**主内存是共享内存区域**，所有线程都可以访问，==但线程对变量的操作（读取赋值等）必须在工作内存中进行，首先要将变量从主内存拷贝到自己的工作内存空间，然后对变量进行操作，操作完成后再将变量写回主内存==，不能直接操作主内存中的变量，各个线程中的工作内存中存储着主内存中的变量副本拷贝，因此不同的线程间无法访问对方的工作内存，线程间的通信（传值）必须通过主内存来完成，其简要访问过程：
 
-<img src="../../../../../Download/Typora/image/image-20220725204303427.png" alt="image-20220725204303427" style="zoom:50%;" />
+<img src="/img/image/image-20220725204303427.png" alt="image-20220725204303427" style="zoom:50%;" />
 
 
 
@@ -572,7 +572,7 @@ public class VolatileTrueUsage {
         reader.start();
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220725205036172.png" alt="image-20220725205036172" style="zoom: 80%;" />
+<img src="/img/image/image-20220725205036172.png" alt="image-20220725205036172" style="zoom: 80%;" />
 
 ## Happens-Before
 
@@ -722,7 +722,7 @@ a = 1;
 >
 > 由于编译器和处理器都能执行指令重排的优化，如果在指令间插入一条Memory Barrier则会告诉编译器和CPU，不管什么指令都不能和这条Memory Barrier指令重排序，也就是说 `通过插入内存屏障禁止在内存屏障前后的指令执行重排序优化`。 内存屏障另外一个作用是刷新出各种CPU的缓存数，因此任何CPU上的线程都能读取到这些数据的最新版本。
 >
-> ![image-20211025170021073](../../../../../Download/Typora/image/image-20211025170021073.png)
+> ![image-20211025170021073](/img/image/image-20211025170021073.png)
 >
 > 也就是过在Volatile的写 和 读的时候，加入屏障，防止出现指令重排的
 
@@ -768,7 +768,7 @@ public class SingletonDemo {
 
 最后输出的结果
 
-<img src="../../../../../Download/Typora/image/image-20211026110249438.png" alt="image-20211026110249438" style="zoom:50%;" />
+<img src="/img/image/image-20211026110249438.png" alt="image-20211026110249438" style="zoom:50%;" />
 
 但是在多线程的环境下，我们的单例模式是否还是同一个对象了
 
@@ -800,7 +800,7 @@ public class SingletonDemo {
 
 从下面的结果我们可以看出，我们通过SingletonDemo.getInstance() 获取到的对象，并不是同一个，而是被下面几个线程都进行了创建，那么在多线程环境下，单例模式如何保证呢？
 
-<img src="../../../../../Download/Typora/image/image-20211026110325150.png" alt="image-20211026110325150" style="zoom:67%;" />
+<img src="/img/image/image-20211026110325150.png" alt="image-20211026110325150" style="zoom:67%;" />
 
 ### 解决方法1
 
@@ -817,7 +817,7 @@ public class SingletonDemo {
 
 输出结果
 
-<img src="../../../../../Download/Typora/image/image-20211026110355611.png" alt="image-20211026110355611" style="zoom:67%;" />
+<img src="/img/image/image-20211026110355611.png" alt="image-20211026110355611" style="zoom:67%;" />
 
 我们能够发现，通过引入Synchronized关键字，能够解决高并发环境下的单例模式问题
 
@@ -845,7 +845,7 @@ public class SingletonDemo {
 
 最后输出的结果为：
 
-![image-20211026110437647](../../../../../Download/Typora/image/image-20211026110437647.png)
+![image-20211026110437647](/img/image/image-20211026110437647.png)
 
 DCL（双端检锁）机制不一定是线程安全的，原因是有指令重排的存在，这个漏洞比较tricky，很难捕捉，但是是存在的。`instance=new SingletonDemo();`可以大致分为三步
 
@@ -1564,7 +1564,7 @@ java中Thread有6种状态，分别是：
 
 我们可以用一个图来直观的表示：
 
-<img src="../../../../../Download/Typora/image/image-20220727184458913.png" alt="image-20220727184458913" style="zoom:80%;" />
+<img src="/img/image/image-20220727184458913.png" alt="image-20220727184458913" style="zoom:80%;" />
 
 JDK代码中的定义如下：
 
@@ -2453,7 +2453,7 @@ CPU的核数是有限的，如果同时有多个线程正在运行中，那么CP
 
 画个图来表示：
 
-![image-20220730163007025](../../../../../Download/Typora/image/image-20220730163007025.png)
+![image-20220730163007025](/img/image/image-20220730163007025.png)
 
 
 
@@ -2696,7 +2696,7 @@ public  class CountingTask extends RecursiveTask<Integer> {
 4. 当线程在等待synchronized block锁的时候，是不能被中断的,除非抛出异常或者正常运行完成。如果使用Lock API，则可以使用 lockInterruptibly()来中断线程。
 5. synchronized在发生异常时，会自动释放线程占有的锁，因此不会导致死锁现象发生；而Lock在发生异常时，如果没有主动通过unLock()去释放锁，则很可能造成死锁现象，因此使用Lock时需要在finally块中释放锁；
 
-<img src="../../../../../Download/Typora/image/image-20220730171336070.png" alt="image-20220730171336070" style="zoom:80%;" />
+<img src="/img/image/image-20220730171336070.png" alt="image-20220730171336070" style="zoom:80%;" />
 
 ## Lock interface
 

@@ -336,7 +336,7 @@ public class Consumer {
 }
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220709141409510.png" alt="image-20220709141409510" style="zoom: 67%;" />
+<img src="/img/image/image-20220709141409510.png" alt="image-20220709141409510" style="zoom: 67%;" />
 
 ## 工厂方法模式
 
@@ -419,7 +419,7 @@ public class Consumer {
 }
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220709142205940.png" alt="image-20220709142205940" style="zoom:67%;" />
+<img src="/img/image/image-20220709142205940.png" alt="image-20220709142205940" style="zoom:67%;" />
 
 ## 抽象工厂模式
 
@@ -436,9 +436,9 @@ public class Consumer {
   - 规定了所有可能被创建的产品集合，产品簇中扩展新的产品困难;
   - 增加了系统的抽象性和理解难度
 
-<img src="../../../../../Download/Typora/image/image-20220709142344088.png" alt="image-20220709142344088" style="zoom:80%;" />
+<img src="/img/image/image-20220709142344088.png" alt="image-20220709142344088" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220709143012383.png" alt="image-20220709143012383" style="zoom:80%;" />
+<img src="/img/image/image-20220709143012383.png" alt="image-20220709143012383" style="zoom:80%;" />
 
 **代码测试**
 
@@ -573,7 +573,7 @@ public class Client {
   - 工厂(建造者模式)︰负责制造汽车（组装过>程和细节在工厂内)
   - 汽车购买者（用户)∶你只需要说出你需要的>型号(对象的类型和内容)，然后直接购买就可以使用了(不需要知道汽车是怎么组装的（车轮、车门、>发动机、方向盘等等)
 
-<img src="../../../../../Download/Typora/image/image-20220710101125194.png" alt="image-20220710101125194" style="zoom:80%;" />
+<img src="/img/image/image-20220710101125194.png" alt="image-20220710101125194" style="zoom:80%;" />
 
 - 既然是建造者模式，那么我们还是继续造房吧，其实我也想不到更简单的例子。假设造房简化为如下步骤:(1）地基(2）钢筋工程(3）铺电线（4）粉刷;“如果”要盖一座房子，首先要找一个建筑公司或工程承包商(指挥者)。承包商指挥工人(具体建造者）过来造房子(产品)，最后验收。
 
@@ -1019,9 +1019,9 @@ v2=>Video{name='狂神说Java', createTime=Thu Jan 01 14:08:51 CST 1970}
 
 ## 原理理解
 
-<img src="../../../../../Download/Typora/image/image-20220710110450312.png" alt="image-20220710110450312" style="zoom:80%;" />
+<img src="/img/image/image-20220710110450312.png" alt="image-20220710110450312" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220710110505111.png" alt="image-20220710110505111" style="zoom:80%;" />
+<img src="/img/image/image-20220710110505111.png" alt="image-20220710110505111" style="zoom:80%;" />
 
 ## 代码再实现
 
@@ -1219,7 +1219,7 @@ public class Computer {
 - 需要适配的类: 需要适配的类或适配者类（例：网线）
 - 适配器: 通过包装一个需要适配的对象, 把原接口转换成目标对象（例：USB转换器）
 
-<img src="../../../../../Download/Typora/image/image-20220710141636116.png" alt="image-20220710141636116" style="zoom:80%;" />
+<img src="/img/image/image-20220710141636116.png" alt="image-20220710141636116" style="zoom:80%;" />
 
 * **对象适配器优点**
   * 一个对象适配器可以把多个不同的适配者适配到同一个目标
@@ -1235,13 +1235,13 @@ public class Computer {
 
 桥接模式是将抽象部分与它的实现部分分离, 使他们都可以独立地变化, 它是一种对象结构型模式, 又称为柄体(Handle and Body)模式或接口(Interface)模式
 
-<img src="../../../../../Download/Typora/image/image-20220710142434580.png" alt="image-20220710142434580" style="zoom:60%;" />
+<img src="/img/image/image-20220710142434580.png" alt="image-20220710142434580" style="zoom:60%;" />
 
 **分析:**
 
 * 这个场景中有两个变化的维度: 品牌, 类型 
 
-<img src="../../../../../Download/Typora/image/image-20220710142631801.png" alt="image-20220710142631801" style="zoom:80%;" />
+<img src="/img/image/image-20220710142631801.png" alt="image-20220710142631801" style="zoom:80%;" />
 
 ## 代码实现
 
@@ -1338,7 +1338,7 @@ public class Test {
 }
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220710143437282.png" alt="image-20220710143437282" style="zoom:80%;" />
+<img src="/img/image/image-20220710143437282.png" alt="image-20220710143437282" style="zoom:80%;" />
 
 ## 优劣势分析
 
@@ -1359,7 +1359,7 @@ public class Test {
 
 例如：
 
-<img src="../../../../../Download/Typora/image/image-20220710144248066.png" alt="image-20220710144248066" style="zoom:80%;" />
+<img src="/img/image/image-20220710144248066.png" alt="image-20220710144248066" style="zoom:80%;" />
 
 # 代理模式
 
@@ -1370,7 +1370,7 @@ SpringAOP的底层 [SpringAOP和SpringMVC]
 - 静态代理
 - 动态代理
 
-<img src="../../../../../Download/Typora/image/image-20220710154613995.png" alt="image-20220710154613995" style="zoom:80%;" />
+<img src="/img/image/image-20220710154613995.png" alt="image-20220710154613995" style="zoom:80%;" />
 
 ## 静态代理
 
@@ -1476,7 +1476,7 @@ public static void main(String[] args) {
 
 聊聊AOP：纵向开发，横向开发。
 
-<img src="../../../../../Download/Typora/image/image-20220710160813373.png" alt="image-20220710160813373" style="zoom:80%;" />
+<img src="/img/image/image-20220710160813373.png" alt="image-20220710160813373" style="zoom:80%;" />
 
 * 创建一个抽象角色
 
@@ -1591,7 +1591,7 @@ public class Client {
 * 每个代理实例都有一个关联的调用处理程序（即代理类中的行为由InvocationHandler自动生成）。
 * 当在代理实例上调用方法时，方法调用将被编码并分派到其调用处理程序的invoke方法（通过invoke的反射机制执行调用代理角色的对应方法）。
 
-<img src="../../../../../Download/Typora/image/image-20220710174152358.png" alt="image-20220710174152358"  />
+<img src="/img/image/image-20220710174152358.png" alt="image-20220710174152358"  />
 
 ### Proxy
 
@@ -1599,9 +1599,9 @@ public class Client {
 
 ==Proxy提供了创建动态代理类和实例的静态方法。==
 
-![image-20220710174810461](../../../../../Download/Typora/image/image-20220710174810461.png)
+![image-20220710174810461](/img/image/image-20220710174810461.png)
 
-![image-20220710175136322](../../../../../Download/Typora/image/image-20220710175136322.png)
+![image-20220710175136322](/img/image/image-20220710175136322.png)
 
 ### 代码实现
 

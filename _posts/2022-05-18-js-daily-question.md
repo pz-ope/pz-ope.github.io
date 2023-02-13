@@ -991,9 +991,9 @@ function deepClone(obj, hash = new WeakMap()) {
 
 下面首先借助两张图，可以更加清晰看到浅拷贝与深拷贝的区别
 
-<img src="../../../../../Download/Typora/image/image-20220519230555068.png" alt="image-20220519230555068" style="zoom:80%;" />
+<img src="/img/image/image-20220519230555068.png" alt="image-20220519230555068" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220519230626967.png" alt="image-20220519230626967" style="zoom:80%;" />
+<img src="/img/image/image-20220519230626967.png" alt="image-20220519230626967" style="zoom:80%;" />
 
 从上图发现，浅拷贝和深拷贝都创建出一个新的对象，但在复制对象属性的时候，行为就不一样
 
@@ -1303,7 +1303,7 @@ bar()
 
 把作用域比喻成一个建筑，这份建筑代表程序中的嵌套作用域链，第一层代表当前的执行作用域，顶层代表全局作用域
 
-<img src="../../../../../Download/Typora/image/image-20220522203107424.png" alt="image-20220522203107424" style="zoom:67%;" />
+<img src="/img/image/image-20220522203107424.png" alt="image-20220522203107424" style="zoom:67%;" />
 
 变量的引用会顺着当前楼层进行查找，如果找不到，则会往上一层找，一旦到达顶层，查找的过程都会停止
 
@@ -1364,7 +1364,7 @@ console.log(doSomething.prototype);
 
 可以看到，原型对象有一个自有属性`constructor`，这个属性指向该函数，如下图关系展示
 
-![image-20220522211442216](../../../../../Download/Typora/image/image-20220522211442216.png)
+![image-20220522211442216](/img/image/image-20220522211442216.png)
 
 ## 原型链
 
@@ -1386,7 +1386,7 @@ var person = new Person('person')
 
 根据代码，我们可以得到下图
 
-<img src="../../../../../Download/Typora/image/image-20220522212918184.png" alt="image-20220522212918184" style="zoom:80%;" />
+<img src="/img/image/image-20220522212918184.png" alt="image-20220522212918184" style="zoom:80%;" />
 
 下面分析一下：
 
@@ -1400,7 +1400,7 @@ var person = new Person('person')
 
 `__proto__`作为不同对象之间的桥梁，用来指向创建它的构造函数的原型对象的
 
-<img src="../../../../../Download/Typora/image/image-20220522213802727.png" alt="image-20220522213802727" style="zoom:80%;" />
+<img src="/img/image/image-20220522213802727.png" alt="image-20220522213802727" style="zoom:80%;" />
 
 每个对象的`__proto__`都是指向它的构造函数的原型对象`prototype`
 
@@ -1726,6 +1726,6 @@ asuna.getName() // 成功访问到父类的方法
 
 下面以一张图作为总结：
 
-![image-20220522224331767](../../../../../Download/Typora/image/image-20220522224331767.png)
+![image-20220522224331767](/img/image/image-20220522224331767.png)
 
 通过`Object.create` 来划分不同的继承方式，最后的寄生式组合继承方式是通过组合继承改造之后的最优继承方式，而 `extends` 的语法糖和寄生组合继承的方式基本类似

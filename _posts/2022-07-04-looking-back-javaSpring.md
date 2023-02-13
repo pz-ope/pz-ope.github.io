@@ -44,7 +44,7 @@ Spring 时代我们⼀般通过 XML ⽂件来配置 Bean，后来开发⼈员觉
 
 **Spring IoC**的初始化过程：
 
-![image-20220704131149468](../../../../../Download/Typora/image/image-20220704131149468.png)
+![image-20220704131149468](/img/image/image-20220704131149468.png)
 
 > 简单点说就是通过配置的参数来构造对象，然后通过配置的属性来实例化其依赖对象。一切都是通过配置来完成的，而不是使用通常的Java new方法来创建对象，也不需要手动去查找或者实例化其依赖对象，一切的一切都是通过Spring IOC容器来实现的。
 >
@@ -980,7 +980,7 @@ Bean是Spring的根本，Spring本身就是一个一个的bean组成的，bean�
 
 下图显示了Singleton作用域的工作方式：
 
-<img src="../../../../../Download/Typora/image/image-20220705203213500.png" alt="image-20220705203213500" style="zoom:80%;" />
+<img src="/img/image/image-20220705203213500.png" alt="image-20220705203213500" style="zoom:80%;" />
 
 Singleton作用域是Spring中bean的默认作用域，所以，Singleton的bean可以如下定义：
 
@@ -998,7 +998,7 @@ Prototype也是设计模式中一个很经典的模式。Prototype也被很多�
 
 下图说明了prototype作用域：
 
-<img src="../../../../../Download/Typora/image/image-20220705203429157.png" alt="image-20220705203429157" style="zoom:80%;" />
+<img src="/img/image/image-20220705203429157.png" alt="image-20220705203429157" style="zoom:80%;" />
 
 一般来说，对于有状态的bean可以使用Prototype。
 
@@ -1377,7 +1377,7 @@ onRefresh()和onClose()会去调用实现了Lifecycle接口的start（）和clos
 * 当要销毁 Bean 的时候，如果 Bean 实现了 DisposableBean 接⼝，执⾏ destroy() ⽅法。
 * 当要销毁 Bean 的时候，如果 Bean 在配置⽂件中的定义包含 destroy-method 属性，执⾏指定的⽅法。
 
-<img src="../../../../../Download/Typora/image/image-20220711150941628.png" alt="image-20220711150941628" style="zoom:80%;" />
+<img src="/img/image/image-20220711150941628.png" alt="image-20220711150941628" style="zoom:80%;" />
 
 # Spring5:容器扩展
 
@@ -2208,7 +2208,7 @@ SpringAOP的AOP方法不同于大多数其他AOP框架。目的并不是提供�
 
 如下图所示：
 
-<img src="../../../../../Download/Typora/image/image-20220712155818498.png" alt="image-20220712155818498" style="zoom:80%;" />
+<img src="/img/image/image-20220712155818498.png" alt="image-20220712155818498" style="zoom:80%;" />
 
 当然你也可以使⽤ AspectJ ,Spring AOP 已经集成了AspectJ ，AspectJ 应该算的上是 Java ⽣态系统中最完整的 AOP 框架了
 

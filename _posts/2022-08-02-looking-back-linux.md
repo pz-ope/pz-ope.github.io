@@ -18,7 +18,7 @@ Linux 能运行主要的 UNIX 工具软件、应用程序和网络协议。它�
 
 Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打包。
 
-<img src="../../../../../Download/Typora/image/image-20220802111157751.png" alt="image-20220802111157751" style="zoom:80%;" />
+<img src="/img/image/image-20220802111157751.png" alt="image-20220802111157751" style="zoom:80%;" />
 
 目前市面上较知名的发行版有：Ubuntu、RedHat、CentOS、Debian、Fedora、SuSE、OpenSUSE、Arch Linux、SolusOS 等。(可以自己编写Lunix系统，搜索kali linux做安全渗透测试=>白帽，补天，红帽认证工程师)
 
@@ -48,7 +48,7 @@ Linux是一个操作系统,你也可以把自己电脑安装成双系统!
 
 **下载VMware**
 
-![image-20220802111453019](../../../../../Download/Typora/image/image-20220802111453019.png)
+![image-20220802111453019](/img/image/image-20220802111453019.png)
 
 **安装centOS**
 
@@ -60,11 +60,11 @@ Linux是一个操作系统,你也可以把自己电脑安装成双系统!
 
 3. 点击开启此虚拟机
 
-   <img src="../../../../../Download/Typora/image/image-20220802111933224.png" alt="image-20220802111933224" style="zoom:80%;" />
+   <img src="/img/image/image-20220802111933224.png" alt="image-20220802111933224" style="zoom:80%;" />
 
 4. 密码都是123456（Linux磁盘分区的时候需要注意分区名称：/boot /home）
 
-   <img src="../../../../../Download/Typora/image/image-20220802112058543.png" alt="image-20220802112058543" style="zoom:50%;" />
+   <img src="/img/image/image-20220802112058543.png" alt="image-20220802112058543" style="zoom:50%;" />
 
 ## 购买云服务器（推荐）
 
@@ -78,21 +78,21 @@ Linux是一个操作系统,你也可以把自己电脑安装成双系统!
 
 关于安全组说明（即自己开放的一系列端口号）
 
-<img src="../../../../../Download/Typora/image/image-20220802112254411.png" alt="image-20220802112254411" style="zoom:80%;" />
+<img src="/img/image/image-20220802112254411.png" alt="image-20220802112254411" style="zoom:80%;" />
 
-![image-20220802112321673](../../../../../Download/Typora/image/image-20220802112321673.png)
+![image-20220802112321673](/img/image/image-20220802112321673.png)
 
-<img src="../../../../../Download/Typora/image/image-20220802112354320.png" alt="image-20220802112354320" style="zoom:80%;" />
+<img src="/img/image/image-20220802112354320.png" alt="image-20220802112354320" style="zoom:80%;" />
 
 3、下载 xShell 工具（远程连接工具，建议使用360下载，此外还可以下载xFtp文件上传工具），进行远程连接使用！连接成功效果如下：（当然也可以连接本地虚拟机）
 
 要打开端口，需要在阿里云的安全组面板中开启对应的出入规则，不然的话会被阿里拦截!
 
-<img src="../../../../../Download/Typora/image/image-20220802112430692.png" alt="image-20220802112430692" style="zoom:80%;" />
+<img src="/img/image/image-20220802112430692.png" alt="image-20220802112430692" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802112552457.png" alt="image-20220802112552457" style="zoom:80%;" />
+<img src="/img/image/image-20220802112552457.png" alt="image-20220802112552457" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802112605017.png" alt="image-20220802112605017" style="zoom:80%;" />
+<img src="/img/image/image-20220802112605017.png" alt="image-20220802112605017" style="zoom:80%;" />
 
 ## 宝塔面板
 
@@ -102,7 +102,7 @@ Linux是一个操作系统,你也可以把自己电脑安装成双系统!
 
 1、  开启对应的端口
 
-<img src="../../../../../Download/Typora/image/image-20220802112828351.png" alt="image-20220802112828351" style="zoom:80%;" />
+<img src="/img/image/image-20220802112828351.png" alt="image-20220802112828351" style="zoom:80%;" />
 
 2、  一键安装
 
@@ -110,51 +110,51 @@ Linux是一个操作系统,你也可以把自己电脑安装成双系统!
 yum install -y wget && wget -O install.sh http://download.bt.cn/install/install_6.0.sh && sh install.sh
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220802112914658.png" alt="image-20220802112914658" style="zoom:80%;" />
+<img src="/img/image/image-20220802112914658.png" alt="image-20220802112914658" style="zoom:80%;" />
 
 3、  安装完毕后会得到远程面板的地址，账号，密码，就可以登录了
 
-<img src="../../../../../Download/Typora/image/image-20220802112958726.png" alt="image-20220802112958726" style="zoom:80%;" />
+<img src="/img/image/image-20220802112958726.png" alt="image-20220802112958726" style="zoom:80%;" />
 
 4、登录之后就可以可视化的安装环境和部署网站！
 
-<img src="../../../../../Download/Typora/image/image-20220802113041013.png" alt="image-20220802113041013" style="zoom:80%;" />
+<img src="/img/image/image-20220802113041013.png" alt="image-20220802113041013" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113101045.png" alt="image-20220802113101045" style="zoom:80%;" />
+<img src="/img/image/image-20220802113101045.png" alt="image-20220802113101045" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113118463.png" alt="image-20220802113118463" style="zoom:80%;" />
+<img src="/img/image/image-20220802113118463.png" alt="image-20220802113118463" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113133290.png" alt="image-20220802113133290" style="zoom:80%;" />
+<img src="/img/image/image-20220802113133290.png" alt="image-20220802113133290" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113148336.png" alt="image-20220802113148336" style="zoom:80%;" />
+<img src="/img/image/image-20220802113148336.png" alt="image-20220802113148336" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113203827.png" alt="image-20220802113203827" style="zoom:80%;" />
+<img src="/img/image/image-20220802113203827.png" alt="image-20220802113203827" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113216469.png" alt="image-20220802113216469" style="zoom:80%;" />
+<img src="/img/image/image-20220802113216469.png" alt="image-20220802113216469" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113241274.png" alt="image-20220802113241274" style="zoom:80%;" />
+<img src="/img/image/image-20220802113241274.png" alt="image-20220802113241274" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113316699.png" alt="image-20220802113316699" style="zoom:80%;" />
+<img src="/img/image/image-20220802113316699.png" alt="image-20220802113316699" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113405438.png" alt="image-20220802113405438" style="zoom:80%;" /><img src="../../../../../Download/Typora/image/image-20220802113430855.png" alt="image-20220802113430855" style="zoom:80%;" />
+<img src="/img/image/image-20220802113405438.png" alt="image-20220802113405438" style="zoom:80%;" /><img src="/img/image/image-20220802113430855.png" alt="image-20220802113430855" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113456014.png" alt="image-20220802113456014" style="zoom:80%;" />
+<img src="/img/image/image-20220802113456014.png" alt="image-20220802113456014" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113509976.png" alt="image-20220802113509976" style="zoom:80%;" />
+<img src="/img/image/image-20220802113509976.png" alt="image-20220802113509976" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113538841.png" alt="image-20220802113538841" style="zoom:80%;" />
+<img src="/img/image/image-20220802113538841.png" alt="image-20220802113538841" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802113549180.png" alt="image-20220802113549180" style="zoom:80%;" />
+<img src="/img/image/image-20220802113549180.png" alt="image-20220802113549180" style="zoom:80%;" />
 
 复制里面这么一串配置信息，与前面的server配置同级括号下 就可以访问到了
 
-<img src="../../../../../Download/Typora/image/image-20220802113617570.png" alt="image-20220802113617570" style="zoom:80%;" />
+<img src="/img/image/image-20220802113617570.png" alt="image-20220802113617570" style="zoom:80%;" />
 
 关于域名
 
 如果自己的网站想要上线，就一定要购买一个域名然后进行备案；
 
-<img src="../../../../../Download/Typora/image/image-20220802113653438.png" alt="image-20220802113653438" style="zoom:80%;" />
+<img src="/img/image/image-20220802113653438.png" alt="image-20220802113653438" style="zoom:80%;" />
 
 # Linux系统基础
 
@@ -206,11 +206,11 @@ halt # 关闭系统，等同于shutdown –h now 和 poweroff
 
 你会看到如下图所示:
 
-<img src="../../../../../Download/Typora/image/image-20220802114937785.png" alt="image-20220802114937785" style="zoom:80%;" />
+<img src="/img/image/image-20220802114937785.png" alt="image-20220802114937785" style="zoom:80%;" />
 
 树状目录结构：（Linux的一切资源都挂载在这个 / 根节点下）
 
-<img src="../../../../../Download/Typora/image/image-20220802115041646.png" alt="image-20220802115041646" style="zoom:80%;" />
+<img src="/img/image/image-20220802115041646.png" alt="image-20220802115041646" style="zoom:80%;" />
 
 * **/bin**：bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令。
 * **/boot**： 这里存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件。
@@ -276,7 +276,7 @@ halt # 关闭系统，等同于shutdown –h now 和 poweroff
 
 - **/www**：使用远程服务器时有的，存放服务器网站相关的资源，环境，网站的项目**
 
-  <img src="../../../../../Download/Typora/image/image-20220802121600916.png" alt="image-20220802121600916" style="zoom:80%;" />
+  <img src="/img/image/image-20220802121600916.png" alt="image-20220802121600916" style="zoom:80%;" />
 
 在 Linux 系统中，有几个目录是比较重要的，平时需要注意不要误删除或者随意更改内部文件。
 
@@ -302,7 +302,7 @@ halt # 关闭系统，等同于shutdown –h now 和 poweroff
 
   路径的写法，不是由 / 写起，例如由 /usr/share/doc 要到 /usr/share/man 底下时，可以写成：cd ../man 这就是相对路径的写法
 
-<img src="../../../../../Download/Typora/image/image-20220802122834286.png" alt="image-20220802122834286" style="zoom:67%;" />
+<img src="/img/image/image-20220802122834286.png" alt="image-20220802122834286" style="zoom:67%;" />
 
 我们知道Linux的目录结构为树状结构，最顶级的目录为根目录 /。
 
@@ -315,9 +315,9 @@ cd：切换目录命令；
 clear:清除
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220802122422011.png" alt="image-20220802122422011" style="zoom: 67%;" />
+<img src="/img/image/image-20220802122422011.png" alt="image-20220802122422011" style="zoom: 67%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220802122435662.png" alt="image-20220802122435662" style="zoom: 67%;" />
+<img src="/img/image/image-20220802122435662.png" alt="image-20220802122435662" style="zoom: 67%;" />
 
 ### 处理目录的常用命令
 
@@ -551,7 +551,7 @@ Linux系统是一种典型的多用户系统，不同的用户处于不同的地
 
 在Linux中我们可以使用`ll`或者`ls –l`命令来显示一个文件的属性以及文件所属的用户和组，如：
 
-<img src="../../../../../Download/Typora/image/image-20220802130049014.png" alt="image-20220802130049014" style="zoom: 67%;" />
+<img src="/img/image/image-20220802130049014.png" alt="image-20220802130049014" style="zoom: 67%;" />
 
 ## 权限属性
 
@@ -573,7 +573,7 @@ Linux系统是一种典型的多用户系统，不同的用户处于不同的地
 
 每个文件的属性由左边第一部分的10个字符来确定（如下图）：
 
-<img src="../../../../../Download/Typora/image/image-20220802130453834.png" alt="image-20220802130453834" style="zoom: 67%;" />
+<img src="/img/image/image-20220802130453834.png" alt="image-20220802130453834" style="zoom: 67%;" />
 
 * 属主权限：第1-3位确定属主（该文件的所有者）拥有该文件的权限
 * 属组权限：第4-6位确定属组（所有者的同组用户）拥有该文件的权限
@@ -635,7 +635,7 @@ Linux文件的基本权限就有九个，分别是`owner/group/others`三种身�
 - group = rwx = 4+2+1 = 7
 - others= --- = 0+0+0 = 0
 
-<img src="../../../../../Download/Typora/image/image-20220802131804511.png" alt="image-20220802131804511" style="zoom:67%;" />
+<img src="/img/image/image-20220802131804511.png" alt="image-20220802131804511" style="zoom:67%;" />
 
 ## 文件内容查看
 
@@ -734,7 +734,7 @@ more  一页一页翻动
 
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220803205117299.png" alt="image-20220803205117299" style="zoom:80%;" />
+<img src="/img/image/image-20220803205117299.png" alt="image-20220803205117299" style="zoom:80%;" />
 
 ### less  
 
@@ -880,7 +880,7 @@ cat: f3: No such file or directory
 
 （3）根据ping返回的TTL值来判断对方所使用的操作系统及数据包经过路由器数量。
 
-<img src="../../../../../Download/Typora/image/image-20220803202233690.png" alt="image-20220803202233690" style="zoom:80%;" />
+<img src="/img/image/image-20220803202233690.png" alt="image-20220803202233690" style="zoom:80%;" />
 
 ## ifconfig
 
@@ -890,11 +890,11 @@ ipconfig：查看网络配置信息（windows）
 
 ifconfig: 查看网络配置信息（Linux）
 
-<img src="../../../../../Download/Typora/image/image-20220803202344798.png" alt="image-20220803202344798" style="zoom:80%;" />
+<img src="/img/image/image-20220803202344798.png" alt="image-20220803202344798" style="zoom:80%;" />
 
 linux中etc/sysconfig/network-scripts包含有网络配置文件
 
-<img src="../../../../../Download/Typora/image/image-20220803203224964.png" alt="image-20220803203224964" style="zoom:80%;" />
+<img src="/img/image/image-20220803203224964.png" alt="image-20220803203224964" style="zoom:80%;" />
 
 # Vim
 
@@ -910,7 +910,7 @@ vim 则可以说是程序开发者的一项很好用的工具。
 
 vim 键盘图：
 
-<img src="../../../../../Download/Typora/image/image-20220803211354085.png" alt="image-20220803211354085" style="zoom:80%;" />
+<img src="/img/image/image-20220803211354085.png" alt="image-20220803211354085" style="zoom:80%;" />
 
 基本上 vi/vim 共分为三种模式，分别是**命令模式（Command mode），输入模式（Insert mode）和底线命令模式（Last line mode）**。这三种模式的作用分别是：
 
@@ -961,9 +961,9 @@ vim 键盘图：
 
 简单的说，我们可以将这三个模式想成底下的图标来表示：
 
-<img src="../../../../../Download/Typora/image/image-20220803212830421.png" alt="image-20220803212830421" style="zoom:80%;" />
+<img src="/img/image/image-20220803212830421.png" alt="image-20220803212830421" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220803212916378.png" alt="image-20220803212916378" style="zoom:80%;" />
+<img src="/img/image/image-20220803212916378.png" alt="image-20220803212916378" style="zoom:80%;" />
 
 # 账号管理
 
@@ -1035,11 +1035,11 @@ cat /etc/passwd #查看用户信息
 
 `#`表示超级用户，也就是root用户
 
-<img src="../../../../../Download/Typora/image/image-20220803215421399.png" alt="image-20220803215421399" style="zoom:80%;" />
+<img src="/img/image/image-20220803215421399.png" alt="image-20220803215421399" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220803215439959.png" alt="image-20220803215439959" style="zoom:80%;" />
+<img src="/img/image/image-20220803215439959.png" alt="image-20220803215439959" style="zoom:80%;" />
 
-![image-20220803215501570](../../../../../Download/Typora/image/image-20220803215501570.png)
+![image-20220803215501570](/img/image/image-20220803215501570.png)
 
 ### 删除帐号
 
@@ -1089,7 +1089,7 @@ usermod -s /bin/ksh -d /home/z –g developer kuangshen
 
 注意在root权限下切换普通用户是不用输入密码的，若要测试的话可以新建连接输入普通用户的用户名
 
-<img src="../../../../../Download/Typora/image/image-20220803220020616.png" alt="image-20220803220020616" style="zoom:80%;" />
+<img src="/img/image/image-20220803220020616.png" alt="image-20220803220020616" style="zoom:80%;" />
 
 命令的格式为：
 
@@ -1141,7 +1141,7 @@ passwd 命令还可以用 -l(lock) 选项锁定某一用户，使其不能登录
 passwd -l kuangshen
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220803220341003.png" alt="image-20220803220341003" style="zoom:80%;" />
+<img src="/img/image/image-20220803220341003.png" alt="image-20220803220341003" style="zoom:80%;" />
 
 ## 用户组管理
 
@@ -1162,7 +1162,7 @@ groupadd 选项 用户组
 [root@kuangshen home] cat /etc/group
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220804205126668.png" alt="image-20220804205126668" style="zoom:50%;" />
+<img src="/img/image/image-20220804205126668.png" alt="image-20220804205126668" style="zoom:50%;" />
 
 创建完用户组后可以得到一个组的id，这个id是可以指定的， -g 520 如果不指定则自增
 
@@ -1418,7 +1418,7 @@ Filesystem     Size Used Avail Use% Mounted on
 /dev/vda1       40G  6.3G   32G  17% /
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220804213454310.png" alt="image-20220804213454310" style="zoom:80%;" />
+<img src="/img/image/image-20220804213454310.png" alt="image-20220804213454310" style="zoom:80%;" />
 
 ## du
 
@@ -1448,9 +1448,9 @@ du [-ahskm] 文件或目录名称
 # 与 df 不一样的是，du 这个命令其实会直接到文件系统内去搜寻所有的文件数据。
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220804214033202.png" alt="image-20220804214033202" style="zoom:80%;" />
+<img src="/img/image/image-20220804214033202.png" alt="image-20220804214033202" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220804214049359.png" alt="image-20220804214049359" style="zoom:80%;" />
+<img src="/img/image/image-20220804214049359.png" alt="image-20220804214049359" style="zoom:80%;" />
 
 ## 磁盘挂载与卸除
 
@@ -1462,7 +1462,7 @@ du [-ahskm] 文件或目录名称
 
 Linux 的磁盘挂载使用`mount`命令，卸载使用`umount`命令。
 
-<img src="../../../../../Download/Typora/image/image-20220804214256488.png" alt="image-20220804214256488" style="zoom:80%;" />
+<img src="/img/image/image-20220804214256488.png" alt="image-20220804214256488" style="zoom:80%;" />
 
 磁盘挂载语法：
 
@@ -1543,9 +1543,9 @@ pstree -pu
 
 ```
 
- 	 <img src="../../../../../Download/Typora/image/image-20220804215033129.png" alt="image-20220804215033129" style="zoom:80%;" />
+ 	 <img src="/img/image/image-20220804215033129.png" alt="image-20220804215033129" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220804215046418.png" alt="image-20220804215046418" style="zoom:50%;" />
+<img src="/img/image/image-20220804215046418.png" alt="image-20220804215046418" style="zoom:50%;" />
 
 ## 结束进程：
 

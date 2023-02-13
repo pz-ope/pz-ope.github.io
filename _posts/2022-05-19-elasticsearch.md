@@ -91,7 +91,7 @@ Elasticsearch不仅仅只是一个全文搜索引擎是一个分布式的实时�
 
 ## 倒排索引
 
-<img src="../../../../../Download/Typora/image/image-20220523154038795.png" alt="image-20220523154038795" style="zoom: 67%;" />
+<img src="/img/image/image-20220523154038795.png" alt="image-20220523154038795" style="zoom: 67%;" />
 
 > 倒排索引是相对于正排索引而言的，可以有效的解决该问题；
 >
@@ -144,7 +144,7 @@ Lucene是一个全文检索弓|擎的架构。那什么是全文搜索引擎?
 
 一个集群至少有一 个节点，而一个节点就是一-个elasricsearch进程 ，节点可以有多个索引默认的，如果你创建索引，那么索引将会有个5个分片( primary shard ，又称主分片)构成的，每一个主分片会有-一个副本( replica shard ，又称复制分片）
 
-![image-20220524150133637](../../../../../Download/Typora/image/image-20220524150133637.png)
+![image-20220524150133637](/img/image/image-20220524150133637.png)
 
 上图是一个有3个节点的集群，可以看到主分片和对应的复制分片都不会在同-个节点内，这样有利于某个节点挂掉了，数据也不至于丢失。实际上， 一个分片是- -个Lucene索引， 一个包含倒排索引的文件目录，倒排索引的结构使得elasticsearch在不扫描全部文档的情况下，就能告诉你哪些文档包含特定的关键字。
 
@@ -165,11 +165,11 @@ Lucene是一个全文检索弓|擎的架构。那什么是全文搜索引擎?
 
 > 解压安装包，进入bin目录中双击elasticsearch.bat等待启动完毕
 
-<img src="../../../../../Download/Typora/image/image-20220524164601132.png" alt="image-20220524164601132" style="zoom:80%;" />
+<img src="/img/image/image-20220524164601132.png" alt="image-20220524164601132" style="zoom:80%;" />
 
 > 打开浏览器，输入 http://localhost:9200 出现以下画面，说明ES安装成功；
 
-<img src="../../../../../Download/Typora/image/image-20220524164624759.png" alt="image-20220524164624759" style="zoom:80%;" />
+<img src="/img/image/image-20220524164624759.png" alt="image-20220524164624759" style="zoom:80%;" />
 
 ## ES端口
 
@@ -190,7 +190,7 @@ Kibana是一个针对Elasticsearch的开源分析及可视化平台，使用Kiba
 
 在目录config/kibana.yml中配置 elasticsearch.hosts: 的值为ES的访问地址；
 
-<img src="../../../../../Download/Typora/image/image-20220524164845043.png" alt="image-20220524164845043" style="zoom:80%;" />
+<img src="/img/image/image-20220524164845043.png" alt="image-20220524164845043" style="zoom:80%;" />
 
 ## 启动Kibana
 
@@ -231,7 +231,7 @@ Kibana是一个针对Elasticsearch的开源分析及可视化平台，使用Kiba
 }
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220524170039696.png" alt="image-20220524170039696" style="zoom: 80%;" />
+<img src="/img/image/image-20220524170039696.png" alt="image-20220524170039696" style="zoom: 80%;" />
 
 ### 粗粒度拆分
 
@@ -242,7 +242,7 @@ Kibana是一个针对Elasticsearch的开源分析及可视化平台，使用Kiba
 }
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220524170152212.png" alt="image-20220524170152212" style="zoom:80%;" />
+<img src="/img/image/image-20220524170152212.png" alt="image-20220524170152212" style="zoom:80%;" />
 
 ## ik 分词器增加自己的配置
 
@@ -252,7 +252,7 @@ elasticsearch目录/plugins/ik/config/IKAnalyzer.cfg.xml
 
 创建 `kuang.dic` 字典文件，添加字典内容
 
-<img src="../../../../../Download/Typora/image/image-20220524164405878.png" alt="image-20220524164405878" style="zoom:70%;" />
+<img src="/img/image/image-20220524164405878.png" alt="image-20220524164405878" style="zoom:70%;" />
 
 打开 IKAnalyzer.cfg.xml 文件，扩展字典
 

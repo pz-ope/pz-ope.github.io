@@ -897,7 +897,7 @@ Stream<Integer> i = s.flatMap(list -> list.stream());
 
 因此，所谓`flatMap()`，是指把`Stream`的每个元素（这里是`List`）映射为`Stream`，然后合并成一个新的`Stream`：
 
-<img src="../../../../../Download/Typora/image/image-20220805211456450.png" alt="image-20220805211456450" style="zoom:67%;" />
+<img src="/img/image/image-20220805211456450.png" alt="image-20220805211456450" style="zoom:67%;" />
 
 ### 并行
 

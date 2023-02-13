@@ -20,7 +20,7 @@
 
 假设我有一台机器，16G内存，需要部署三个应用，那么使用虚拟机技术可以这样划分：
 
-<img src="../../../../../Download/Typora/image/image-20220820092032801.png" alt="image-20220820092032801" style="zoom:67%;" />
+<img src="/img/image/image-20220820092032801.png" alt="image-20220820092032801" style="zoom:67%;" />
 
 在这台机器上开启三个虚拟机，每个虚拟机上部署一个应用，其中VM1占用2G内存，VM2占用1G内存，VM3占用了4G内存。
 
@@ -47,13 +47,13 @@
 
 现代软件开发的一大目的就是隔离，应用程序在运行时相互独立互不干扰，这种隔离实现起来是很不容易的，其中一种解决方案就是上面提到的虚拟机技术，通过将应用程序部署在不同的虚拟机中从而实现隔离。
 
-<img src="../../../../../Download/Typora/image/image-20220820092300476.png" alt="image-20220820092300476" style="zoom:67%;" />
+<img src="/img/image/image-20220820092300476.png" alt="image-20220820092300476" style="zoom:67%;" />
 
 但是虚拟机技术有上述提到的各种缺点，那么容器技术又怎么样呢？
 
 与虚拟机通过操作系统实现隔离不同，容器技术**只隔离应用程序的运行时环境但容器之间可以共享同一个操作系统**，这里的运行时环境指的是程序运行依赖的各种库以及配置。
 
-<img src="../../../../../Download/Typora/image/image-20220820092354578.png" alt="image-20220820092354578" style="zoom:50%;" />
+<img src="/img/image/image-20220820092354578.png" alt="image-20220820092354578" style="zoom:50%;" />
 
 从图中我们可以看到容器更加的**轻量级且占用的资源更少**，与操作系统动辄几G的内存占用相比，容器技术只需数M空间，因此我们可以在同样规格的硬件上**大量部署容器**，这是虚拟机所不能比拟的，而且不同于操作系统数分钟的启动时间容器几乎瞬时启动，容器技术为**打包服务栈**提供了一种更加高效的方式，So cool。
 
@@ -117,13 +117,13 @@ docker中有这样几个概念：
 
 当我们写完dockerfile交给docker“编译”时使用这个命令，那么client在接收到请求后转发给docker daemon，接着docker daemon根据dockerfile创建出“可执行程序”image。
 
-<img src="../../../../../Download/Typora/image/image-20220820100159105.png" alt="image-20220820100159105" style="zoom:67%;" />
+<img src="/img/image/image-20220820100159105.png" alt="image-20220820100159105" style="zoom:67%;" />
 
 ###	**docker run**
 
 有了“可执行程序”image后就可以运行程序了，接下来使用命令docker run，docker daemon接收到该命令后找到具体的image，然后加载到内存开始执行，image执行起来就是所谓的container。
 
-<img src="../../../../../Download/Typora/image/image-20220820100413081.png" alt="image-20220820100413081" style="zoom:67%;" />
+<img src="/img/image/image-20220820100413081.png" alt="image-20220820100413081" style="zoom:67%;" />
 
 ### **docker pull**
 
@@ -137,7 +137,7 @@ docker registry 可以用来存放各种image，公共的可以供任何人下�
 
 因此，这个命令的实现也很简单，那就是用户通过docker client发送命令，docker daemon接收到命令后向docker registry发送image下载请求，下载后存放在本地，这样我们就可以使用image了。
 
-<img src="../../../../../Download/Typora/image/image-20220820100714715.png" alt="image-20220820100714715" style="zoom:70%;" />
+<img src="/img/image/image-20220820100714715.png" alt="image-20220820100714715" style="zoom:70%;" />
 
 ## docker的底层实现
 
@@ -336,7 +336,7 @@ rm -rf /var/lib/docker
 
 阿里云镜像获取地址：https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors，登陆后，左侧菜单选中镜像加速器就可以看到你的专属地址了：
 
-<img src="../../../../../Download/Typora/image/image-20220821160319160.png" alt="image-20220821160319160" style="zoom:50%;" />
+<img src="/img/image/image-20220821160319160.png" alt="image-20220821160319160" style="zoom:50%;" />
 
 之前还有 Docker 官方加速器 **https://registry.docker-cn.com** ，现在好像已经不能使用了，我们可以多添加几个国内的镜像，如果有不能使用的，会切换到可以使用个的镜像来拉取。
 
@@ -373,13 +373,13 @@ rm -rf /var/lib/docker
 
   对于使用 Windows 10 的系统，在系统右下角托盘 Docker 图标内右键菜单选择 Settings，打开配置窗口后左侧导航菜单选择 Daemon。在 Registrymirrors 一栏中填写加速器地址 **https://docker.mirrors.ustc.edu.cn/** ，之后点击 Apply 保存后 Docker 就会重启并应用配置的镜像地址了。
 
-  <img src="../../../../../Download/Typora/image/image-20220821160946635.png" alt="image-20220821160946635" style="zoom:50%;" />
+  <img src="/img/image/image-20220821160946635.png" alt="image-20220821160946635" style="zoom:50%;" />
 
 * **Mac OS X**
 
   对于使用 Mac OS X 的用户，在任务栏点击 Docker for mac 应用图标-> Perferences...-> Daemon-> Registrymirrors。在列表中填写加速器地址 **https://reg-mirror.qiniu.com** 。修改完成之后，点击 Apply&Restart 按钮，Docker 就会重启并应用配置的镜像地址了。
 
-  <img src="../../../../../Download/Typora/image/image-20220821161037222.png" alt="image-20220821161037222" style="zoom:50%;" />
+  <img src="/img/image/image-20220821161037222.png" alt="image-20220821161037222" style="zoom:50%;" />
 
 ### 检查加速器是否生效
 
@@ -493,7 +493,7 @@ CONTAINER ID        IMAGE                  COMMAND              ...
 runoob@runoob:~$ docker logs 2b1b7a428627
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821162207155.png" alt="image-20220821162207155" style="zoom:67%;" />
+<img src="/img/image/image-20220821162207155.png" alt="image-20220821162207155" style="zoom:67%;" />
 
 ```bash
 runoob@runoob:~$ docker logs amazing_cori
@@ -531,13 +531,13 @@ docker 客户端非常简单 ,我们可以直接输入 docker 命令来查看到
 runoob@runoob:~# docker
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821163632467.png" alt="image-20220821163632467" style="zoom:80%;" />
+<img src="/img/image/image-20220821163632467.png" alt="image-20220821163632467" style="zoom:80%;" />
 
 可以通过命令 **docker command --help** 更深入的了解指定的 Docker 命令使用方法。
 
 例如我们要查看 **docker stats** 指令的具体使用方法：
 
-<img src="../../../../../Download/Typora/image/image-20220821163733892.png" alt="image-20220821163733892" style="zoom:80%;" />
+<img src="/img/image/image-20220821163733892.png" alt="image-20220821163733892" style="zoom:80%;" />
 
 ## 获取镜像
 
@@ -577,7 +577,7 @@ root@ed09e4490c57:/# exit
 $ docker ps -a
 ```
 
-![image-20220821164202833](../../../../../Download/Typora/image/image-20220821164202833.png)
+![image-20220821164202833](/img/image/image-20220821164202833.png)
 
 使用 docker start 启动一个已停止的容器：
 
@@ -594,9 +594,9 @@ b750bbbcfd88
 $ docker run -itd --name ubuntu-test ubuntu /bin/bash
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821164402911.png" alt="image-20220821164402911" style="zoom:80%;" />
+<img src="/img/image/image-20220821164402911.png" alt="image-20220821164402911" style="zoom:80%;" />
 
-![image-20220821164421365](../../../../../Download/Typora/image/image-20220821164421365.png)
+![image-20220821164421365](/img/image/image-20220821164421365.png)
 
 **注：**加了 **-d** 参数默认不会进入容器，想要进入容器需要使用指令 **docker exec**（下面会介绍到）。
 
@@ -608,7 +608,7 @@ $ docker run -itd --name ubuntu-test ubuntu /bin/bash
 $ docker stop <容器 ID>
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821164521241.png" alt="image-20220821164521241" style="zoom:80%;" />
+<img src="/img/image/image-20220821164521241.png" alt="image-20220821164521241" style="zoom:80%;" />
 
 停止的容器可以通过 docker restart 重启：
 
@@ -631,7 +631,7 @@ $ docker restart <容器 ID>
 $ docker attach 1e560fca3906 
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821164910094.png" alt="image-20220821164910094" style="zoom:80%;" />
+<img src="/img/image/image-20220821164910094.png" alt="image-20220821164910094" style="zoom:80%;" />
 
 ==**注意：** 如果从这个容器退出，会导致容器的停止。==
 
@@ -643,7 +643,7 @@ $ docker attach 1e560fca3906
 $ docker exec -it 243c32535da7 /bin/bash
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821165102226.png" alt="image-20220821165102226" style="zoom:80%;" />
+<img src="/img/image/image-20220821165102226.png" alt="image-20220821165102226" style="zoom:80%;" />
 
 **注意：** 如果从这个容器退出，容器不会停止，这就是为什么推荐大家使用 **docker exec** 的原因。
 
@@ -660,7 +660,7 @@ $ docker exec -it 243c32535da7 /bin/bash
 $ docker export 1e560fca3906 > ubuntu.tar
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821165244873.png" alt="image-20220821165244873" style="zoom:80%;" />
+<img src="/img/image/image-20220821165244873.png" alt="image-20220821165244873" style="zoom:80%;" />
 
 这样将导出容器快照到本地文件。
 
@@ -672,7 +672,7 @@ $ docker export 1e560fca3906 > ubuntu.tar
 $ cat docker/ubuntu.tar | docker import - test/ubuntu:v1
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821165416477.png" alt="image-20220821165416477" style="zoom:80%;" />
+<img src="/img/image/image-20220821165416477.png" alt="image-20220821165416477" style="zoom:80%;" />
 
 此外，也可以通过指定 URL 或者某个目录来导入，例如：
 
@@ -688,7 +688,7 @@ $ docker import http://example.com/exampleimage.tgz example/imagerepo
 $ docker rm -f 1e560fca3906
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821165534587.png" alt="image-20220821165534587" style="zoom:80%;" />
+<img src="/img/image/image-20220821165534587.png" alt="image-20220821165534587" style="zoom:80%;" />
 
 下面的命令可以清理掉所有处于终止状态的容器。
 
@@ -711,7 +711,7 @@ $ docker pull training/webapp  # 载入镜像
 $ docker run -d -P training/webapp python app.py # 创建容器并加以描述
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821165726009.png" alt="image-20220821165726009" style="zoom:80%;" />
+<img src="/img/image/image-20220821165726009.png" alt="image-20220821165726009" style="zoom:80%;" />
 
 参数说明:
 
@@ -732,7 +732,7 @@ Docker 开放了 5000 端口（默认 Python Flask 端口）映射到主机端�
 
 这时我们可以通过浏览器访问WEB应用
 
-<img src="../../../../../Download/Typora/image/image-20220821170151290.png" alt="image-20220821170151290" style="zoom:80%;" />
+<img src="/img/image/image-20220821170151290.png" alt="image-20220821170151290" style="zoom:80%;" />
 
 我们也可以通过 -p 参数来设置不一样的端口：
 
@@ -951,7 +951,7 @@ Status: Downloaded newer image for ubuntu:13.10
 runoob@runoob:~$  docker search httpd
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821173057217.png" alt="image-20220821173057217" style="zoom:80%;" />
+<img src="/img/image/image-20220821173057217.png" alt="image-20220821173057217" style="zoom:80%;" />
 
 **NAME:** 镜像仓库源的名称
 
@@ -993,7 +993,7 @@ runoob@runoob:~$ docker run httpd
 $ docker rmi hello-world
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821173704857.png" alt="image-20220821173704857" style="zoom:80%;" />
+<img src="/img/image/image-20220821173704857.png" alt="image-20220821173704857" style="zoom:80%;" />
 
 ## 创建镜像
 
@@ -1268,7 +1268,7 @@ CONTAINER ID     IMAGE            COMMAND           ...    PORTS                
 $ docker network create -d bridge test-net
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821180954173.png" alt="image-20220821180954173" style="zoom:80%;" />
+<img src="/img/image/image-20220821180954173.png" alt="image-20220821180954173" style="zoom:80%;" />
 
 参数说明：
 
@@ -1290,7 +1290,7 @@ $ docker run -itd --name test1 --network test-net ubuntu /bin/bash
 $ docker run -itd --name test2 --network test-net ubuntu /bin/bash
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821182245569.png" alt="image-20220821182245569" style="zoom:80%;" />
+<img src="/img/image/image-20220821182245569.png" alt="image-20220821182245569" style="zoom:80%;" />
 
 下面通过 ping 来证明 test1 容器和 test2 容器建立了互联关系。
 
@@ -1305,13 +1305,13 @@ apt/yum install iputils-ping
 
 点击图片查看大图：
 
-<img src="../../../../../Download/Typora/image/image-20220821182428340.png" alt="image-20220821182428340" style="zoom:80%;" />
+<img src="/img/image/image-20220821182428340.png" alt="image-20220821182428340" style="zoom:80%;" />
 
 同理在 test2 容器也会成功连接到:
 
 点击图片查看大图：
 
-<img src="../../../../../Download/Typora/image/image-20220821182450595.png" alt="image-20220821182450595" style="zoom:80%;" />
+<img src="/img/image/image-20220821182450595.png" alt="image-20220821182450595" style="zoom:80%;" />
 
 这样，test1 容器和 test2 容器建立了互联关系。
 
@@ -1340,7 +1340,7 @@ apt/yum install iputils-ping
 $ docker run -it --rm  ubuntu  cat etc/resolv.conf
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821182635280.png" alt="image-20220821182635280" style="zoom:80%;" />
+<img src="/img/image/image-20220821182635280.png" alt="image-20220821182635280" style="zoom:80%;" />
 
 **手动指定容器的配置**
 
@@ -1360,7 +1360,7 @@ $ docker run -it --rm -h host_ubuntu  --dns=114.114.114.114 --dns-search=test.co
 
 **--dns-search=DOMAIN**： 设定容器的搜索域，当设定搜索域为 .example.com 时，在搜索一个名为 host 的主机时，DNS 不仅搜索 host，还会搜索 host.example.com。
 
-<img src="../../../../../Download/Typora/image/image-20220821182717141.png" alt="image-20220821182717141" style="zoom:80%;" />
+<img src="/img/image/image-20220821182717141.png" alt="image-20220821182717141" style="zoom:80%;" />
 
 # Docker 仓库管理
 
@@ -1384,7 +1384,7 @@ $ docker run -it --rm -h host_ubuntu  --dns=114.114.114.114 --dns-search=test.co
 $ docker login
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821182923959.png" alt="image-20220821182923959" style="zoom:80%;" />
+<img src="/img/image/image-20220821182923959.png" alt="image-20220821182923959" style="zoom:80%;" />
 
 **退出**
 
@@ -1404,7 +1404,7 @@ $ docker logout
 $ docker search ubuntu
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821182949340.png" alt="image-20220821182949340" style="zoom:80%;" />
+<img src="/img/image/image-20220821182949340.png" alt="image-20220821182949340" style="zoom:80%;" />
 
 使用 docker pull 将官方 ubuntu 镜像下载到本地：
 
@@ -1412,7 +1412,7 @@ $ docker search ubuntu
 $ docker pull ubuntu 
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220821183008211.png" alt="image-20220821183008211" style="zoom:80%;" />
+<img src="/img/image/image-20220821183008211.png" alt="image-20220821183008211" style="zoom:80%;" />
 
 ### 推送镜像
 
@@ -1453,7 +1453,7 @@ FROM nginx
 RUN echo '这是一个本地构建的nginx镜像' > /usr/share/nginx/html/index.html
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220822160719051.png" alt="image-20220822160719051" style="zoom:67%;" />
+<img src="/img/image/image-20220822160719051.png" alt="image-20220822160719051" style="zoom:67%;" />
 
 **2、FROM 和 RUN 指令的作用**
 
@@ -1508,7 +1508,7 @@ RUN yum -y install wget \
 $ docker build -t nginx:v3 .
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220822161628274.png" alt="image-20220822161628274" style="zoom:80%;" />
+<img src="/img/image/image-20220822161628274.png" alt="image-20220822161628274" style="zoom:80%;" />
 
 以上显示，说明已经构建成功。
 

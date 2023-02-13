@@ -287,7 +287,7 @@ public class ThreadTest {
 
 然后再去看看JMC的界面：
 
-<img src="../../../../../Download/Typora/image/image-20220730211455700.png" alt="image-20220730211455700" style="zoom:80%;" />
+<img src="/img/image/image-20220730211455700.png" alt="image-20220730211455700" style="zoom:80%;" />
 
 我们可以看到在界面的左边已经可以看到运行在本机的ThreadTest程序了。
 
@@ -305,7 +305,7 @@ JMC非常强大，也有很多功能，具体的细节大家可以自己运行�
 
 点击飞行记录器：
 
-<img src="../../../../../Download/Typora/image/image-20220730211622790.png" alt="image-20220730211622790" style="zoom:80%;" />
+<img src="/img/image/image-20220730211622790.png" alt="image-20220730211622790" style="zoom:80%;" />
 
 我们就可以开始创建一个JFR了。
 
@@ -313,13 +313,13 @@ JMC非常强大，也有很多功能，具体的细节大家可以自己运行�
 
 点下一步：
 
-<img src="../../../../../Download/Typora/image/image-20220730211719920.png" alt="image-20220730211719920" style="zoom:80%;" />
+<img src="/img/image/image-20220730211719920.png" alt="image-20220730211719920" style="zoom:80%;" />
 
 这一步可以选择更加详细的JVM参数。
 
 点下一步：
 
-<img src="../../../../../Download/Typora/image/image-20220730211940380.png" alt="image-20220730211940380" style="zoom:80%;" />
+<img src="/img/image/image-20220730211940380.png" alt="image-20220730211940380" style="zoom:80%;" />
 
 这里，我们可以选择需要监控的Profile事件选项。可以按照你的需要进行选择。
 
@@ -329,7 +329,7 @@ JMC非常强大，也有很多功能，具体的细节大家可以自己运行�
 
 上面我们的JFR记录了1分钟的Profile，在1分钟之后，我们可以看到目标JFR文件生成了。
 
-<img src="../../../../../Download/Typora/image/image-20220730212809867.png" alt="image-20220730212809867" style="zoom:80%;" />
+<img src="/img/image/image-20220730212809867.png" alt="image-20220730212809867" style="zoom:80%;" />
 
 生成完JFR之后，JMC会自动打开生成的JFR文件，我们得到一个大纲视图。
 
@@ -337,7 +337,7 @@ JMC非常强大，也有很多功能，具体的细节大家可以自己运行�
 
 事件浏览器中列出了我们在1分钟之内监控的事件。
 
-<img src="../../../../../Download/Typora/image/image-20220730212828563.png" alt="image-20220730212828563" style="zoom:80%;" />
+<img src="/img/image/image-20220730212828563.png" alt="image-20220730212828563" style="zoom:80%;" />
 
 > *JMC浏览器不仅可以监控本机的应用程序，也可以监控远程的应用程序。由于JMC的连接是通过JMX协议，所以远程java程序需要开启JMX协议的支持。*
 
@@ -455,7 +455,7 @@ JVM也叫Java Virtual Machine，它是java程序运行的基础，负责将java 
 
 下面是我在维基百科中截取到的目前各个JVM的比较：
 
-<img src="../../../../../Download/Typora/image/image-20220730213902673.png" alt="image-20220730213902673" style="zoom:80%;" />
+<img src="/img/image/image-20220730213902673.png" alt="image-20220730213902673" style="zoom:80%;" />
 
 有听过Oracle和Google之间的API十年诉讼案吗？API都不能顺便用，更何况是JVM。各大厂商为了各自的利益，最终搞出了这么多个JVM的版本。
 
@@ -467,7 +467,7 @@ JVM也叫Java Virtual Machine，它是java程序运行的基础，负责将java 
 
 为了说明JVM的作用，我们先来回顾一下java程序的执行顺序。
 
-<img src="../../../../../Download/Typora/image/image-20220730213952869.png" alt="image-20220730213952869" style="zoom:80%;" />
+<img src="/img/image/image-20220730213952869.png" alt="image-20220730213952869" style="zoom:80%;" />
 
 1. 编写java代码文件比如Example.java
 2. 使用java编译器javac将源文件编译成为Example.class文件
@@ -477,7 +477,7 @@ JVM也叫Java Virtual Machine，它是java程序运行的基础，负责将java 
 
 其实吧，JVM可以分为三大部分，五大空间和三大引擎，要讲起来也不是特别复杂，先看下面的总体的JVM架构图。
 
-<img src="../../../../../Download/Typora/image/image-20220730214210722.png" alt="image-20220730214210722" style="zoom:80%;" />
+<img src="/img/image/image-20220730214210722.png" alt="image-20220730214210722" style="zoom:80%;" />
 
 从上面的图中，我们可以看到JVM中有三大部分，分别是类加载系统，运行时数据区域和Execution Engine。
 
@@ -595,7 +595,7 @@ PC Registers主要用来对程序的执行状态进行跟踪，比如保存当�
 javap -v BufferUsage
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220730215349915.png" alt="image-20220730215349915" style="zoom:80%;" />
+<img src="/img/image/image-20220730215349915.png" alt="image-20220730215349915" style="zoom:80%;" />
 
 这里不过多介绍输出结果的含义，我们会在后面的文章中进行详解。
 

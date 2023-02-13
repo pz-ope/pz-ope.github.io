@@ -56,7 +56,7 @@ Netty在Java网络应用框架中的地位就好比: Spring 框架在JavaEE开�
 
 在NIO中每个channel都是客户端和服务器端沟通的通道。ChannelInboundHandlerAdapter定义了在这个channel上可能出现一些事件和情况，如下图所示：
 
-<img src="../../../../../Download/Typora/image/image-20220724213402469.png" alt="image-20220724213402469" style="zoom:50%;" />
+<img src="/img/image/image-20220724213402469.png" alt="image-20220724213402469" style="zoom:50%;" />
 
 如上图所示，channel上可以出现很多事件，比如建立连接，关闭连接，读取数据，读取完成，注册，取消注册等。这些方法都是可以被重写的，我们只需要新建一个类，继承ChannelInboundHandlerAdapter即可。
 
@@ -98,7 +98,7 @@ public class FirstServerHandler extends ChannelInboundHandlerAdapter {
 
 在netty中，对IO进行处理是使用多线程的event loop来实现的。netty中的`EventLoopGroup`就是这些event loop的抽象类。
 
-<img src="../../../../../Download/Typora/image/image-20220724213833509.png" alt="image-20220724213833509" style="zoom:80%;" />
+<img src="/img/image/image-20220724213833509.png" alt="image-20220724213833509" style="zoom:80%;" />
 
 可以看出EventLoopGroup继承自EventExecutorGroup，而EventExecutorGroup继承自JDK自带的ScheduledExecutorService。
 

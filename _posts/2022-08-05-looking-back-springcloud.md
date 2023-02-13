@@ -162,7 +162,7 @@ Distributed messaging（分布式消息管理）
 
 ## 版本号来源
 
-<img src="../../../../../Download/Typora/image/image-20220805165717739.png" alt="image-20220805165717739" style="zoom:60%;" />
+<img src="/img/image/image-20220805165717739.png" alt="image-20220805165717739" style="zoom:60%;" />
 
 spring cloud 是一个由众多独立子项目组成的大型综合项目，每个子项目有不同的发行节奏，都维护着自己的发布版本号。
 spring cloud 通过一个资源清单 BOM (Bi11 of Materials)来管理每个版本的子项目清单。为避免与子项目的发布号混
@@ -200,7 +200,7 @@ spring cloud 通过一个资源清单 BOM (Bi11 of Materials)来管理每个版�
 
 1. 创建一个 Spring Initializr 工程，并命名为 01-provider-8081。导入 Lombok、Web、JPA 及MySQL 驱动依赖。
 
-   <img src="../../../../../Download/Typora/image/image-20220805170718861.png" alt="image-20220805170718861" style="zoom:67%;" />
+   <img src="/img/image/image-20220805170718861.png" alt="image-20220805170718861" style="zoom:67%;" />
 
 2.  **导入 Druid 依赖**
 
@@ -399,7 +399,7 @@ spring cloud 通过一个资源清单 BOM (Bi11 of Materials)来管理每个版�
 
    创建一个 Spring Initializr 工程，并命名为 01-consumer-8080，导入 Lombok 与 Web 依赖。
 
-   <img src="../../../../../Download/Typora/image/image-20220805181154471.png" alt="image-20220805181154471" style="zoom:67%;" />
+   <img src="/img/image/image-20220805181154471.png" alt="image-20220805181154471" style="zoom:67%;" />
 
 2. **定义实体类**
 
@@ -475,7 +475,7 @@ spring cloud 通过一个资源清单 BOM (Bi11 of Materials)来管理每个版�
 - Netflix 在设计Eureka时，遵循的就是AP原则
 - Eureka 是 Netflix 的一个子模块，也是核心模块之一。Eureka 是一个基于 REST 的服务，用于定位服务，以实现云端中间层服务发现和故障转移，就可以访问到服务，而不需要修改调用的配置文件了，功能类似于Dubbo 的注册中心，比如 Zookeeper；
 
-<img src="../../../../../Download/Typora/image/image-20220812155810941.png" alt="image-20220812155810941" style="zoom:80%;" />
+<img src="/img/image/image-20220812155810941.png" alt="image-20220812155810941" style="zoom:80%;" />
 
 ## 原理理解
 
@@ -489,9 +489,9 @@ Eureka 的基本架构
 
 * 和 Dubbo 架构对比
 
-  <img src="../../../../../Download/Typora/image/image-20220812161250091.png" alt="image-20220812161250091" style="zoom:60%;" />
+  <img src="/img/image/image-20220812161250091.png" alt="image-20220812161250091" style="zoom:60%;" />
 
-  <img src="../../../../../Download/Typora/image/image-20220812161444308.png" alt="image-20220812161444308" style="zoom:60%;" />
+  <img src="/img/image/image-20220812161444308.png" alt="image-20220812161444308" style="zoom:60%;" />
 
 * Eureka包含两个组件: **Eureka Serve**r和 **Eureka Client** 。
 
@@ -515,7 +515,7 @@ Eureka 的基本架构
 
 创建一个 Spring Initializr 工程，命名为 00-eurekaserver-8000，仅导入 Eureka Server 依赖即可
 
-<img src="../../../../../Download/Typora/image/image-20220812164951436.png" alt="image-20220812164951436" style="zoom:70%;" />
+<img src="/img/image/image-20220812164951436.png" alt="image-20220812164951436" style="zoom:70%;" />
 
 工程创建完毕后，在 pom 文件中可以看到如下的版本信息。
 
@@ -693,13 +693,13 @@ eurake:
 		prefer-ip-address: true # 访问路径可以显示ip地址
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220812175631977.png" alt="image-20220812175631977" style="zoom:80%;" />
+<img src="/img/image/image-20220812175631977.png" alt="image-20220812175631977" style="zoom:80%;" />
 
 info内容构建
 
 现在点击info，出现ERROR页面
 
-<img src="../../../../../Download/Typora/image/image-20220812175706073.png" alt="image-20220812175706073" style="zoom:80%;" />
+<img src="/img/image/image-20220812175706073.png" alt="image-20220812175706073" style="zoom:80%;" />
 
 ### **actuator** **完善微服务** **info**
 
@@ -721,7 +721,7 @@ info:
   company.addr: Beijing China
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220812180040984.png" alt="image-20220812180040984" style="zoom:80%;" />
+<img src="/img/image/image-20220812180040984.png" alt="image-20220812180040984" style="zoom:80%;" />
 
 ### **服务发现** **Discovery**
 
@@ -792,7 +792,7 @@ public class DeptProvider_8001 {
 }
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220812182428266.png" alt="image-20220812182428266" style="zoom:80%;" />
+<img src="/img/image/image-20220812182428266.png" alt="image-20220812182428266" style="zoom:80%;" />
 
 ## 创建消费工程02-consumer-8080
 
@@ -959,7 +959,7 @@ management:
 
 在 Restlet 中提交如下 POST 请求即可关闭该应用。
 
-<img src="../../../../../Download/Typora/image/image-20220812184045619.png" alt="image-20220812184045619" style="zoom:67%;" />
+<img src="/img/image/image-20220812184045619.png" alt="image-20220812184045619" style="zoom:67%;" />
 
 **服务平滑上下线**
 
@@ -976,13 +976,13 @@ management:
 
 在 Restlet 中提交如下 POST 请求，然后再查看 Eureka 页面，发现服务状态已经变为了DOWN
 
-<img src="../../../../../Download/Typora/image/image-20220812184236399.png" alt="image-20220812184236399" style="zoom:67%;" />
+<img src="/img/image/image-20220812184236399.png" alt="image-20220812184236399" style="zoom:67%;" />
 
 ## Eureka的自我保护机制
 
 在 Eureka 服务页面中看到如下红色字体内容，表示当前 EurekaServer 启动了自我保护机制，进入了自我保护模式。
 
-<img src="../../../../../Download/Typora/image/image-20220812182536967.png" alt="image-20220812182536967" style="zoom:50%;" />
+<img src="/img/image/image-20220812182536967.png" alt="image-20220812182536967" style="zoom:50%;" />
 
 我们修改一个服务名，故意制造错误！
 
@@ -1075,7 +1075,7 @@ eurake:
 
 这样模拟集群就搭建号了，就可以把一个项目挂载到三个服务器上了
 
-<img src="../../../../../Download/Typora/image/image-20220812190036736.png" alt="image-20220812190036736" style="zoom:80%;" />
+<img src="/img/image/image-20220812190036736.png" alt="image-20220812190036736" style="zoom:80%;" />
 
 # Ribbon
 
@@ -1084,7 +1084,7 @@ eurake:
 * SpringCloud Rinbbon是基于Netflix Ribbon实现的一套**客户端负载均衡的工具**。
 * 简单的说，Ribbon是Netflix发布的开源项目，主要功能是提供客户端的软件负载均衡算法，将NetFlix的中间层服务连接在一起。Ribbon的客户端组件提供一系列完成的配置项如：连接超时、重试等等。简单的说，就是配置文件中列出LoadBalancer（简称LB：负载均衡）后面所有的机器，Ribbon会自动的帮助你基于某种规则（如简单轮询，随机连接等等）去连接这些机器。我们也很容易使用Ribbon实现自定义的负载均衡算法！
 
-<img src="../../../../../Download/Typora/image/image-20220813141136336.png" alt="image-20220813141136336" style="zoom:70%;" />
+<img src="/img/image/image-20220813141136336.png" alt="image-20220813141136336" style="zoom:70%;" />
 
 Ribbon能干嘛？
 
@@ -1128,7 +1128,7 @@ Ribbon能干嘛？
 
 > Ribbon 默认采用的是 RoundRobinRule，即轮询策略。但通过修改消费者工程的配置文件，或修改消费者的启动类或 JavaConfig 类可以实现更换负载均衡策略的目的。
 
-<img src="../../../../../Download/Typora/image/image-20220813165517010.png" alt="image-20220813165517010" style="zoom:80%;" />
+<img src="/img/image/image-20220813165517010.png" alt="image-20220813165517010" style="zoom:80%;" />
 
 ## 创建提供者03-provider-8082
 
@@ -1535,7 +1535,7 @@ public class FeignDeptConsumer_80 {
 
 Feign 支持对请求（Feign 客户端向提供者的请求）和响应（Feign 客户端向客户端浏览器的响应）进行 Gzip 压缩以提高通信效率。并且Feign 连接提供者、对于提供者的调用均可设置超时时限
 
-<img src="../../../../../Download/Typora/image/image-20220813135910407.png" alt="image-20220813135910407" style="zoom:67%;" />
+<img src="/img/image/image-20220813135910407.png" alt="image-20220813135910407" style="zoom:67%;" />
 
 ```yaml
 feign:
@@ -1565,7 +1565,7 @@ feign:
 
 多个微服务之间调用的时候，假设微服务A调用微服务B和微服务C，微服务B和微服务C又调用其他的微服务，这就是所谓的“扇出”，如果扇出的链路上某个微服务的调用响应时间过长，或者不可用，对微服务A的调用就会占用越来越多的系统资源，进而引起系统崩溃，所谓的“雪崩效应”。
 
-<img src="../../../../../Download/Typora/image/image-20220813165442819.png" alt="image-20220813165442819" style="zoom: 67%;" />
+<img src="/img/image/image-20220813165442819.png" alt="image-20220813165442819" style="zoom: 67%;" />
 
 对于高流量的应用来说，单一的后端依赖可能会导致所有服务器上的所有资源都在几十秒内饱和。比失败更糟糕的是，这些应用程序还可能导致服务之间的延迟增加，备份队列，线程和其他系统资源紧张，导致整个系统发生更多的级联故障，这些都表示需要对故障和延迟进行隔离和管理，==以达到单个依赖关系的失败而不影响整个应用程序或系统运行==。
 我们需要，弃车保帅！
@@ -1575,7 +1575,7 @@ feign:
 Hystrix是一个应用于处理分布式系统的延迟和容错的开源库，在分布式系统里，许多依赖不可避免的会调用失败，比如超时，异常等，Hystrix 能够保证在一个依赖出问题的情况下，不会导致整个体系服务失败，避免级联故障，以提高分布式系统的弹性。
 
 “断路器”本身是一种开关装置，当某个服务单元发生故障之后，通过断路器的故障监控 (类似熔断保险丝) ，**向调用方返回一个服务预期的，可处理的备选响应 (FallBack) ，而不是长时间的等待或者抛出调用方法无法处理的异常，这样就可以保证了服务调用方的线程不会被长时间，不必要的占用**，从而避免了故障在分布式系统中的蔓延，乃至雪崩。
-<img src="../../../../../Download/Typora/image/image-20220813171606502.png" alt="image-20220813171606502" style="zoom:80%;" />
+<img src="/img/image/image-20220813171606502.png" alt="image-20220813171606502" style="zoom:80%;" />
 
 Hystrix能干嘛
 
@@ -1587,20 +1587,20 @@ Hystrix能干嘛
 
 当一切正常时，请求流可以如下所示：
 
-<img src="../../../../../Download/Typora/image/image-20220813174224669.png" alt="image-20220813174224669" style="zoom:67%;" />
+<img src="/img/image/image-20220813174224669.png" alt="image-20220813174224669" style="zoom:67%;" />
 
 当许多后端系统中有一个潜在阻塞服务时，它可以阻止整个用户请求：
 
-<img src="../../../../../Download/Typora/image/image-20220813174310036.png" alt="image-20220813174310036" style="zoom:67%;" />
+<img src="/img/image/image-20220813174310036.png" alt="image-20220813174310036" style="zoom:67%;" />
 
 随着大容量通信量的增加，单个后端依赖项的潜在性会导致所有服务器上的所有资源在几秒钟内饱和。
 
 应用程序中通过网络或客户端库可能导致网络请求的每个点都是潜在故障的来源。比失败更糟糕的是，这些应用程序还可能导致服务之间的延迟增加，从而备份队列、线程和其他系统资源，从而导致更多跨系统的级联故障。
 
-<img src="../../../../../Download/Typora/image/image-20220813174510944.png" alt="image-20220813174510944" style="zoom:67%;" />
+<img src="/img/image/image-20220813174510944.png" alt="image-20220813174510944" style="zoom:67%;" />
 
 当使用Hystrix包装每个基础依赖项时，上面的图表中所示的体系结构会发生类似于以下关系图的变化。每个依赖项是相互隔离的，限制在延迟发生时它可以填充的资源中，并包含在回退逻辑中，该逻辑决定在依赖项中发生任何类型的故障时要做出什么样的响应：
-<img src="../../../../../Download/Typora/image/image-20220813174554597.png" alt="image-20220813174554597" style="zoom:67%;" />
+<img src="/img/image/image-20220813174554597.png" alt="image-20220813174554597" style="zoom:67%;" />
 
 ## 服务熔断
 
@@ -1623,7 +1623,7 @@ Hystrix能干嘛
 
 降级的方式可以根据业务来，可以延迟服务，比如延迟给用户增加积分，只是放到一个缓存中，等服务平稳之后再执行 ；或者在粒度范围内关闭服务，比如关闭相关文章的推荐。
 
-<img src="../../../../../Download/Typora/image/image-20220813182446697.png" alt="image-20220813182446697" style="zoom:80%;" />
+<img src="/img/image/image-20220813182446697.png" alt="image-20220813182446697" style="zoom:80%;" />
 
 由上图可得，当某一时间内服务A的访问量暴增，而B和C的访问量较少，为了缓解A服务的压力，这时候需要B和C暂时关闭一些服务功能，去承担A的部分服务，从而为A分担压力，叫做服务降级。
 
@@ -1979,7 +1979,7 @@ pub1ic Depart getDepartById(int id) {
 
 为了更加方便对集群的运行状态的监控，Turbine 将集群进行了分组。前面我们监控了两个集群，这两个集群默认被分为了一个组，是默认组。我们也可以将集群划分到多个组中使用同一个 Turbine 进行分别监控。
 
-<img src="../../../../../Download/Typora/image/image-20220816143454844.png" alt="image-20220816143454844" style="zoom:67%;" />
+<img src="/img/image/image-20220816143454844.png" alt="image-20220816143454844" style="zoom:67%;" />
 
 Turbine 对于集群分组进行监控的原理是，在集群之上再添加一种分类：组。为每个集群中的 Sever 都添加一个 groupId，而 Turbine 是基于 groupId 进行监控的。这个 groupId 是基于自定义的 Eureka 元数据实现的。
 
@@ -1996,7 +1996,7 @@ Zull包含了对请求的路由和过滤两个最主要功能：
 
 其中路由功能负责将外部请求转发到具体的微服务实例上，是实现外部访问统一入口的基础，而过滤器功能则负责对请求的处理过程进行干预，是实现请求校验，服务聚合等功能的基础。Zuul和Eureka进行整合，将Zuul自身注册为Eureka服务治理下的应用，同时从Eureka中获得其他服务的消息，也即以后的访问微服务都是通过Zuul跳转后获得。
 
-<img src="../../../../../Download/Typora/image/image-20220816144645489.png" alt="image-20220816144645489" style="zoom:80%;" />
+<img src="/img/image/image-20220816144645489.png" alt="image-20220816144645489" style="zoom:80%;" />
 
 **注意**：Zuul 服务最终还是会注册进 Eureka
 
@@ -2463,7 +2463,7 @@ zuul:
 
 在服务路由之前、中、后，可以对请求进行过滤，使其只能访问它应该访问到的资源，增强安全性。此时需要通过 ZuulFilter 过滤器来实现对外服务的安全控制。
 
-<img src="../../../../../Download/Typora/image/image-20220816184306211.png" alt="image-20220816184306211" style="zoom:67%;" />
+<img src="/img/image/image-20220816184306211.png" alt="image-20220816184306211" style="zoom:67%;" />
 
 ### **路由过滤实现** **00-zuul-filter-9000**
 

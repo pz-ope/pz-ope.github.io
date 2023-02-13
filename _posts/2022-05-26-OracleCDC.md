@@ -107,31 +107,31 @@ CDC有几个重要的基本概念需要先明确一下：
 
 原理很简单，原表、目标表必须是同一个库，采用触发器的机制（设置同步CDC后，并看不到触发器，但实际运行机理还是触发器的机制）将原表内容复制到另一个目标表。这个机制就不多说了，和自己给表建触发器没什么太大差别。
 
-<img src="../../../../../Download/Typora/image/image-20220525221219499.png" alt="image-20220525221219499" style="zoom:80%;" />
+<img src="/img/image/image-20220525221219499.png" alt="image-20220525221219499" style="zoom:80%;" />
 
 ##  异步在线日志CDC（Asynchronous HotLog Configuration）
 
 这个过程已经没有触发器了，而是使用Redo Log，但是使用在线日志，并不是归档日志。并且原表、目标表仍然必须是同一个库。这种模式是相对简单的，同时这种模式是在Oracle 10以上才产生的，9i是没有这个机制的。
 
-<img src="../../../../../Download/Typora/image/image-20220525221533130.png" alt="image-20220525221533130" style="zoom:80%;" />
+<img src="/img/image/image-20220525221533130.png" alt="image-20220525221533130" style="zoom:80%;" />
 
 ## 异步分布式CDC （Asynchronous Distributed HotLog Configuration）
 
 实际这个模式是对异步在线日志CDC的一种优化，也比较容易理解，就是加入了DB-LINK机制，使原表、目标表不在同一个数据库。实际是和异步在线日志CDC没有什么本质区别。
 
-<img src="../../../../../Download/Typora/image/image-20220525221709797.png" alt="image-20220525221709797" style="zoom:80%;" />
+<img src="/img/image/image-20220525221709797.png" alt="image-20220525221709797" style="zoom:80%;" />
 
 ## 异步在线日志复制CDC（Asynchronous Autolog Online Change Data Capture Configuration）
 
 异步在线日志复制CDC模式就要高级很多了，使用Standby Redo Log（热备数据库日志），实际就是使用Oracle的热备机制，将日志写入了热备数据库，目标表就可以建立在热备库上，这对主数据库性能影响就进一步降低。
 
-<img src="../../../../../Download/Typora/image/image-20220525221944182.png" alt="image-20220525221944182" style="zoom:80%;" />
+<img src="/img/image/image-20220525221944182.png" alt="image-20220525221944182" style="zoom:80%;" />
 
 ## 归档日志CDC （Asynchronous AutoLog Archive Change Data Capture Configuration）
 
 归档日志CDC模式是最完美的模式，但是需要有机制可以获取归档日志（并行文件系统技术），然后在目标端分析归档日志进行变化数据处理，这种模式理论上来讲，几乎可以完全不影响原数据库的性能。
 
-<img src="../../../../../Download/Typora/image/image-20220525222225429.png" alt="image-20220525222225429" style="zoom:80%;" />
+<img src="/img/image/image-20220525222225429.png" alt="image-20220525222225429" style="zoom:80%;" />
 
 ## 总结
 

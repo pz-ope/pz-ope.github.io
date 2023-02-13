@@ -10,7 +10,7 @@
 
 在那个时候，更多的都是静态网页Html ~服务器根本没有太大的压力!，动态交互类型的网站不多。
 
-![image-20220721102641793](../../../../../Download/Typora/image/image-20220721102641793.png)
+![image-20220721102641793](/img/image/image-20220721102641793.png)
 
 上述架构下，我们来看看数据存储的瓶颈是什么？
 
@@ -28,13 +28,13 @@ DAL : Data Access Layer（数据访问层 – Hibernate，MyBatis）
 
 > 后来，随着访问量的上升，几乎大部分使用MySQL架构的网站在数据库上都开始出现了性能问题，web程序不再仅仅专注在功能上，同时也在追求性能。程序员们开始大量的使用缓存技术来缓解数据库的压力，优化数据库的结构和索引。开始比较流行的是通过文件缓存来缓解数据库压力，但是当访问量继续增大的时候，多台web机器通过文件缓存不能共享，大量的小文件缓存也带了了比较高的IO压力。在这个时候，Memcached就自然的成为一个非常时尚的技术产品。
 
-<img src="../../../../../Download/Typora/image/image-20220721103004994.png" alt="image-20220721103004994" style="zoom:80%;" />
+<img src="/img/image/image-20220721103004994.png" alt="image-20220721103004994" style="zoom:80%;" />
 
 网站80%的情况都是在读，每次都去查询数据库的话就十分麻烦，(第一次访问数据库中的数据后存入缓存中，第二次如果这个数据库中的数据没有变化就直接从缓存中获取)，为了减轻数据的压力，可以使用缓存来保证效率。
 
 发展过程：优化数据结构和索引—>文件缓存(IO)—> Memcached(缓存)
 
-<img src="../../../../../Download/Typora/image/image-20220721103043069.png" alt="image-20220721103043069" style="zoom:80%;" />
+<img src="/img/image/image-20220721103043069.png" alt="image-20220721103043069" style="zoom:80%;" />
 
 ### 分库分表+水平拆分+mysql集群
 
@@ -42,7 +42,7 @@ DAL : Data Access Layer（数据访问层 – Hibernate，MyBatis）
 >
 > ps：这就是为什么 MySQL 在 5.6 版本之后使用 InnoDB 做为默认存储引擎的原因 – MyISAM 写会锁表，InnoDB 有行锁，发生冲突的几率低，并发性能高。
 
-<img src="../../../../../Download/Typora/image/image-20220721111751261.png" alt="image-20220721111751261" style="zoom:80%;" />
+<img src="/img/image/image-20220721111751261.png" alt="image-20220721111751261" style="zoom:80%;" />
 
 > 扩展：行锁和表锁的含义及区别是什么
 >
@@ -124,7 +124,7 @@ DAL : Data Access Layer（数据访问层 – Hibernate，MyBatis）
 
 > MySQL数据库也经常存储一些大文本字段或者图片（非常麻烦），导致数据库表非常的大，在做数据库恢复的时候就导致非常的慢，不容易快速恢复数据库。比如1000万4KB大小的文本就接近40GB的大小，如果能把这些数据从MySQL省去，MySQL将变得非常的小。关系数据库很强大，但是它并不能很好的应付所有的应用场景。MySQL的扩展性差（需要复杂的技术来实现），大数据下IO压力大，表结构更改困难，正是当前使用MySQL的开发人员面临的问题。
 
-![image-20210713134654824](../../../../../Download/Typora/image/image-20210713134654824.png)
+![image-20210713134654824](/img/image/image-20210713134654824.png)
 
 最前面的是企业级防火墙，后面通过负载均衡主机（软负载：Nginx，硬负载：F5）在 web 服务器集群之间进行调度，再由具体的 web 服务器（Tomcat）去访问缓存，访问数据库。
 
@@ -336,13 +336,13 @@ redis会周期性的把更新的数据写入磁盘或者把修改操作写入追
 
   假如⽤户第⼀次访问数据库中的某些数据。这个过程会⽐᫾慢，因为是从硬盘上读取的。将该⽤户访问的数据存在缓存中，这样下⼀次再访问这些数据的时候就可以直接从缓存中获取了。操作缓存就是直接操作内存，所以速度相当快。如果数据库中的对应数据改变的之后，同步改变缓存中相应的数据即可。
 
-  <img src="../../../../../Download/Typora/image/image-20220721151828402.png" alt="image-20220721151828402" style="zoom: 67%;" />
+  <img src="/img/image/image-20220721151828402.png" alt="image-20220721151828402" style="zoom: 67%;" />
 
 * **⾼并发：**
 
   直接操作缓存能够承受的请求是远远⼤于直接访问数据库的，所以我们可以考虑把数据库中的部分数据转移到缓存中去，这样⽤户的⼀部分请求会直接到缓存这⾥⽽不⽤经过数据库。
 
-  <img src="../../../../../Download/Typora/image/image-20220721151945796.png" alt="image-20220721151945796" style="zoom: 50%;" />
+  <img src="/img/image/image-20220721151945796.png" alt="image-20220721151945796" style="zoom: 50%;" />
 
 ## 本地缓存相比
 
@@ -365,7 +365,7 @@ redis会周期性的把更新的数据写入磁盘或者把修改操作写入追
 
 3. 进入解压后的配置文件
 
-   <img src="../../../../../Download/Typora/image/image-20220721152843284.png" alt="image-20220721152843284" style="zoom:80%;" />
+   <img src="/img/image/image-20220721152843284.png" alt="image-20220721152843284" style="zoom:80%;" />
 
 4. 基本的环境安装
 
@@ -381,7 +381,7 @@ redis会周期性的把更新的数据写入磁盘或者把修改操作写入追
 
 5. redis默认安装路径`/usr/local/bin`
 
-   <img src="../../../../../Download/Typora/image/image-20220721152957529.png" alt="image-20220721152957529" style="zoom:80%;" />
+   <img src="/img/image/image-20220721152957529.png" alt="image-20220721152957529" style="zoom:80%;" />
 
 6. 将redis配置文件，复制到当前目录下
 
@@ -392,11 +392,11 @@ redis会周期性的把更新的数据写入磁盘或者把修改操作写入追
    cp /opt/redis-6.2.4.tar.gz kconfig
    ```
 
-   <img src="../../../../../Download/Typora/image/image-20220721153116088.png" alt="image-20220721153116088" style="zoom:80%;" />
+   <img src="/img/image/image-20220721153116088.png" alt="image-20220721153116088" style="zoom:80%;" />
 
 7. redis默认不是后台启动的，修改配置文件
 
-   <img src="../../../../../Download/Typora/image/image-20220721153140496.png" alt="image-20220721153140496" style="zoom:80%;" />
+   <img src="/img/image/image-20220721153140496.png" alt="image-20220721153140496" style="zoom:80%;" />
 
 8. 启动redis服务
 
@@ -426,7 +426,7 @@ redis会周期性的把更新的数据写入磁盘或者把修改操作写入追
    ps -ef|grep java  
    ```
 
-   <img src="../../../../../Download/Typora/image/image-20220721153258513.png" alt="image-20220721153258513" style="zoom:80%;" />
+   <img src="/img/image/image-20220721153258513.png" alt="image-20220721153258513" style="zoom:80%;" />
 
 10. 关闭redis服务
 
@@ -435,11 +435,11 @@ redis会周期性的把更新的数据写入磁盘或者把修改操作写入追
     shutdown
     ```
 
-    <img src="../../../../../Download/Typora/image/image-20220721153338444.png" alt="image-20220721153338444" style="zoom:80%;" />
+    <img src="/img/image/image-20220721153338444.png" alt="image-20220721153338444" style="zoom:80%;" />
 
 11. 查看进程是否存在
 
-    <img src="../../../../../Download/Typora/image/image-20220721153357274.png" alt="image-20220721153357274" style="zoom:80%;" />
+    <img src="/img/image/image-20220721153357274.png" alt="image-20220721153357274" style="zoom:80%;" />
 
 ## 性能测试
 
@@ -449,14 +449,14 @@ redis-benchmark是一个压力测试工具
 redis-benchmark 命令参数
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220721153445743.png" alt="image-20220721153445743" style="zoom:80%;" />
+<img src="/img/image/image-20220721153445743.png" alt="image-20220721153445743" style="zoom:80%;" />
 
 ```bash
 #测试：100个并发连接，100000个请求
 redis-benchmark -h localhost -p 6379 -c 100 -n 100000
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220721153514238.png" alt="image-20220721153514238" style="zoom:80%;" />
+<img src="/img/image/image-20220721153514238.png" alt="image-20220721153514238" style="zoom:80%;" />
 
 ## 基础知识
 
@@ -487,7 +487,7 @@ flushdb
 flushall
 ```
 
-<img src="../../../../../Download/Typora/image/image-20210714163344541.png" alt="image-20210714163344541" style="zoom:80%;" />
+<img src="/img/image/image-20210714163344541.png" alt="image-20210714163344541" style="zoom:80%;" />
 
 > Redis是单线程
 
@@ -571,7 +571,7 @@ setrange key 1 xx
 #setnx (set if not exist) 不存在在设置
 ```
 
-<img src="../../../../../Download/Typora/image/image-20220721161650636.png" alt="image-20220721161650636" style="zoom:80%;" />
+<img src="/img/image/image-20220721161650636.png" alt="image-20220721161650636" style="zoom:80%;" />
 
 ```bash
 #批量设置m~
@@ -934,7 +934,7 @@ EPSG:900913 / EPSG:3785 / OSGEO:41001 指定的确切限制如下：
 
 > 这个功能可以推算出地理位置信息，两地之间的距离，方圆几里的人
 
-<img src="../../../../../Download/Typora/image/image-20220721163842068.png" alt="image-20220721163842068" style="zoom:80%;" />
+<img src="/img/image/image-20220721163842068.png" alt="image-20220721163842068" style="zoom:80%;" />
 
 ```bash
 # getadd 添加地理位置
@@ -1138,7 +1138,7 @@ Bitmap位图，数据结构都是操作二进制位来进行记录，只有0和1
 使用bitmap来记录周一到周日的打卡!
 周一: 1 周二:0 周三:0 周四: 1 ......
 
-<img src="../../../../../Download/Typora/image/image-20220721164435517.png" alt="image-20220721164435517" style="zoom:80%;" />
+<img src="/img/image/image-20220721164435517.png" alt="image-20220721164435517" style="zoom:80%;" />
 
 
 
@@ -1305,7 +1305,7 @@ QUEUED
 
 > 如果修改失败,获取最新的值就好
 
-<img src="../../../../../Download/Typora/image/image-20220721165852689.png" alt="image-20220721165852689" style="zoom:80%;" />
+<img src="/img/image/image-20220721165852689.png" alt="image-20220721165852689" style="zoom:80%;" />
 
 # Jedis
 
@@ -1347,7 +1347,7 @@ jedis.close();
 
 ## 常用API
 
-<img src="../../../../../Download/Typora/image/image-20210720144849693.png" alt="image-20210720144849693" style="zoom:80%;" />
+<img src="/img/image/image-20210720144849693.png" alt="image-20210720144849693" style="zoom:80%;" />
 
 ## 事务
 
@@ -1479,11 +1479,11 @@ class SpringDataDemoApplicationTests {
 }
 ```
 
-<img src="../../../../../Download/Typora/image/image-20210720170434758.png" alt="image-20210720170434758" style="zoom:80%;" />
+<img src="/img/image/image-20210720170434758.png" alt="image-20210720170434758" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20210720170526877.png" alt="image-20210720170526877" style="zoom:80%;" />
+<img src="/img/image/image-20210720170526877.png" alt="image-20210720170526877" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20210721092437840.png" alt="image-20210721092437840" style="zoom:80%;" />
+<img src="/img/image/image-20210721092437840.png" alt="image-20210721092437840" style="zoom:80%;" />
 
 ```java
 @Component
@@ -1509,7 +1509,7 @@ public class User implements Serializable {
 	}
 ```
 
-<img src="../../../../../Download/Typora/image/image-20210721093116853.png" alt="image-20210721093116853" style="zoom:80%;" />
+<img src="/img/image/image-20210721093116853.png" alt="image-20210721093116853" style="zoom:80%;" />
 
 > 自定义RedisTemplate
 
@@ -2173,15 +2173,15 @@ Redis可以通过创建快照来获得存储在内存⾥⾯的数据在指定的
 
 快照持久化是Redis默认采⽤的持久化⽅式，在redis.conf配置⽂件中默认有此下配置：
 
-<img src="../../../../../Download/Typora/image/image-20210721113356808.png" alt="image-20210721113356808" style="zoom:80%;" />
+<img src="/img/image/image-20210721113356808.png" alt="image-20210721113356808" style="zoom:80%;" />
 
 Redis会单独创建( fork ) 一个子进程来进行持久化,会先将数据写入到一个临时文件中,待持久化过程都结束了,再用这个临时文件替换上次持久化好的文件。整个过程中,主进程是不进行任何I0操作的。这就确保了极高的性能。如果需要进行大规模数据的恢复,且对于数据恢复的完整性不是非常敏感,那RDB方式要比AOF方式更加的高效。RDB的缺点是最后一次持久化后的数据可能丢失。
 
 **rdb保存的文件是dump.rdb**都是在我们的配置文件中快照中进行配置的! .
 
-<img src="../../../../../Download/Typora/image/image-20210721111720316.png" alt="image-20210721111720316" style="zoom:60%;" />
+<img src="/img/image/image-20210721111720316.png" alt="image-20210721111720316" style="zoom:60%;" />
 
-<img src="../../../../../Download/Typora/image/image-20210721111730304.png" alt="image-20210721111730304" style="zoom:60%;" />
+<img src="/img/image/image-20210721111730304.png" alt="image-20210721111730304" style="zoom:60%;" />
 
 > 触发机制
 > 1、save的规则满足的情况下,会自动触发rdb规则
@@ -2192,7 +2192,7 @@ Redis会单独创建( fork ) 一个子进程来进行持久化,会先将数据�
 >
 > 备份就自动生成一个dump.rdb
 >
-> <img src="../../../../../Download/Typora/image/image-20210721112227962.png" alt="image-20210721112227962" style="zoom:67%;" />
+> <img src="/img/image/image-20210721112227962.png" alt="image-20210721112227962" style="zoom:67%;" />
 >
 > 如果恢复rdb文件!
 >

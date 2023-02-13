@@ -12,7 +12,7 @@ IO的作用就是从外部系统读取数据到java程序中，或者把java程�
 
 所有IO的本质就是对Buffer的处理，我们把数据放入Buffer供系统写入外部数据，或者从系统Buffer中读取从外部系统中读取的数据。如下图所示：
 
-<img src="../../../../../Download/Typora/image/image-20220724160535963.png" alt="image-20220724160535963" style="zoom:80%;" />
+<img src="/img/image/image-20220724160535963.png" alt="image-20220724160535963" style="zoom:80%;" />
 
 用户空间也就是我们自己的java程序有一个Buffer，系统空间也有一个buffer。所以会出现系统空间缓存数据的情况，这种情况下系统空间将会直接返回Buffer中的数据，提升读取速度。
 
@@ -59,7 +59,7 @@ stream IO就像是管道流，里面的数据是序列被消费的。
 
 `虚拟地址空间`也叫做（Virtual address space），为了不同程序的互相隔离和保证程序中地址的确定性，现代计算机系统引入了虚拟地址空间的概念。简单点讲可以看做是跟实际物理地址的映射，通过使用分段或者分页的技术，将实际的物理地址映射到虚拟地址空间。
 
-<img src="../../../../../Download/Typora/image/image-20220724161734809.png" alt="image-20220724161734809" style="zoom:80%;" />
+<img src="/img/image/image-20220724161734809.png" alt="image-20220724161734809" style="zoom:80%;" />
 
 > ==**CPU 寻址了解吗?为什么需要虚拟地址空间?**==
 >
@@ -114,17 +114,17 @@ DataOutPut有三大类，分别是Writer，OutputStream和ObjectOutput。
 
 看下他们中的继承关系：
 
-<img src="../../../../../Download/Typora/image/image-20220724164340318.png" alt="image-20220724164340318" style="zoom:80%;" />
+<img src="/img/image/image-20220724164340318.png" alt="image-20220724164340318" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220724164406512.png" alt="image-20220724164406512" style="zoom:80%;" />
+<img src="/img/image/image-20220724164406512.png" alt="image-20220724164406512" style="zoom:80%;" />
 
 DataInput也有三大类，分别是ObjectInput，InputStream和Reader。
 
 看看他们的继承关系：
 
-<img src="../../../../../Download/Typora/image/image-20220724164441347.png" alt="image-20220724164441347" style="zoom:80%;" />
+<img src="/img/image/image-20220724164441347.png" alt="image-20220724164441347" style="zoom:80%;" />
 
-<img src="../../../../../Download/Typora/image/image-20220724164504228.png" alt="image-20220724164504228" style="zoom:80%;" />
+<img src="/img/image/image-20220724164504228.png" alt="image-20220724164504228" style="zoom:80%;" />
 
 ObjectOutput和ObjectInput类比较少，这里就不列出来了。
 
@@ -132,7 +132,7 @@ ObjectOutput和ObjectInput类比较少，这里就不列出来了。
 
 对于NIO来说比较复杂一点，首先，为了处理block的信息，需要将数据读取到buffer中，所以在NIO中Buffer是一个非常中要的概念，我们看下NIO中的Buffer：
 
-<img src="../../../../../Download/Typora/image/image-20220724164554060.png" alt="image-20220724164554060" style="zoom:80%;" />
+<img src="/img/image/image-20220724164554060.png" alt="image-20220724164554060" style="zoom:80%;" />
 
 从上图我们可以看到NIO中为我们准备了各种各样的buffer类型使用。
 
@@ -158,13 +158,13 @@ NIO需要掌握的类的个数比IO要稍稍多一点，毕竟NIO要复杂一点
 
 就像自来水要通过水管将自来水厂和家连接起来一样
 
-<img src="../../../../../Download/Typora/image/image-20220724164806317.png" alt="image-20220724164806317" style="zoom:50%;" />
+<img src="/img/image/image-20220724164806317.png" alt="image-20220724164806317" style="zoom:50%;" />
 
 **NIO**
 
 NIO在传输数据时，会在输入输出端之间建立**通道**，然后将数据放入到**缓冲区**中。缓冲区通过通道来传输数据
 
-<img src="../../../../../Download/Typora/image/image-20220724164843912.png" alt="image-20220724164843912" style="zoom:50%;" />
+<img src="/img/image/image-20220724164843912.png" alt="image-20220724164843912" style="zoom:50%;" />
 
 # NIO基础
 
@@ -199,7 +199,7 @@ NIO在传输数据时，会在输入输出端之间建立**通道**，然后将�
 
 为每个连接分别开辟一个线程，分别去处理对应的socke连接（客户端通过socke访问服务端）
 
-<img src="../../../../../Download/Typora/image/image-20220724165958714.png" alt="image-20220724165958714" style="zoom:80%;" />
+<img src="/img/image/image-20220724165958714.png" alt="image-20220724165958714" style="zoom:80%;" />
 
 这种方法存在以下几个问题
 
@@ -213,7 +213,7 @@ NIO在传输数据时，会在输入输出端之间建立**通道**，然后将�
 
 使用线程池，控制线程最大数，让线程池中的线程去处理连接
 
-<img src="../../../../../Download/Typora/image/image-20220724170049256.png" alt="image-20220724170049256" style="zoom:80%;" />
+<img src="/img/image/image-20220724170049256.png" alt="image-20220724170049256" style="zoom:80%;" />
 
 这种方法存在以下几个问题
 
@@ -227,13 +227,13 @@ NIO在传输数据时，会在输入输出端之间建立**通道**，然后将�
 
 **selector 的作用就是配合一个线程来管理多个 channel（fileChannel因为是阻塞式的，所以无法使用selector）**，获取这些 channel 上发生的**事件**，这些 channel 工作在**非阻塞模式**下，当一个channel中没有执行任务时，可以去执行其他channel中的任务。**适合连接数多，但流量较少的场景**
 
-<img src="../../../../../Download/Typora/image/image-20220724170238706.png" alt="image-20220724170238706" style="zoom:80%;" />
+<img src="/img/image/image-20220724170238706.png" alt="image-20220724170238706" style="zoom:80%;" />
 
 若事件未就绪，调用 selector 的 select() 方法会阻塞线程，直到 channel 发生了就绪事件。这些事件就绪后，select 方法就会返回这些事件交给 thread 来处理
 
 选择器（Selector）是**SelectableChannle** 对象的多路复用器，Selector 可以同时监控多个SelectableChannel 的IO 状况，也就是说，利用Selector 可使一个单独的线程管理多个Channel。**Selector 是非阻塞IO 的核心**
 
-<img src="../../../../../Download/Typora/image/image-20220724182711045.png" alt="image-20220724182711045" style="zoom:80%;" />
+<img src="/img/image/image-20220724182711045.png" alt="image-20220724182711045" style="zoom:80%;" />
 
 **选择器的创建**
 
@@ -249,7 +249,7 @@ Selector selector = Selector.open();
 - Selector：即绑定哪个选择器
 - ops：监听事件类型。ops有4个值可以选择，为**SelectionKey**的静态属性
 
-<img src="../../../../../Download/Typora/image/image-20220724182803930.png" alt="image-20220724182803930" style="zoom:67%;" />
+<img src="/img/image/image-20220724182803930.png" alt="image-20220724182803930" style="zoom:67%;" />
 
 ```java
 // 让选择器监听一种状态
@@ -297,7 +297,7 @@ final int[] hb;                  // Non-null only for heap buffers
 
 **他们的继承关系如下**
 
-<img src="../../../../../Download/Typora/image/image-20220724171324927.png" alt="image-20220724171324927" style="zoom:80%;" />
+<img src="/img/image/image-20220724171324927.png" alt="image-20220724171324927" style="zoom:80%;" />
 
 ### 获取缓冲区
 
@@ -337,7 +337,7 @@ private int capacity;
 
   进行该操作后，postition的值会+1，指向下一个可以放入的位置。capacity = limit ，为缓冲区容量的值。
 
-  <img src="../../../../../Download/Typora/image/image-20220724171632143.png" alt="image-20220724171632143" style="zoom: 50%;" />
+  <img src="/img/image/image-20220724171632143.png" alt="image-20220724171632143" style="zoom: 50%;" />
 
 * **flip()方法**
 
@@ -347,7 +347,7 @@ private int capacity;
 
   如果是读->写，则恢复为put()方法中的值
 
-  <img src="../../../../../Download/Typora/image/image-20220724171809208.png" alt="image-20220724171809208" style="zoom:50%;" />
+  <img src="/img/image/image-20220724171809208.png" alt="image-20220724171809208" style="zoom:50%;" />
 
 * **get()方法**
 
@@ -355,7 +355,7 @@ private int capacity;
 
   进行该操作后，position会+1，如果超过了limit则会抛出异常
 
-  <img src="../../../../../Download/Typora/image/image-20220724171939678.png" alt="image-20220724171939678" style="zoom:50%;" />
+  <img src="/img/image/image-20220724171939678.png" alt="image-20220724171939678" style="zoom:50%;" />
 
 * **rewind()方法**
 
@@ -363,7 +363,7 @@ private int capacity;
 
   rewind()方法后，会恢复position、limit和capacity的值，变为进行get()前的值
 
-  <img src="../../../../../Download/Typora/image/image-20220724172033596.png" alt="image-20220724172033596" style="zoom:50%;" />
+  <img src="/img/image/image-20220724172033596.png" alt="image-20220724172033596" style="zoom:50%;" />
 
 * **clean()方法**
 
@@ -371,7 +371,7 @@ private int capacity;
 
   **此时缓冲区的数据依然存在**，处于“被遗忘”状态，下次进行写操作时会覆盖这些数据
 
-  <img src="../../../../../Download/Typora/image/image-20220724172141855.png" alt="image-20220724172141855" style="zoom:50%;" />
+  <img src="/img/image/image-20220724172141855.png" alt="image-20220724172141855" style="zoom:50%;" />
 
 * **mark()和reset()方法**
 
@@ -387,7 +387,7 @@ private int capacity;
 
   数据前移后，原位置的值并未清零，写时会**覆盖**之前的值
 
-  <img src="../../../../../Download/Typora/image/image-20220724172404978.png" alt="image-20220724172404978" style="zoom:80%;" />
+  <img src="/img/image/image-20220724172404978.png" alt="image-20220724172404978" style="zoom:80%;" />
 
 > clear()与 compact()
 >
@@ -518,7 +518,7 @@ capacity 1024
   }
   ```
 
-  <img src="../../../../../Download/Typora/image/image-20220724172752114.png" alt="image-20220724172752114" style="zoom:80%;" />
+  <img src="/img/image/image-20220724172752114.png" alt="image-20220724172752114" style="zoom:80%;" />
 
   通过非直接缓冲区，想要将数据写入到物理磁盘中，或者是从物理磁盘读取数据。**都需要经过JVM和操作系统**，数据在两个地址空间中传输时，会**copy**一份保存在对方的空间中。所以非直接缓冲区的读取效率较低
 
@@ -539,7 +539,7 @@ capacity 1024
   }s
   ```
 
-  <img src="../../../../../Download/Typora/image/image-20220724172932914.png" alt="image-20220724172932914" style="zoom:80%;" />
+  <img src="/img/image/image-20220724172932914.png" alt="image-20220724172932914" style="zoom:80%;" />
 
   直接缓冲区通过在操作系统和JVM之间创建**物理内存映射文件**(虚拟地址空间)加快缓冲区数据读/写入物理磁盘的速度。放到物理内存映射文件中的数据就不归应用程序控制了，操作系统会自动将物理内存映射文件中的数据写入到物理内存中，但分配内存的效率效率低，而且使用不当，清理不干净会造成内存泄漏。
 
@@ -551,19 +551,19 @@ Channel由java.nio.channels 包定义的。Channel 表示**IO 源与目标打开
 
   应用程序进行读写操作调用函数时，**底层调用的操作系统提供给用户的读写API**，调用这些API时会生成对应的指令，CPU则会执行这些指令。在计算机刚出现的那段时间，**所有读写请求的指令都有CPU去执行**，过多的读写请求会导致CPU无法去执行其他命令，从而CPU的利用率降低
 
-  <img src="../../../../../Download/Typora/image/image-20220724173445865.png" alt="image-20220724173445865" style="zoom:50%;" />
+  <img src="/img/image/image-20220724173445865.png" alt="image-20220724173445865" style="zoom:50%;" />
 
 * DMA出现
 
   后来，**DMA**(Direct Memory Access，直接存储器访问)出现了。当IO请求传到计算机底层时，**DMA会向CPU请求，让DMA去处理这些IO操作**，从而可以让CPU去执行其他指令。DMA处理IO操作时，会请求获取总线的使用权。**当IO请求过多时，会导致大量总线用于处理IO请求，从而降低效率**
 
-  <img src="../../../../../Download/Typora/image/image-20220724173458155.png" alt="image-20220724173458155" style="zoom:50%;" />
+  <img src="/img/image/image-20220724173458155.png" alt="image-20220724173458155" style="zoom:50%;" />
 
 * 如今
 
   了**Channel(通道)**，Channel相当于一个**专门用于IO操作的独立处理器**，它具有独立处理IO请求的能力，当有IO请求时，它会自行处理这些IO请求
 
-  <img src="../../../../../Download/Typora/image/image-20220724173517345.png" alt="image-20220724173517345" style="zoom:50%;" />
+  <img src="/img/image/image-20220724173517345.png" alt="image-20220724173517345" style="zoom:50%;" />
 
 ### 通道类型
 
@@ -740,7 +740,7 @@ public class Demo5 {
 
   **注意**：按照缓冲区的**顺序**，从Channel 中读取的数据依次将 Buffer 填满
 
-  <img src="../../../../../Download/Typora/image/image-20220724175035514.png" alt="image-20220724175035514" style="zoom:50%;" />
+  <img src="/img/image/image-20220724175035514.png" alt="image-20220724175035514" style="zoom:50%;" />
 
 * 聚集写入
 
@@ -748,7 +748,7 @@ public class Demo5 {
 
   按照缓冲区的**顺序**，写入position 和limit 之间的数据到Channel
 
-  <img src="../../../../../Download/Typora/image/image-20220724175718206.png" alt="image-20220724175718206" style="zoom:50%;" />
+  <img src="/img/image/image-20220724175718206.png" alt="image-20220724175718206" style="zoom:50%;" />
 
 ```java
 public class Demo2 {
@@ -796,7 +796,7 @@ public class Demo2 {
 
 也就是说，服务器在等待IO准备就绪的期间，**线程处于阻塞状态**，若为单线程，等待期间CPU未执行任何任务，效率降低。所以需要开启多个线程，当某些线程因为等待IO准备就绪时，CPU可以去执行其他线程中的任务。但是线程的创建、切换与销毁的开销也是不小的。当大量的任务到来时，服务器性能也急剧下降。
 
-<img src="../../../../../Download/Typora/image/image-20220724181809286.png" alt="image-20220724181809286" style="zoom: 50%;" />
+<img src="/img/image/image-20220724181809286.png" alt="image-20220724181809286" style="zoom: 50%;" />
 
 #### 非阻塞式网络通信
 
@@ -804,7 +804,7 @@ Java NIO 是非阻塞模式的。当线程从某通道进行读写数据时，**
 
 因此，NIO 可以让服务器端**使用一个或有限几个线程来同时处理连接到服务器端的所有客户端**
 
-<img src="../../../../../Download/Typora/image/image-20220724181906512.png" alt="image-20220724181906512" style="zoom:50%;" />
+<img src="/img/image/image-20220724181906512.png" alt="image-20220724181906512" style="zoom:50%;" />
 
 ### 2、使用
 

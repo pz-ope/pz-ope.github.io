@@ -77,13 +77,13 @@ RabbitMQ 最初起源于金融系统，用于在分布式系统中存储转发�
 
 消费者（consumer）订阅某个队列。生产者（producer）创建消息，然后发布到队列（queue）中，最后将消息发送到监听的消费者。
 
-<img src="../../../../../Download/Typora/image/image-20220718171837326.png" alt="image-20220718171837326" style="zoom:40%;" />
+<img src="/img/image/image-20220718171837326.png" alt="image-20220718171837326" style="zoom:40%;" />
 
 ## RabbitMQ 基本概念
 
 上面只是最简单抽象的描述，具体到 RabbitMQ 则有更详细的概念需要解释。上面介绍过 RabbitMQ 是 AMQP 协议的一个开源实现，所以其内部实际上也是 AMQP 中的基本概念：
 
-<img src="../../../../../Download/Typora/image/image-20220718171927383.png" alt="image-20220718171927383" style="zoom:60%;" />
+<img src="/img/image/image-20220718171927383.png" alt="image-20220718171927383" style="zoom:60%;" />
 
 * **Message**
 
@@ -129,7 +129,7 @@ RabbitMQ 最初起源于金融系统，用于在分布式系统中存储转发�
 
 AMQP 中消息的路由过程和 Java 开发者熟悉的 JMS 存在一些差别，AMQP 中增加了 Exchange 和 Binding 的角色。生产者把消息发布到 Exchange 上，消息最终到达队列并被消费者接收，而 Binding 决定交换器的消息应该发送到那个队列。
 
-<img src="../../../../../Download/Typora/image/image-20220718205755752.png" alt="image-20220718205755752" style="zoom:80%;" />
+<img src="/img/image/image-20220718205755752.png" alt="image-20220718205755752" style="zoom:80%;" />
 
 ## Exchange 类型
 
@@ -139,19 +139,19 @@ headers 匹配 AMQP 消息的 header 而不是路由键，此外 headers 交换�
 
 * **direct**
 
-  <img src="../../../../../Download/Typora/image/image-20220718205939866.png" alt="image-20220718205939866" style="zoom:80%;" />
+  <img src="/img/image/image-20220718205939866.png" alt="image-20220718205939866" style="zoom:80%;" />
 
   消息中的路由键（routing key）如果和 Binding 中的 binding key 一致， 交换器就将消息发到对应的队列中。路由键与队列名完全匹配，如果一个队列绑定到交换机要求路由键为“dog”，则只转发 routing key 标记为“dog”的消息，不会转发“dog.puppy”，也不会转发“dog.guard”等等。它是完全匹配、单播的模式。
 
 * **fanout**
 
-  <img src="../../../../../Download/Typora/image/image-20220718210131481.png" alt="image-20220718210131481" style="zoom:80%;" />
+  <img src="/img/image/image-20220718210131481.png" alt="image-20220718210131481" style="zoom:80%;" />
 
   每个发到 fanout 类型交换器的消息都会分到所有绑定的队列上去。fanout 交换器不处理路由键，只是简单的将队列绑定到交换器上，每个发送到交换器的消息都会被转发到与该交换器绑定的所有队列上。很像子网广播，每台子网内的主机都获得了一份复制的消息。fanout 类型转发消息是最快的。
 
 * **topic**
 
-  <img src="../../../../../Download/Typora/image/image-20220718211732002.png" alt="image-20220718211732002" style="zoom:80%;" />
+  <img src="/img/image/image-20220718211732002.png" alt="image-20220718211732002" style="zoom:80%;" />
 
   topic 交换器通过模式匹配分配消息的路由键属性，将路由键和某个模式进行匹配，此时队列需要绑定到一个模式上。它将路由键和绑定键的字符串切分成单词，这些单词之间用点隔开。它同样也会识别两个通配符：符号“#”和符号“\*”。#匹配0个或多个单词，\*匹配不多不少一个单词。
 
@@ -265,7 +265,7 @@ RabbitMQ 支持多种语言访问，以 Java 为例看下一般使用 RabbitMQ �
 6. 运行 Producer
    接着运行 Producer ,发布一条消息，在 Consumer 的控制台能看到接收的消息：
 
-   <img src="../../../../../Download/Typora/image/image-20220719173807115.png" alt="image-20220719173807115" style="zoom:80%;" />
+   <img src="/img/image/image-20220719173807115.png" alt="image-20220719173807115" style="zoom:80%;" />
 
 
 
@@ -416,7 +416,7 @@ pub/sub模式包含三个角色：交换机（exchange），发布者（publishe
 
 ## simple简单模式
 
-<img src="../../../../../Download/Typora/image/image-20220719182351525.png" alt="image-20220719182351525" style="zoom:80%;" />
+<img src="/img/image/image-20220719182351525.png" alt="image-20220719182351525" style="zoom:80%;" />
 
 一对一的消息模式，生产者往同一个队列里生产，只供一个消费者。
 
@@ -424,7 +424,7 @@ pub/sub模式包含三个角色：交换机（exchange），发布者（publishe
 
 ## work工作模式(资源的竞争)
 
-<img src="../../../../../Download/Typora/image/image-20220719182840244.png" alt="image-20220719182840244" style="zoom:80%;" />
+<img src="/img/image/image-20220719182840244.png" alt="image-20220719182840244" style="zoom:80%;" />
 
 一对多的消息模式，生产者往同一个消息队列里生产，供多个消费者消费（不会重复）。
 
@@ -432,7 +432,7 @@ pub/sub模式包含三个角色：交换机（exchange），发布者（publishe
 
 ## publish/subscribe发布订阅(共享资源)
 
-<img src="../../../../../Download/Typora/image/image-20220719183016607.png" alt="image-20220719183016607" style="zoom:80%;" />
+<img src="/img/image/image-20220719183016607.png" alt="image-20220719183016607" style="zoom:80%;" />
 
 生产者生产数据，供多个消费者消费相同数据。由**交换机**把消息发布至所有消息队列中(不存在差异性)
 
@@ -445,11 +445,11 @@ pub/sub模式包含三个角色：交换机（exchange），发布者（publishe
 * 根据业务功能定义路由字符串
 * 从系统的代码逻辑中获取对应的功能字符串,将消息任务扔到对应的队列中业务场景:error 通知;EXCEPTION;错误通知的功能;传统意义的错误通知;客户通知;利用key路由,可以将程序中的错误封装成消息传入到消息队列中,开发者可以自定义消费者,实时接收错误;
 
-<img src="../../../../../Download/Typora/image/image-20220719183350398.png" alt="image-20220719183350398" style="zoom:80%;" />
+<img src="/img/image/image-20220719183350398.png" alt="image-20220719183350398" style="zoom:80%;" />
 
 ## topic 主题模式(路由模式的一种)
 
-<img src="../../../../../Download/Typora/image/image-20220719183511127.png" alt="image-20220719183511127" style="zoom:80%;" />
+<img src="/img/image/image-20220719183511127.png" alt="image-20220719183511127" style="zoom:80%;" />
 
 routing路由模式的升级版，增加了通配符
 
@@ -463,7 +463,7 @@ routing路由模式的升级版，增加了通配符
 
 生产者生产消息后至消息队列，进入阻塞状态，服务器消费完后返回给客户端notify
 
-<img src="../../../../../Download/Typora/image/image-20220719191258642.png" alt="image-20220719191258642" style="zoom:80%;" />
+<img src="/img/image/image-20220719191258642.png" alt="image-20220719191258642" style="zoom:80%;" />
 
 客户端发送请求（消息）时，在消息的属性（Message Properties，在AMQP协议中定义了14种properties，这些属性会随着消息一起发送）中设置两个值replyTo（一个Queue名称，用于告诉服务器处理完成后将通知我的消息发送到这个Queue中）和correlationId（此次请求的标识号，服务器处理完成后需要将此属性返还，客户端将根据这个id了解哪条请求被成功执行了或执行失败）。服务器端收到消息处理完后，将生成一条应答消息到replyTo指定的Queue，同时带上correlationId属性。客户端之前已订阅replyTo指定的Queue，从中收到服务器的应答消息后，根据其中的correlationId属性分析哪条请求被执行了，根据执行结果进行后续业务处理。
 

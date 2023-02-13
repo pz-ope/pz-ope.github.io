@@ -269,9 +269,9 @@ p.___proto__.__proto__.__proto__== Object.prototype.__proto__ == null
 通过__proto__形成原型链而非protrotype
 ```
 
-<img src="../../../../../Download/Typora/image/image-20230209201628780.png" alt="image-20230209201628780" style="zoom:80%;" />
+<img src="/img/image/image-20230209201628780.png" alt="image-20230209201628780" style="zoom:80%;" />
 
-![image-20230208214004851](../../../../../Download/Typora/image/image-20230208214004851.png)
+![image-20230208214004851](/img/image/image-20230208214004851.png)
 
 ## isPrototypeOf()
 

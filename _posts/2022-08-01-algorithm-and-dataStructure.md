@@ -16,7 +16,7 @@
 
 我们先用一个动画图来直观的观察一下整个冒泡排序的过程：
 
-![20200708155735461](../../../../../Download/Typora/image/20200708155735461.gif)
+![20200708155735461](/img/image/20200708155735461.gif)
 
 排序共进行八轮，每一轮都会做两两比较，并将较大的元素右移，就像冒泡一下。
 
@@ -66,7 +66,7 @@ public class BubbleSort {
 
 我们看下输出结果：
 
-![image-20220801210925501](../../../../../Download/Typora/image/image-20220801210925501.png)
+![image-20220801210925501](/img/image/image-20220801210925501.png)
 
 ## 冒泡算法的第一次改进
 
@@ -159,7 +159,7 @@ public class BubbleSort2 {
 
 运行结果如下：
 
-<img src="../../../../../Download/Typora/image/image-20220801211404844.png" alt="image-20220801211404844" style="zoom:80%;" />
+<img src="/img/image/image-20220801211404844.png" alt="image-20220801211404844" style="zoom:80%;" />
 
 从结果我们可以看到少了一轮排序，提升了速度。
 
@@ -181,7 +181,7 @@ public class BubbleSort2 {
 
 先看一个插入排序的动画，对它有个直观的了解：
 
-![20200709212934477](../../../../../Download/Typora/image/20200709212934477.gif)
+![20200709212934477](/img/image/20200709212934477.gif)
 
 我们来分析一下排序的流程。
 
@@ -225,7 +225,7 @@ public class InsertionSort {
 
 运行结果：
 
-<img src="../../../../../Download/Typora/image/image-20220801212758041.png" alt="image-20220801212758041" style="zoom:80%;" />
+<img src="/img/image/image-20220801212758041.png" alt="image-20220801212758041" style="zoom:80%;" />
 
 ## 插入排序的时间复杂度
 
@@ -247,7 +247,7 @@ public class InsertionSort {
 
 先看一个动画：
 
-![2020070819571632](../../../../../Download/Typora/image/2020070819571632.gif)
+![2020070819571632](/img/image/2020070819571632.gif)
 
 选择排序的原理如下：
 
@@ -291,7 +291,7 @@ public class SelectionSort {
 
 运行结果：
 
-<img src="../../../../../Download/Typora/image/image-20220801213535450.png" alt="image-20220801213535450" style="zoom:80%;" />
+<img src="/img/image/image-20220801213535450.png" alt="image-20220801213535450" style="zoom:80%;" />
 
 ## 选择排序的第二种java实现
 
@@ -331,7 +331,7 @@ public class SelectionSort1 {
 
 运行结果：
 
-<img src="../../../../../Download/Typora/image/image-20220801213800501.png" alt="image-20220801213800501" style="zoom:80%;" />
+<img src="/img/image/image-20220801213800501.png" alt="image-20220801213800501" style="zoom:80%;" />
 
 两种排序大家要注意内部循环的比较条件是不一样的。
 
@@ -353,7 +353,7 @@ public class SelectionSort1 {
 
 先看一个动画：
 
-![20200709135228799](../../../../../Download/Typora/image/20200709135228799.gif)
+![20200709135228799](/img/image/20200709135228799.gif)
 
 我们来详细分析一下上面例子的运行过程：
 
@@ -440,7 +440,7 @@ array是原数组，low和high标记出了要递归排序的数组起始位置�
 
 运行下上面的结果：
 
-<img src="../../../../../Download/Typora/image/image-20220801214802972.png" alt="image-20220801214802972" style="zoom:80%;" />
+<img src="/img/image/image-20220801214802972.png" alt="image-20220801214802972" style="zoom:80%;" />
 
 可以看到输出结果和我们动画展示的结果是一致的。
 
@@ -452,7 +452,7 @@ array是原数组，low和high标记出了要递归排序的数组起始位置�
 
 再看一下divide方法：
 
-<img src="../../../../../Download/Typora/image/image-20220801214845233.png" style="zoom:80%;" />
+<img src="/img/image/image-20220801214845233.png" style="zoom:80%;" />
 
 divide方法将排序分成了logN层，每层都可以看做是对N个元素的合并排序，因此每层的时间复杂度是O(N)。
 
@@ -478,7 +478,7 @@ divide方法将排序分成了logN层，每层都可以看做是对N个元素的
 
 先看一个动画：
 
-![20200709213056298](../../../../../Download/Typora/image/20200709213056298.gif)
+![20200709213056298](/img/image/20200709213056298.gif)
 
 我们再分析一下快速排序的步骤。
 
@@ -500,13 +500,13 @@ divide方法将排序分成了logN层，每层都可以看做是对N个元素的
 
 考虑两种情况，第一种情况是数组中的元素比中间节点的值要大。
 
-<img src="../../../../../Download/Typora/image/image-20220811202909045.png" alt="image-20220811202909045" style="zoom:80%;" />
+<img src="/img/image/image-20220811202909045.png" alt="image-20220811202909045" style="zoom:80%;" />
 
 这种情况下，m不需要移动，k+1继续遍历即可。
 
 第二种情况下，数组中的元素比中间节点的值要小。
 
-<img src="../../../../../Download/Typora/image/image-20220811203116914.png" alt="image-20220811203116914" style="zoom:80%;" />
+<img src="/img/image/image-20220811203116914.png" alt="image-20220811203116914" style="zoom:80%;" />
 
 因为m左边的元素都要比中间节点的值要小，所以这种情况下m需要+1，即右移一位。
 
@@ -612,7 +612,7 @@ count排序有一定的限制，因为外部的count数组长度是和原数组�
 
 先看一个动画，看看是怎么排序的：
 
-![20200709212450630](../../../../../Download/Typora/image/20200709212450630.gif)
+![20200709212450630](/img/image/20200709212450630.gif)
 
 count数组里面存放的是从0到9这些元素出现的次数。
 
@@ -676,7 +676,7 @@ public class CountingSort {
 
 运行的结果如下：
 
-<img src="../../../../../Download/Typora/image/image-20220811210540177.png" alt="image-20220811210540177" style="zoom:80%;" />
+<img src="/img/image/image-20220811210540177.png" alt="image-20220811210540177" style="zoom:80%;" />
 
 ## count排序的第二种方法
 
@@ -705,7 +705,7 @@ public class CountingSort {
 
 第二步根据count中的下标，构建排序后的数组，插入一个之后，相应的count下标要减一。
 
-<img src="../../../../../Download/Typora/image/image-20220811210854891.png" alt="image-20220811210854891" style="zoom:80%;" />
+<img src="/img/image/image-20220811210854891.png" alt="image-20220811210854891" style="zoom:80%;" />
 
 可能不是很好理解，大家可以结合输出结果反复琢磨一下。
 
@@ -731,7 +731,7 @@ public class CountingSort {
 
 先看动画，看下最直观的基数排序的过程：
 
-![20200709234431411](../../../../../Download/Typora/image/20200709234431411.gif)
+![20200709234431411](/img/image/20200709234431411.gif)
 
 在上面的例子中，我们先对个位进行count排序，然后对十位进行count排序，然后是百位和千位。
 
@@ -818,7 +818,7 @@ public int getMax(int[] array)
 
 看下输出结果：
 
-<img src="../../../../../Download/Typora/image/image-20220811211218271.png" alt="image-20220811211218271" style="zoom:80%;" />
+<img src="/img/image/image-20220811211218271.png" alt="image-20220811211218271" style="zoom:80%;" />
 
 很好，结果都排序了。
 
@@ -844,7 +844,7 @@ linkedList应该是一种非常非常简单的数据结构了。节点一个一�
 
 linkedList是由一个一个的节点构成的。而每个节点只需要存储要保存的数据和下一个节点的引用即可。
 
-<img src="../../../../../Download/Typora/image/image-20220811211404144.png" alt="image-20220811211404144" style="zoom:60%;" />
+<img src="/img/image/image-20220811211404144.png" alt="image-20220811211404144" style="zoom:60%;" />
 
 linkedList本身需要一个head节点，所以我们的linkedList可以这样构建：
 
@@ -873,7 +873,7 @@ public class LinkedList {
 
 先看一个头部插入的例子：
 
-<img src="../../../../../Download/Typora/image/20200711205530567.gif" alt="20200711205530567" style="zoom:80%;" />
+<img src="/img/image/20200711205530567.gif" alt="20200711205530567" style="zoom:80%;" />
 
 头部插入的逻辑是什么呢？
 
@@ -895,7 +895,7 @@ public void push(int newData) {
 
 再看一下尾部插入的例子：
 
-<img src="../../../../../Download/Typora/image/20200711210506686.gif" alt="20200711210506686" style="zoom:80%;" />
+<img src="/img/image/20200711210506686.gif" alt="20200711210506686" style="zoom:80%;" />
 
 插入的逻辑是什么呢？
 
@@ -927,7 +927,7 @@ public void append(int newData) {
 
 再看一下中间插入的例子：
 
-<img src="../../../../../Download/Typora/image/2020071121075628.gif" alt="2020071121075628" style="zoom:80%;" />
+<img src="/img/image/2020071121075628.gif" alt="2020071121075628" style="zoom:80%;" />
 
 这个例子中，我们在第三个节点的位置插入了一个93。
 
@@ -959,7 +959,7 @@ public void insertAfter(int index, int newData) {
 
 再看一下怎么删除某个位置的节点：
 
-<img src="../../../../../Download/Typora/image/20200711211322969.gif" alt="20200711211322969" style="zoom:80%;" />
+<img src="/img/image/20200711211322969.gif" alt="20200711211322969" style="zoom:80%;" />
 
 上面的例子中，我们要删除第5个节点。
 
@@ -1011,7 +1011,7 @@ public void insertAfter(int index, int newData) {
 
 和linkedList一样，doublyLinkedList是由一个一个的节点构成的。而每个节点除了要存储要保存的数据之外，还需要存储下一个节点和上一个节点的引用。
 
-<img src="../../../../../Download/Typora/image/image-20220814184457994.png" alt="image-20220814184457994" style="zoom:80%;" />
+<img src="/img/image/image-20220814184457994.png" alt="image-20220814184457994" style="zoom:80%;" />
 
 doublyLinkedList需要一个head节点，我们看下怎么构建：
 
@@ -1033,7 +1033,7 @@ public class DoublyLinkedList {
 
 ## 头部插入
 
-<img src="../../../../../Download/Typora/image/20200711231151829.gif" alt="20200711231151829" style="zoom:80%;" />
+<img src="/img/image/20200711231151829.gif" alt="20200711231151829" style="zoom:80%;" />
 
 头部插入的逻辑是：将新插入的节点作为新的head节点，并且将newNode.next指向原来的head节点。同时需要将head.prev指向新的插入节点。
 
@@ -1054,7 +1054,7 @@ public void push(int newData) {
 
 ## 尾部插入
 
-<img src="../../../../../Download/Typora/image/20200711231502635.gif" alt="20200711231502635" style="zoom:80%;" />
+<img src="/img/image/20200711231502635.gif" alt="20200711231502635" style="zoom:80%;" />
 
 尾部插入的逻辑是：找到最后一个节点，将最后一个节点的next指向新插入的节点，并且将新插入的节点的prev指向最后一个节点。
 
@@ -1084,7 +1084,7 @@ public void append(int newData) {
 
 ## 插入给定的位置
 
-<img src="../../../../../Download/Typora/image/202007112317512.gif" alt="202007112317512" style="zoom:80%;" />
+<img src="/img/image/202007112317512.gif" alt="202007112317512" style="zoom:80%;" />
 
 如果要在给定的位置插入节点，我们需要先找到插入位置的前一个节点，然后将前一个节点的next指向新节点。新节点的prev指向前一个节点。
 
@@ -1117,7 +1117,7 @@ public void insertAfter(int index, int newData) {
 
 ## 删除指定位置的节点
 
-<img src="../../../../../Download/Typora/image/20200711232055223.gif" alt="20200711232055223" style="zoom:80%;" />
+<img src="/img/image/20200711232055223.gif" alt="20200711232055223" style="zoom:80%;" />
 
 删除节点的逻辑是：找到要删除节点的前一个节点，和下一个节点。前一个节点的next指向下一个节点，下一个节点的prev指向前一个节点。
 
