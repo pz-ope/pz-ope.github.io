@@ -1,4 +1,17 @@
-![image-20230227095444585](../../../../../Download/Typora/image/image-20230227095444585.png)
+---
+layout:     post
+title:      "常见的排序算法"
+subtitle:   ""
+date:       2022-09-20 09:23:11
+author:     "pz"
+catalog: false
+header-style: text
+tags:
+  - 笔记
+  - 算法
+---
+
+![image-20230227095444585](/img/image/image-20230227095444585.png)
 
 # 排序-冒泡排序
 

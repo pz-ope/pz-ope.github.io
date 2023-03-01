@@ -1,3 +1,18 @@
+---
+layout:     post
+title:      "Mysql"
+subtitle:   ""
+date:       2022-09-20 09:23:11
+author:     "pz"
+catalog: false
+header-style: text
+tags:
+  - 笔记
+  - 数据库
+
+
+---
+
 # Mysql概述
 
 mysql是一种关系型数据库，在java企业级开发中起着非常重要作用，因为Mysql是免费开源的，==并且⽅便扩展==。MySQL是开放源代码的，因此任何⼈都可以在 GPL(General Public License) 的许可下下载并根据个性化的需要对其进⾏修改。MySQL的默认端⼝号是**3306**。

@@ -1,3 +1,17 @@
+---
+layout:     post
+title:      "TypeScript"
+subtitle:   ""
+date:       2023-01-11 10:00:21
+author:     "pz"
+catalog: false
+header-style: text
+tags:
+  - 笔记
+  - 前端
+
+---
+
 # 概述
 
 在浏览器中ES语法可以直接运行，但==目前浏览器却不支持==TS，这是就需要使用typescript（es的超级）编译器将其转为js在提交给浏览器运行。
