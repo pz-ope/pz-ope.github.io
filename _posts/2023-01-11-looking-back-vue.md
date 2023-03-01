@@ -49,7 +49,219 @@ Vue实例从创建到销毁的过程，就是生命周期。详细来说也就�
 
 ![image-20230208204749061](/img/image/image-20230208204749061.png)
 
-# vue路由跳转的方式
+# render函数
+
+vue中视图的渲染过程如下图所示。
+
+<img src="../../../../../Download/Typora/image/image-20230216113337079.png" alt="image-20230216113337079" style="zoom:80%;" />
+
+优先使用render函数，如render函数不存在会去查找template。最终将template编译生成render函数，使用render函数完成视图渲染。（vue的视图模板实际上是通过render函数渲染出来的）
+
+render函数返回virtual DOM，vue框架基于virtual DOM生成真实的DOM。
+（virtual DOM -> actual DOM）
+**render函数使得我们拥有使用js构建DOM的能力。我们可以自定义Render函数实现更灵活的功能。**
+
+render函数与props、data、computed同级，它接受一个createElement函数作为参数, 通常简写为h。如下图所示。
+
+```js
+render(h){
+    return h("div",{},[...])
+}
+```
+
+## createElement 
+
+createElement (简写为h) 是 render 函数的参数，它本身也是个函数，有三个参数。
+
+1. 第一个参数是必填的，可以是String | Object | Function
+   String，表示的是HTML 标签名
+   Object ，一个含有数据的组件对象
+   Function ，返回了一个含有标签名或者组件选项对象的async 函数
+2. 第二个参数是选填的，一个与模板中属性对应的数据对象
+   常用的有class | style | attrs | domProps | on
+3. 第三个参数是选填的，代表子级虚拟节点 (VNodes)，由 `createElement()` 构建而成, 也可以放置字符串。如果放置字符串，字符串会被创建为第一个参数创建的dom节点下的文本。
+
+注：任何时候都需要一个文本放置在dom元素中。即第三个参数的位置始终需要放置一个东西，如果不是[...]，就是"str"。
+
+```js
+h("div","some text");
+h("div",{class:'foo'},"some text");
+h("div",{...},["some text",h('span','bar')])
+
+// 实现一个example组件，接收数组tags作为参数，创建与tags内容相同的html标签，标签的内容是对应tag的index。
+// html
+<example :tags="['h1', 'h2', 'h3 ' ]"></ example>
+// js
+props:["tags" ],
+render(h) {
+return h("div", this.tags.map((tag,i) => h(tag,i)));
+}
+which renders the expected output:
+// html
+<div>
+	<h1>0</h1>
+	<h2>1</h2>
+	<h3>2</h3>
+</div>
+```
+
+# Vue 的父组件和子组件生命周期
+
+## Vue 的父组件和子组件生命周期钩子函数执行顺序
+
+Vue 的父组件和子组件生命周期钩子函数执行顺序可以归类为以下 4 部分：
+
+* 加载渲染过程 :
+  父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted -> 父 mounted
+* 子组件更新过程 :
+  父 beforeUpdate -> 子 beforeUpdate -> 子 updated -> 父 updated
+* 父组件更新过程 :
+  父 beforeUpdate -> 父 updated
+* 销毁过程 :
+  父 beforeDestroy -> 子 beforeDestroy -> 子 destroyed -> 父 destroyed
+
+## 父组件可以监听到子组件的生命周期
+
+* 自定义事件
+
+  比如有父组件 Parent 和子组件 Child，如果父组件监听到子组件挂载 mounted 就做一些逻辑处理，可以通过以下写法实现：
+
+  ```kotlin
+  // Parent.vue
+  <Child @mounted="doSomething"/>
+  
+  // Child.vue
+  mounted() {
+    this.$emit("mounted");
+  }
+  ```
+
+* @hook 来监听
+
+  简单的方式可以在父组件引用子组件时通过 @hook 来监听即可
+
+  ```kotlin
+  //  Parent.vue
+  <Child @hook:mounted="doSomething" ></Child>
+  
+  doSomething() {
+     console.log('父组件监听到 mounted 钩子函数 ...');
+  },
+  
+  //  Child.vue
+  mounted(){
+     console.log('子组件触发 mounted 钩子函数 ...');
+  },    
+  // 以上输出顺序为：
+  // 子组件触发 mounted 钩子函数 ...
+  // 父组件监听到 mounted 钩子函数 ...
+  ```
+
+# computed 和 watch
+
+## computed 
+
+计算属性，依赖其它属性值，并且 computed 的值有缓存，只有它依赖的属性值发生改变，下一次获取 computed 的值时才会重新计算 computed 的值；
+
+* 支持缓存，只有依赖数据发生改变，才会重新进行计算；
+* 不支持异步，当 computed 内有异步操作时无效，无法监听数据的变化；
+* computed 属性值会默认走缓存，计算属性是基于它们的响应式依赖进行缓存的。也就是基于data中声明过或者父组件传递的 props 中的数据通过计算得到的值；
+* 如果一个属性是由其他属性计算而来的，这个属性依赖其他属性 是一个多对一或者一对一，一般用computed；
+* 如果 computed 属性值是函数，那么默认会走 get 方法，函数的返回值就是属性的属性值；在computed中的，属性都有一个get和一个 set 方法，当数据变化时，调用 set 方法；
+
+```kotlin
+computed:{
+   计算的属性名：{
+//当初次读取 计算的属性名 时，或者所依赖的数据发生变化时get调用。
+  get（）{
+    return  xxx
+}，
+//当计算的属性的数据被修改时set调用，是触发了setter也就会触发getter，他们两个是相互独立的，若set中当前所依赖的数据，才会触发get修改了执行顺序是setter -> getter -> updated
+  set（）{
+    }
+  }
+}
+//简写：
+computed：{
+   计算的属性名（）{
+    return
+  }
+}
+```
+
+## watch
+
+监听属性, 更多的是「观察」的作用，类似于某些数据的监听回调 ，每当监听的数据变化时都会执行回调进行后续操作；
+
+* 完全等同于vue2 中的watch
+* 不支持缓存，数据变化，直接会触发相应的操作；
+* watch 支持异步操作；
+* 监听的函数接收两个参数，第一个参数是最新的值；第二个参数是输入之前的值；
+   当一个属性发生变化时，需要执行对应的操作，一对多；
+* 监听数据必须是 data 中声明过或者组合式api中声明的响应式值或者父组件传递过来的 props 中的数据。当数据变化时触发其他操作，函数有两个参数：
+
+immediate属性：组件加载立即触发回调函数执行；
+
+deep: 深度监听；为了发现对象内部值的变化，复杂类型的数据时使用，例如：数组中的对象内容的改变，注意：监听数组的变动不需要这么做。注意：deep无法监听到数组的变动和对象的新增，参考vue数组变异,只有以响应式的方式触发才会被监听到；
+
+```kotlin
+写法一：
+const vm = new Vue({
+watch:{
+ （监视属性）：{
+       immediate: true,   //立即执行
+       deep:true,//深度监视
+           //初始化时让handler调用一下
+          //handler什么时候调用？当isHot发生改变时。
+       handler(newValue, oldValue) {
+      }
+    }
+  }
+}）
+写法二：
+vm.$watch('监视属性',{
+    immediate:true, //立即执行
+    deep:true,//深度监视
+   //初始化时让handler调用一下
+   //handler什么时候调用？当isHot发生改变时。
+    handler(newValue,oldValue){
+  }
+}）
+简写：
+1. watch：{
+  监视属性(newValue,oldValue){
+}
+2. vm.$watch('监视属性',(newValue,oldValue)=>{
+}) 
+```
+
+## 直接给一个数组项赋值，Vue 检测不到变化
+
+由于 JavaScript 的限制，Vue 不能检测到以下数组的变动：
+
+- 当你利用索引直接设置一个数组项时，例如：`vm.items[indexOfItem] = newValue`
+- 当你修改数组的长度时，例如：`vm.items.length = newLength`
+
+解决办法：
+
+```kotlin
+// Vue.set
+Vue.set(vm.items, indexOfItem, newValue)
+// vm.$set，Vue.set的一个别名
+vm.$set(vm.items, indexOfItem, newValue)
+// Array.prototype.splice
+vm.items.splice(indexOfItem, 1, newValue)
+
+// Array.prototype.splice
+vm.items.splice(newLength)
+```
+
+## 运用场景
+
+* 当需要进行数值计算，并且依赖于其它数据时，应该使用 computed，因为可以利用 computed 的缓存特性，避免每次获取值时，都要重新计算；
+* 当需要在数据变化时执行异步或开销较大的操作时，应该使用 watch，使用 watch 选项允许我们执行异步操作 ( 访问一个 API )，限制执行该操作的频率，并在得到最终结果前，设置中间状态。这些都是计算属性无法做到的。
+
+# vue路由跳转的方式 
 
 ## router-link
 
@@ -176,6 +388,14 @@ v-model:实现双向数据绑定。
 ```
 
 # 组件间的传参
+
+### Vue 的单向数据流
+
+所有的 prop 都使得其父子 prop 之间形成了一个单向下行绑定：父级 prop 的更新会向下流动到子组件中，但是反过来则不行。
+这样会防止从子组件意外改变父级组件的状态，从而导致应用的数据流向难以理解。
+额外的，每次父级组件发生更新时，子组件中所有的 prop 都将会刷新为最新的值。
+这意味着不应该在一个子组件内部改变 prop。如果你这样做了，Vue 会在浏览器的控制台中发出警告。
+子组件想修改时，只能通过 $emit 派发一个自定义事件，父组件接收到后，由父组件修改。
 
 ![image-20230210143408183](/img/image/image-20230210143408183.png)
 
@@ -374,6 +594,128 @@ this.$store.commit('addCount');  // 加 1
 this.$store.commit('subCount');  // 减 1
 ```
 
+# Vuex
+
+Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。每一个 Vuex 应用的核心就是 store（仓库）。“store” 基本上就是一个容器，它包含着你的应用中大部分的状态 ( state )。
+
+- Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+- 改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。这样使得我们可以方便地跟踪每一个状态的变化。
+
+```js
+// 新建store文件->index.js，进行如下配置，在main.js中进行引入
+import Vue from 'vue'
+import Vuex from 'vuex'
+ 
+Vue.use(Vuex)
+ 
+export default new Vuex.Store({
+  //数据，相当于data
+  state: {
+    name:"张三",
+    age:12,
+    count:0
+  },
+  getters: {
+    
+  },
+  //里面定义方法，操作state方发
+  mutations: {
+    addcount (state,num){
+        state. count=+state.count+num
+    },
+    reduce (state){
+         state.count--
+    }
+  },
+  // 操作异步操作mutation
+  actions: {
+    asyncAdd( context){
+        //异步
+        setTimeout(()=>{
+            context.commit("reduce")
+        },1000);
+  },
+  modules: {
+   userinfo: {
+       state: {
+           username: "张启楠"，
+       },
+   },
+  },
+})
+// main.js中
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+Vue.config.productionTip = false
+new Vue({
+    router,
+    store,
+    render: h => h(App)
+}).$mount('#app')
+```
+
+主要模块：
+
+- State => 公共数据源，所有共享的数据统一放到store的state进行储存,定义了应用状态的数据结构，可以在这里设置默认的初始状态。
+
+  ```jsx
+  <p>{{ $store.state.name }}</p>  // 标签中直接使用
+  this.$store.state.全局数据名称   // 标签中直接使用
+  // 从vuex中按需导入mapstate函数
+  import { mapState } from "vuex"; 
+  computed: {
+      ...mapState( ["name","age","sex"])
+  }
+  ```
+
+- Getter => 从基本数据派生的数据，允许组件从 Store 中获取数据，mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性,类似于vue中的computed，进行缓存，对于Store中的数据进行加工处理形成新的数据。
+
+- mutation => 是唯一更改 store 中状态的方法，且必须是同步函数。
+
+  Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的**事件类型 (type)和一个回调函数 (handler)**。这个回调函数就是实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
+
+  ```kotlin
+  // 使用commit触发Mutation操作
+  methods:{
+      //加法
+      btn(){
+          this.$store.commit("addcount",10)     //每次加十
+      }
+      //减法
+      btn1(){
+          this.$store.commit("reduce") 
+      }
+  }
+  
+  // 使用辅助函数进行操作
+  import { mapMutations } from "vuex"; 
+  methods:{
+      ...mapMutations(["addcount","reduce"]),
+      btn(){
+          this.addcount(10);
+      },
+      btn1(){
+          this.reduce();
+      }
+  }
+  ```
+
+- action => 像一个装饰器，包裹mutations，使之可以异步。用于提交 mutation，而不是直接变更状态，可以包含任意异步操作。
+
+  ```kotlin
+  // 使用  dispatch触发Action函数
+  this.$store.dispatch("asynAdd")
+  // 使用辅助函数进行操作
+  ...mapActions(["asyncAdd"]),
+  btn2(){
+      this.asyncAdd();
+  }
+  ```
+
+- module => 模块化Vuex，允许将单一的 Store 拆分为多个 store **模块（module）**且同时保存在单一的状态树中。
+
 # vue中常用算法
 
 ## 数组去重
@@ -523,11 +865,145 @@ MVC ，用户操作> View (负责接受用户的输入操作)>Controller（业�
 
 ## MVVM
 
-M -Model
-V - 
-VM - 视图模型
+M -Model 数据模型：数据和业务逻辑都在Model层中定义；
+V - View UI视图：负责数据的展示；
+VM - 视图模型：负责监听 Model 中数据的改变并且控制视图的更新，处理用户交互操作；
 
-MVVM是将“数据模型数据双向绑定”的思想作为核心，因此在View和Model之间没有联系，
-通过ViewModel进行交互，而且Model和ViewModel之间的交互是双喜那个的，
-因此试图的数据的变化会同时修改数据源，而数据源数据的变化也会立即反应到View上。
+MVVM是将“数据模型数据双向绑定”的思想作为核心
+
+Model 和 View 并无直接关联，而是通过 ViewModel 来进行联系的，Model 和 ViewModel 之间有着双向数据绑定的联系。因此当 Model 中的数据改变时会触发 View 层的刷新，View 中由于用户交互操作而改变的数据也会在 Model 中同步。
+这种模式实现了 Model 和 View 的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作 dom。
+
+# v-if 和 v-show
+
+## 共同点
+
+在 vue 中 v-show 与 v-if 的作用效果是相同的(不含v-else)，都能控制元素在页面是否显示 。
+
+- 当表达式都为 false 时，都不会占据页面位置
+- 当表达式结果为 true 时，都会占据页面的位置
+
+## 区别
+
+* **控制手段**：v-show隐藏则是为该元素添加css--display:none，dom元素依旧还在，不会占据页面位置。v-if显示隐藏是将dom元素整个添加或删除
+* **编译过程**：v-if切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件；v-show只是简单的基于css切换
+* **编译条件**：v-if是真正的条件渲染，它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。只有渲染条件为假时，并不做操作，直到为真才渲染
+
+v-show 由false变为true的时候不会触发组件的生命周期
+
+v-if由false变为true的时候，触发组件的beforeCreate、create、beforeMount、mounted钩子，由true变为false的时候触发组件的beforeDestory、destoryed方法
+
+**性能消耗**：v-if有更高的切换消耗；v-show有更高的初始渲染消耗；
+
+# SPA 单页面
+
+SPA（ single-page application ）仅在 Web 页面初始化时加载相应的 HTML、JavaScript 和 CSS。
+
+一旦页面加载完成，SPA 不会因为用户的操作而进行页面的重新加载或跳转；取而代之的是利用路由机制实现HTML 内容的变换，UI 与用户的交互，避免页面的重新加载。
+
+优点：
+
+* 用户体验好、快，内容的改变不需要重新加载整个页面，避免了不必要的跳转和重复渲染；
+* 基于上面一点，SPA 相对对服务器压力小；
+* 前后端职责分离，架构清晰，前端进行交互逻辑，后端负责数据处理；
+
+缺点：
+
+* **初次加载耗时多**：为实现单页 Web 应用功能及显示效果，需要在加载页面的时候将 JavaScript、CSS 统一加载，部分页面按需加载；
+* **前进后退路由管理**：由于单页应用在一个页面中显示所有的内容，所以不能使用浏览器的前进后退功能，所有的页面切换需要自己建立堆栈管理；
+* **SEO 难度较大**：由于所有的内容都在一个页面中动态替换显示，所以在 SEO 上其有着天然的弱势。
+
+# 动态绑定样式
+
+## Class动态绑定
+
+Class 可以通过对象语法和数组语法进行动态绑定
+
+* 对象语法
+
+  ```kotlin
+  <div v-bind:class="{ active: isActive == item.nameId, 'user': isUser }">{{item.name}}</div>// active在对象里面可以不加单引号
+  <div :class="classObject">{{name}}</div>
+  <div :class="classObjectComputed">{{name}}</div>
+  data() {
+    return {
+        isActive: true,
+        user: false,
+        classObject:{ active: true, user:false }// 放在data里面
+    }
+  }
+  // 使用computed属性
+  computed: {
+    classObjectComputed: function () {
+      return {
+        active: this.isActive,
+        user:this.isUser
+      }
+    }
+  }
+  ```
+
+* 数组语法
+
+  ```kotlin
+  <div v-bind:class="[isActive,isUser]">{{name}}</div>
+  <div :class="[isActive==index?'active':'otherActiveClass']">{{name}}</div>
+  :class="[{ active: isActiveindex}, 'sort']"
+  data() {
+    return{
+      isActive:'active',
+      isUser:'user',
+      isActiveindex:true,
+   }
+  }
+  ```
+
+## 动态绑定style
+
+style属性名都要变成驼峰式，比如font-size要变成`fontSize`
+
+除了绑定值，其他的属性名的值要用引号括起来，比如`backgroundColor:'#00a2ff'`而不是 backgroundColor:#00a2ff
+
+* 对象语法：
+
+  ```kotlin
+  <div :style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+  <div :style="{color:(index == 1 ? conFontColor:'#000')}"></div>
+  <div :style="styleObject"></div>
+  
+  <div :style="[{float: id === '12' ? 'left:'right}]"></div>
+  <div :style="float: nameList.length === 20 ? 'height:64px' : 'height:32px' "></div>
+  <div :style="{border:( nameId ===item.id ?'2px solid #4C78FF': 'red')}"></div>
+  data() {
+      return{
+          activeColor: 'red',
+          fontSize: 30
+          styleObject: {
+              color: 'red',
+              fontSize: '14px'
+          }  
+      }
+  }
+  ```
+
+* 数组语法：
+
+  ```kotlin
+  <div v-bind:style="[styleColor, styleSize]"></div>
+  <div :style="[{color:(index == 1 ? conFontColor:'#000')},{fontSize:'18px'}]"></div>
+  data: {
+    styleColor: {
+       color: 'red'
+     },
+    styleSize:{
+       fontSize:'23px'
+    }
+  }
+  ```
+
+  
+
+
+
+
 

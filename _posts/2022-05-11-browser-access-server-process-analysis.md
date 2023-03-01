@@ -25,6 +25,16 @@ Web 应用处理完请求并将结果返回给 Web 容器后，容器会将响�
 
 # URL解析
 
+一个URL的格式
+
+```
+protocol :// hostname[:port] / path / [;parameters][?query]#fragment
+```
+
+protocol 协议 hostname主机名 port端口号 path路径 parameters 参数 query查询 
+
+协议//主机:端口/路径名称?搜索条件
+
 ## 地址解析
 
 浏览器会根据你的输入来判断该输入是一条合法的URL，还是需要被搜索的关键词。并且根据你输入的内容进行自动完成、字符编码等操作。

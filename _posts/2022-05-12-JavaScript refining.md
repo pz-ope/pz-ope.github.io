@@ -15,15 +15,444 @@ tags:
 ```js
 Number   Boolean   undefined     Object   Function    String  Null
 
-基本类型：Number Boolean  String  undefined null
+基本类型：Number Boolean  String  undefined  null
 
-引用类型：Object  Function
-
+引用类型：Object（包括 Object 、Array 、Function) 
 ```
+
+## null 和 undefined 
+
+**undefined** 表示未定义，就是应该有值但是还没有赋值，连null的值都没有赋予
+
+**null** 代表空值，空引用。
+
+**undefined**
+
+* 变量被声明了，但没有赋值时，就等于undefined。
+* 调用函数时，应该提供的参数没有提供，该参数等于undefined。
+* 对象没有赋值的属性，该属性的值为undefined。
+* 函数没有返回值时，默认返回undefined。
+
+**null**
+
+* 作为对象原型链的终点出现；
+
+* 当我们访问一个不存在的dom节点的时候。
+
+null 和 undefined 虽然值的结果是相等的，但是其所代表的语义是完全不一样的（==是相等的）。
+
+undefined 代表了某个变量完全不存在，在内存中完全能不存在这个标识符所指向的地址；
+
+null 代表了内存中是存在这个变量的，只是在某些情况下需要把这个变量原本的值给覆盖了，将它设置为一个空。
+
+null 转为数值是 0 ; undefined 转为数值是 NAN（not a number）。
+
+null 通过 typeof 判断类型的时候结果的输出是 object ; 而 undefined 的类型是 undefined 。
+
+> null 和 undefined 都是js语言的基础数据类型, 都是原始值类型，但是 typeof null 是 object ，是因为不同的对象在底层都表现为二进制，在  JavaScript  中二进制前三位都为 0 的话会被判断为 object  类型，null 的二进制全部都为 0 ，前三位自然也是 0 ，所以执行 typeof 值会返回 object 。
+
+## 判断类型
+
+* **typeof**：检测变量数据类型的操作符，主要用来检测基本数据类型
+
+  它可以判断一个变量是字符串、数值、布尔值还是undefined，有个例外null返回object，但是如果检测的变量是引用数据类型，返回object或者function，但不能细致地分出是array还是RegExp。
+
+  ```js
+  var str="nihao",num=15,arr= [1,2,3],fun = function(){alert(2)},n = null, ;
+  
+  console.log(typeof num);   //number  
+  console.log(typeof str);   //string  
+  console.log(typeof arr1);  //object  
+  console.log(typeof n);     //object  
+  ```
+
+* **instanceof**：主要的目的就是检测引用类型,它可以判断出对象是Array还是RegExp。
+
+  instanceof运算符只能用于对象（纯对象和数组），不适用原始类型（Undefined、Null、Boolean、Number 和 String）的值。
+
+  instanceof的作用：会检查右边构造函数的原型对象（prototype），是否在左边对象的原型链上。
+
+  ```js
+  var a = {};
+  var b = [];
+  var c = function () {};
+  console.log(a instanceof Object) //true
+  console.log(b instanceof Object) //true
+  console.log(c instanceof Object) //true
+  
+  console.log(b instanceof Array) //true
+  console.log(c instanceof Function) //true
+  ```
+
+  ```js
+  //所以可用于检测实例是否是由某个构造函数而来的
+  function Ninja(){}
+  const ninja = new Ninja();
+  
+  ninja instanceof Ninja;   //true，其中原理就是instanceof会检查右边构造函数的原型对象（prototype），是否在左边对象的原型链上。
+  // 等同于
+  Ninja.prototype.isPrototypeOf(ninja)
+  ```
+
+  Object.prototype.isPrototypeOf的含义如下：
+
+  ```js
+  var p = {x:1};//定义一个原型对象
+  var o = Object.create(p);//使用这个原型创建一个对象
+  p.isPrototypeOf(o);//=>true：o继承p
+  Object.prototype.isPrototypeOf(p);//=> true p继承自Object.prototype
+  ```
+
+  由于instanceof检查整个原型链，因此同一个实例对象，可能会对多个构造函数都返回true。
+
+* Object.prototype.toString.call()
+
+  由于 JavaScript 中一切都是对象，任何都不例外，对所有值类型应用 Object.prototype.toString.call() 方法结果
+
+  ```js
+  console.log(Object.prototype.toString.call(123)) //[object Number]
+  console.log(Object.prototype.toString.call('123')) //[object String]
+  console.log(Object.prototype.toString.call(undefined)) //[object Undefined]
+  console.log(Object.prototype.toString.call(true)) //[object Boolean]
+  console.log(Object.prototype.toString.call({})) //[object Object]
+  console.log(Object.prototype.toString.call([])) //[object Array]
+  console.log(Object.prototype.toString.call(function(){})) //[object Function]
+  ```
+
+> instanceof的原理是检查右边构造函数的prototype属性，是否在左边对象的原型链上。有一种特殊情况，就是左边对象的原型链上，只有null对象。这时，instanceof判断会**失真**。
+>
+> ```js
+> var obj = Object.create(null);
+> typeof obj // "object"
+> Object.create(null) instanceof Object // false
+> ```
+>
+> 上面代码中，Object.create(null)返回一个新对象obj，它的原型是null（Object.create的详细介绍见后文）。右边的构造函数Object的prototype属性，不在左边的原型链上，因此instanceof就认为obj不是Object的实例。但是，只要一个对象的原型不是null，instanceof运算符的判断就不会失真
+
+## “ ===”、“ ==”
+
+1、 "\==“叫做相等运算符，”\=\=="叫做严格运算符。
+2、 \==，等同的意思，两边值类型不同的时候，要先进行**类型转换**为同一类型后，再比较值是否相等。
+      \=\==，恒等的意思，不做类型转换，类型不同的结果一定不等。
+3、 "\==“表示只要值相等即可为真，而”==="则要求不仅值相等，而且也要求类型相同。
+
+```js
+// JS尝试转换字符串’chuichui’，但是该字符串并不能转换为数字，这时候转换的结果就为NaN
+99 == “chuichui” 
+↓↓↓↓↓↓
+99 == NaN // false
+// JS在布尔值和其他类型比较时，都是把布尔值转换为数字
+1 == true
+↓↓↓↓↓↓
+1 == 1
+// null和undefined比较 只不过一个是没有值得变量，一个是没有值的对象，因此他们相似
+null == undefined //True
+
+// 空字符串""转换为0
+false == ""
+↓↓↓↓↓↓
+0==0// ture false转化为0,空字符串””转换为0
+```
+
+```js
+三等号===:两个都是数值，并且是同一个值，那么相等；如果其中至少一个是NaN，那么不相等。（判断一个值是否是NaN，只能使用isNaN( ) 来判断）
+```
+
+| 表达式               | 结果   | 原因                                                         |
+| -------------------- | ------ | ------------------------------------------------------------ |
+| undefined == null    | 真     | （发生转换）0==0                                             |
+| NaN == NaN           | 假     | 两个NaN永远不会相等                                          |
+| isNaN("100")         | 假     | （发生转换）"100"=>100=>假                                   |
+| isNaN(null)          | 假     | （发生转换）null=>0=>假                                      |
+| parseInt("1a") === 1 | 真     | （发生转换）"1a"=>1=>真                                      |
+| [] instanceof Array  | 真     |                                                              |
+| typeot []或 unll     | Object | 基本数据类型我行，引用数据类型摆烂，都是obj                  |
+| +new Array(017)      | NaN    | +是一元运算符无运算效果，但是可以将字符串等转为number类型，017其实是八进制 |
+| alert（2<1<3）       | true   | 2<1会显示false，而false在js中会被转换为0，后面等于0<3,于是true |
+
+# 正则表达式
+
+正则表达式（英语：Regular Expression，在代码中常简写为regex、regexp或RE）使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式。
+
+* 正则表达式是由一个字符序列形成的搜索模式。
+* 当你在文本中搜索数据时，你可以用搜索模式来描述你要查询的内容。
+* 正则表达式可以是一个简单的字符，或一个更复杂的模式。
+* 正则表达式可用于所有文本搜索和文本替换的操作。
+
+```kotlin
+/正则表达式主体/修饰符(可选)
+
+var patt = /runoob/i
+runoob  是一个正则表达式主体 (用于检索)。
+i  是一个修饰符 (搜索不区分大小写)。
+```
+
+* **search()** 方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串，并返回子串的起始位置。
+
+  ```kotlin
+  // 使用正则表达式搜索 "Runoob" 字符串，且不区分大小写
+  var str = "Visit Runoob!"; 
+  var n = str.search(/Runoob/i); // 6
+  // search 方法可使用字符串作为参数。字符串参数会转换为正则表达式
+  var str = "Visit Runoob!"; 
+  var n = str.search("Runoob");// 6
+  ```
+
+* **replace()** 方法用于在字符串中用一些字符串替换另一些字符串，或替换一个与正则表达式匹配的子串。
+
+  ```kotlin
+  //使用正则表达式且不区分大小写将字符串中的 Microsoft 替换为 Runoob 
+  var str = document.getElementById("demo").innerHTML; 
+  var txt = str.replace(/microsoft/i,"Runoob");
+  // replace() 方法也接收字符串作为参数：
+  ```
+
+## 正则表达式修饰符
+
+**修饰符** 可以在全局搜索中不区分大小写:
+
+| i    | 执行对大小写不敏感的匹配。                                 |
+| ---- | ---------------------------------------------------------- |
+| g    | 执行全局匹配（查找所有匹配，而非在找到第一个匹配后停止）。 |
+| m    | 执行多行匹配。                                             |
+
+## 正则表达式模式
+
+* 方括号用于查找某个范围内的字符：
+
+  ```kotlin
+  [abc]	查找方括号之间的任何字符;
+  [^abc]	查找任何不在方括号之间的字符；
+  [a-z]	查找任何从小写 a 到小写 z 的字符；
+  [A-Z]	查找任何从大写 A 到大写 Z 的字符；
+  [A-z]	查找任何从大写 A 到小写 z 的字符；
+  [0-9]	查找任何从 0 至 9 的数字；
+  [adgk]	查找给定集合内的任何字符。
+  [^adgk]	查找给定集合外的任何字符。
+  (red|blue|green)	查找任何指定的选项；
+  ```
+
+* 元字符是拥有特殊含义的字符
+
+  ```kotlin
+  .	查找单个字符，除了换行和行结束符；
+  \w	查找数字、字母及下划线
+  \W	查找非单词字符；
+  \d	查找数字;
+  \D	查找非数字字符；
+  \s	查找空白字符
+  \S	查找非空白字符;
+  \b	匹配单词边界;
+  \B	匹配非单词边界；
+  \0	查找 NULL 字符；
+  \n	查找换行符；
+  \f	查找换页符；
+  \r	查找回车符；
+  \t	查找制表符；
+  \v	查找垂直制表符；
+  \xxx	查找以八进制数 xxx 规定的字符
+  \xdd	查找以十六进制数 dd 规定的字符
+  \uxxxx	查找以十六进制数 xxxx 规定的 Unicode 字符;
+  ```
+
+* 量词
+
+  ```kotlin
+  n+	匹配任何包含至少一个 n 的字符串;
+  n*	匹配任何包含零个或多个 n 的字符串;
+  n?	匹配任何包含零个或一个 n 的字符串;
+  n{X}	匹配包含 X 个 n 的序列的字符串；
+  n{X,}	X 是一个正整数。前面的模式 n 连续出现至少 X 次时匹配；
+  n{X,Y}	X 和 Y 为正整数。前面的模式 n 连续出现至少 X 次，至多 Y 次时匹配；
+  n$	匹配任何结尾为 n 的字符串。
+  ^n	匹配任何开头为 n 的字符串。
+  ?=n	匹配任何其后紧接指定字符串 n 的字符串。
+  ?!n	匹配任何其后没有紧接指定字符串 n 的字符串
+  ```
+
+## 使用 RegExp 对象
+
+在 JavaScript 中，RegExp 对象是一个预定义了属性和方法的正则表达式对象。
+
+正则表达式用于对字符串模式匹配及检索替换，是对字符串执行模式匹配的强大工具。
+
+```kotlin
+var patt=new RegExp(pattern,modifiers);
+或者更简单的方式:
+var patt=/pattern/modifiers;
+// pattern（模式） 描述了表达式的模式
+// modifiers(修饰符) 用于指定全局匹配、区分大小写的匹配和多行匹配
+```
+
+> **注意：**当使用构造函数创造正则对象时，需要常规的字符转义规则（在前面加反斜杠 \）。比如，以下是等价的：
+>
+> ```kotlin
+> var re = new RegExp("\\w+");
+> var re = /\w+/;
+> ```
+
+test() ,exec() 方法是一个正则表达式方法。
+
+test() 方法用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true，否则返回 false。
+
+```kotlin
+// 字符串中含有 "e"
+var patt = /e/;
+patt.test("The best things in life are free!");// true
+/e/.test("The best things in life are free!");// true 两行代码可以合并
+```
+
+exec() 方法用于检索字符串中的正则表达式的匹配
+
+该函数返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null
+
+```kotlin
+// 字符串中含有 "e"
+/e/.exec("The best things in life are free!");// e
+```
+
+案例
+
+```kotlin
+//用户名正则，4到16位（字母，数字，下划线，减号）
+var uPattern = /^[a-zA-Z0-9_-]{4,16}$/;
+//密码强度正则，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符
+var pPattern = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
+//正整数正则
+var posPattern = /^\d+$/;
+//负整数正则
+var negPattern = /^-\d+$/;
+//整数正则
+var intPattern = /^-?\d+$/;
+//正数正则
+var posPattern = /^\d*\.?\d+$/;
+//负数正则
+var negPattern = /^-\d*\.?\d+$/;
+//数字正则
+var numPattern = /^-?\d*\.?\d+$/;
+//Email正则
+var ePattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+//手机号正则
+var mPattern = /^1[34578]\d{9}$/;
+//身份证号（18位）正则
+var cP = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+//包含中文正则
+var cnPattern = /[\u4E00-\u9FA5]/;
+```
+
+# eval()
+
+eval是JS中最强大的方法之一，它就像一个完整的ECMAScript解析器，它会根据ECMAScript语句对字符串进行解析和计算。
+
+eval() 函数把对应的字符串解析成 JS 代码并运行；
+
+**如果参数是一个表达式，eval() 函数将执行表达式。如果参数是Javascript语句，eval()将执行 Javascript 语句（代码）**
+
+该方法只接受原始字符串作为参数，如果 string 参数不是原始字符串，那么该方法将不作任何改变地返回。因此请不要为 eval() 函数传递 String 对象来作为参数。
+
+如果试图覆盖 eval 属性或把 eval() 方法赋予另一个属性，并通过该属性调用它，则 [ECMAScript](https://so.csdn.net/so/search?q=ECMAScript&spm=1001.2101.3001.7020) 实现允许抛出一个 EvalError 异常。
+
+虽然 eval() 的功能非常强大，但在实际使用中用到它的情况并不多:
+
+* 如果参数中没有合法的表达式和语句，则抛出 SyntaxError 异常。
+* 如果非法调用 eval()，则抛出 EvalError 异常。
+* 如果传递给 eval() 的 Javascript 代码生成了一个异常，eval() 将把该异常传递给调用者。
+* 不安全，非常耗性能（2次，一次解析成 js 语句，一次执行）。
+
+```js
+eval("x=10;y=20;console.log(x*y)"); // 200
+console.log(eval("2+2")); // 4
+console.log(eval(x+17)); // 27
+console.log(eval(18)); // 18
+// 相当于直接调用console.log
+let msg = "hello world";
+eval("console.log(msg)"); // hello world
+// 相当于函数声明
+eval("function sayHi() { console.log('hi'); }");
+
+const obj = {
+  a: {
+    b: {
+      c: 1,
+    }
+  }
+}
+function get(str) {
+  console.log(eval(str)) // 1，相当于console.log(obj.a.b.c)
+}
+get('obj.a.b.c')
+```
+
+## eval作用域
+
+eval()函数并不会创建一个新的作用域，并且它的作用域就是它所在的作用域。这在所有主流浏览器都是如此，但是有时候需要将eval()函数的作用域设置为全局，当然可以将eval()在全局作用域中使用。
+
+```js
+function a(){
+  eval( "var x=1" )
+  console.log(x) // 1
+}
+a()
+console.log(x) // 报错，x is not defined
+```
+
+需要在局部作用域使用具有全局作用域的此函数，这个时候可以用window.eval()的方式实现：
+
+```js
+function a(){
+  window.eval( "var x=1" )
+  console.log(x) // 1
+}
+a()
+console.log(x) // 1
+```
+
+
 
 # 页面渲染
 
-## 浏览器记载页面流程
+## JavaScript 是单线程的，浏览器是多进程的
+
+* 每打开一个新网页就会创建一个渲染进程
+* 渲染进程是多线程的
+* 负责页面渲染的 GUI 渲染线程
+* 负责JavaScript的执行的 JavaScript 引擎线程，
+* 负责浏览器事件循环的事件触发线程，注意这不归 JavaScript 引擎线程管
+* 负责定时器的定时触发器线程，setTimeout 中低于 4ms 的时间间隔算为4ms
+* 负责XMLHttpRequest的异步 http 请求线程
+* GUI 渲染线程与 JavaScript 引擎线程是互斥的
+* 单线程JavaScript是因为避免 DOM 渲染的冲突，web worker 支持多线程，但是 web worker 不能访问 window 对象，document 对象等。
+
+## 常见的浏览器内核
+
+主要分成两部分：渲染引擎(layout engineer或Rendering Engine)和JS引擎
+
+* 渲染引擎：负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入CSS等），以及计算网页的显示方式，然后会输出至显示器或打印机。浏览器的内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同。所有网页浏览器、电子邮件客户端以及其它需要编辑、显示网络内容的应用程序都需要内核。
+* JS引擎则：解析和执行javascript来实现网页的动态效果。
+
+最开始渲染引擎和JS引擎并没有区分的很明确，后来JS引擎越来越独立，内核就倾向于只指渲染引擎。
+
+* 常见内核
+  * Trident 内核：IE, MaxThon, TT, The World, 360, 搜狗浏览器等。[又称 MSHTML]、
+  * Gecko 内核：Netscape6 及以上版本，FF, MozillaSuite / SeaMonkey 等
+  * Presto 内核：Opera7 及以上。 [Opera内核原为：Presto，现为：Blink;]
+  * Webkit 内核：Safari, Chrome等。 [ Chrome的：Blink（WebKit 的分支）]
+
+##  网页从输入网址到渲染完成经历
+
+大致可以分为如下7步：
+
+* 输入网址；
+* 发送到DNS服务器，并获取域名对应的web服务器对应的ip地址；
+* 与web服务器建立TCP连接；
+* 浏览器向web服务器发送http请求；
+* web服务器响应请求，并返回指定url的数据（或错误信息，或重定向的新的url地址）；
+* 浏览器下载web服务器返回的数据及解析html源文件；
+* 生成DOM树，解析css和js，渲染页面，直至显示完成；
+
+
+
+## 浏览器渲染页面流程
 
 **渲染时，大致的流程：**
 
@@ -53,6 +482,168 @@ Number   Boolean   undefined     Object   Function    String  Null
 > 因为script若在其他位置会推迟或者意外的进行预渲染。
 >
 > 具体原因：解析到body中的第一脚本前，浏览器就会认为已经解析得差不多了，可以进行一次预渲染。所以script如果放在head里，会推迟预渲染。如果放在body的一开头，后面的一大堆标签还没解析，等于欺骗浏览器说已经“差不多了”，也就等于违背了设计预渲染的初衷，会影响页面的效果。放在body中间也是一样的道理，所以还是放在最尾巴上比较好。
+
+##  网页前端性能优化
+
+1. 压缩 css, js, 图片
+
+2. 减少 http 请求次数， 合并 css、js 、合并图片（雪碧图）
+
+3. 使用 CDN
+
+4. 减少 dom 元素数量
+
+5. 图片懒加载
+
+6. 静态资源另外用无 cookie 的域名
+
+7. 减少 dom 的访问（缓存 dom）
+
+8. 巧用事件委托
+
+9. 样式表置顶、脚本置低
+
+## 移动端性能优化
+
+* 尽量使用css3动画，开启硬件加速
+* 适当使用touch时间代替click时间
+* 避免使用css3渐变阴影效果
+* 可以用transform: translateZ(0) 来开启硬件加速
+* 不滥用float。float在渲染时计算量比较大，尽量减少使用
+* 不滥用web字体。web字体需要下载，解析，重绘当前页面
+* 合理使用requestAnimationFrame动画代替setTimeout
+* css中的属性（css3 transitions、css3 3D transforms、opacity、webGL、video）会触发GUP渲染，耗电
+
+# TCP 传输的三次握手、四次挥手策略
+
+## 三次握手
+
+为了准确无误地吧数据送达目标处，TCP协议采用了三次握手策略。用TCP协议把数据包送出去后，TCP不会对传送后的情况置之不理，一定会向对方确认是否送达，握手过程中使用TCP的标志：SYN（同步序列编号）和ACK（确认字符）
+
+1. 发送端首先发送一个带SYN的标志的数据包给对方
+2. 接收端收到后，回传一个带有SYN/ACK标志的数据包以示传达确认信息
+3. 最后，发送端再回传一个带ACK的标志的数据包，代表“握手”结束
+
+> 如在握手过程中某个阶段莫明中断，TCP协议会再次以相同的顺序发送相同的数据包
+
+## 四次挥手
+
+断开一个TCP连接需要“四次挥手”
+
+由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个 FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。
+
+挥手过程中使用TCP的标志：FIN(报文)
+
+* 第一次挥手：主动关闭方发送一个FIN，用来关注主动方到被动关闭方的数据传送，也即是主动关闭方告诫被动关闭方：我已经不会再给你发数据了（在FIN包之前发送的数据，如果没有收到对应的ACK确认报文，主动关闭方依然会重发这些数据）。但是，`此时主动关闭方还可以接受数据`
+* 第二次挥手：被动关闭方收到FIN包后，发送一个ACK给对方，确认序号收到序号 +1（与SYN相同，一个 FIN占用一个序号）
+* 第三次挥手：被动关闭方发送一个 FIN。用来关闭被动关闭方到主动关闭方的数据传送，也就是告诉主动关闭方，我的数据也发送完了及数据处理完毕，不会给你发送数据了
+* 第四次挥手：主动关闭方收到FIN后，发送一个ACK给被动关闭方，确认序号为收到序号+1，至此，完成四次挥手
+
+# let、const、var
+
+let和const是ES6新增的声明变量的关键词，之前声明变量的关键词是var。
+
+## let
+
+* var定义的变量，可以预解析提前调用的结果是undefined，let定义的变量不能预解析，提前调用的结果是 报错。
+
+  ```kotlin
+  // 提前调用 预解析
+  console.log( int1 );
+  // 提前调用 结果是报错
+  console.log( int2 );
+  // var 定义的变量 
+  var int1 = 100 ;
+  let int2 = 200 ;
+  ```
+
+* var定义的变量，变量名称可以重复，效果是重复赋值，let定义的变量不能重复，否则执行报错。
+
+  ```kotlin
+  // var 定义的变量 
+  var int1 = 100 ;
+  let int2 = 200 ;
+  // 变量名称重复 重复赋值效果
+  var int1 = '北京' ;
+  console.log( int1 );
+  // 变量名称重复 结果是报错
+  let int2 = '上海' ;
+  ```
+
+* var定义的变量作用域是全局/局部作用域可以进行变量提升。let定义的变量如果在{}块级作用域内中只能在{}中调用。
+
+  ```kotlin
+  // 在 {} 中 使用 let 定义变量 只能在 { } 中 使用
+  // 如果需要在 { } 中 对 let 定义的变量 进行操作 
+  // 提前定义 变量 在 {} 中 进行赋值操作
+  if( true ){
+     var a = 300 ;
+     let b = 400 ;
+     // let 声明的变量 在 { } 中可以调用
+     // 对 {} 外定义的变量 进行赋值操作
+     console.log( b );
+  }
+  console.log( a ) ; // 变量提升
+  // let 声明的变量 在 { } 外 不能调用 
+  console.log( b );
+  ```
+
+* 在循环语句中var定义的循环变量和使用let定义的循环变量。执行原理和执行效果不同。
+
+  * **var声明的循环变量**
+
+    在整个循环变量过程中只定义了一个循环变量i，每次循环都对这一个循环变量i进行重复赋值，也就是之后的循环变量数值会覆盖之前的循环变量数值，**当循环结束后只有一个循环变量i，存储的是最终的循环变量数值**。
+
+  * **let声明的循环变量**
+
+    在整个循环过程中每次循环都相当于触发执行了一个{   }，每一个{   }对于let定义的变量就是一个独立的作用域，也就是每次循环let声明的循环变量都是一个人独立作用域中的循环变量，每一次循环中循环变量都会存储不同的数据数值，互相之间不会影响，不会覆盖，**也就是每次循环let声明的循环变量都相当于是一个独立的变量，不会覆盖之前的数据数值。**
+
+## const
+
+* var定义的变量，可以预解析提前调用的结果是undefined，const定义的变量不能预解析，提前调用的结果是报错。
+* var定义的变量，变量名称可以重复，效果是重复赋值，const定义的变量不能重复，否则执行报错。
+* var定义的变量作用域是全局/局部作用域。const定义的变量如果在{}中只能在{}中调用。
+* const 定义的变量存储的数据数值不能改变，也就是const定义的变量，不能重复赋值。
+
+## 事件的绑定
+
+通过for循环给标签绑定事件，也就是一打开执行界面，事件绑定就结束了，也就是 循环已经结束了，也就是触发事件时循环已经结束了。
+
+```kotlin
+ <ul>
+        <li>我是第一个li</li>
+        <li>我是第二个li</li>
+        <li>我是第三个li</li>
+        <li>我是第四个li</li>
+        <li>我是第五个li</li>
+    </ul>
+ 
+    <script>
+        // 给 li 绑定事件 点击 li标签 弹出 索引下标
+ 
+        // 获取标签对象
+        const oLis = document.querySelectorAll('ul>li');
+ 
+        // 通过 for循环 给 li标签 绑定事件
+        for( var i = 0 ; i <= oLis.length -1 ; i++ ){
+            // i 是 索引下标 oLis[i] 是 li标签对象
+            oLis[i].addEventListener( 'click' , function(){
+                
+                // 点击时输出索引下标
+                console.log( `我是var循环的i ${i}` );
+            })
+        }
+        for( let j = 0 ; j <= oLis.length -1 ; j++ ){
+            // i 是 索引下标 oLis[i] 是 li标签对象
+            oLis[j].addEventListener( 'click' , function(){
+                
+                // 点击时输出索引下标
+                console.log( `我是let循环的i ${j}` );
+            })
+        }
+ 
+    </script>
+```
 
 # JS继承方法
 
@@ -250,8 +841,17 @@ Student.prototype.constructor = Student;
 **原型：**
 
 * 所有引用类型（函数，数组，对象）都拥有\__proto\__属性（隐式原型），属性值是一个普通的对象;
-* 所有函数拥有prototype属性（显式原型）（仅限函数），属性值是一个普通的对象;
+
+* 所有函数拥有prototype属性（显式原型）（仅限函数）， 等于原型对象(就是一个普通对象包含公共属性);
+
+  对象具有 constructor 属性，指向构造函数（Person.prototype.constructor == Person）
+
 * 所有引用类型的\__proto\__属性指向它构造函数的prototype;
+
+  ```js
+  const obj = {}
+  obj.__proto__ === Object.prototype // true
+  ```
 
 **原型链：**
 
@@ -272,6 +872,8 @@ p.___proto__.__proto__.__proto__== Object.prototype.__proto__ == null
 <img src="/img/image/image-20230209201628780.png" alt="image-20230209201628780" style="zoom:80%;" />
 
 ![image-20230208214004851](/img/image/image-20230208214004851.png)
+
+JavaScript对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。
 
 ## isPrototypeOf()
 
@@ -315,7 +917,15 @@ fn();//fn()相当于执行b()，结果是0
 
 # 闭包
 
-函数和对其周围状态的引用捆绑在一起构成闭包。也就是说，闭包可以让你从内部函数访问外部函数作用域。在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。
+**函数和对其周围状态的引用捆绑在一起构成闭包**。也就是说，闭包可以让你从内部函数访问外部函数作用域。在 JavaScript 中，每当函数被创建，就会在函数生成时生成闭包。
+
+- 闭包是指有权访问另一个函数作用域中的变量的函数，创建闭包常见方式，就是在一个函数的内部创建另一个函数
+- 使用闭包主要为了设计私有的方法和变量，闭包的优点是可以避免变量的污染，缺点是闭包会常驻内存，会增大内存使用量，使用不当很容易造成内存泄露。在js中，函数即闭包，只有函数才会产生作用域的概念。
+- 闭包有三个特性：
+  - 函数嵌套函数
+  - 函数内部可以引用外部的参数和变量
+  - 参数和变量不会被垃圾回收机制回收
+- 闭包的缺点就是常驻内存，会增大内存使用量，使用不当会造成内存泄漏
 
 闭包很有用，因为它允许将函数与其所操作的某些数据（环境）关联起来。这显然类似于面向对象编程。因此，通常你使用只有一个方法的对象的地方，都可以使用闭包。
 
@@ -335,6 +945,85 @@ console.log(add10(2)); // 12
 
 ```
 
+# javascript的内存(垃圾)回收机制
+
+- 垃圾回收器会每隔一段时间找出那些不再使用的内存，然后为其释放内存
+
+- 一般使用**标记清除方法(mark and sweep)**, 当变量进入环境标记为进入环境，离开环境标记为离开环境
+
+  垃圾回收器会在运行的时候给存储在内存中的所有变量加上标记，然后去掉环境中的变量以及被环境中变量所引用的变量（闭包），在这些完成之后仍存在标记的就是要删除的变量了
+
+- 还有**引用计数方法(reference counting)**, 在低版本IE中经常会出现内存泄露，很多时候就是因为其采用引用计数方式进行垃圾回收。
+
+  策略是跟踪记录每个值被使用的次数，当声明了一个 变量并将一个引用类型赋值给该变量的时候这个值的引用次数就加1，如果该变量的值变成了另外一个，则这个值得引用次数减1，当这个值的引用次数变为0的时 候，说明没有变量在使用，这个值没法被访问了，因此可以将其占用的空间回收，这样垃圾回收器会在运行的时候清理掉引用次数为0的值占用的空间。
+
+- 在IE中虽然JavaScript对象通过标记清除的方式进行垃圾回收，但BOM与DOM对象却是通过引用计数回收垃圾的， 也就是说只要涉及BOM及DOM就会出现循环引用问题。
+
+# js事件队列
+
+事件队列可以分为微任务（micro task）队列和宏任务（macro task）队列。
+
+**微任务一般比宏任务先执行，并且微任务队列只有一个，宏任务队列可能有多个**。另外我们常见的点击和键盘等事件也属于宏任务。
+
+常见宏任务：
+
+* setTimeout()
+* setInterval()
+* setImmediate()
+
+常见微任务：
+
+* promise.then()、promise.catch()
+* new MutaionObserver()
+* process.nextTick()
+
+## 区别
+
+- **宏任务特征**：有明确的异步任务需要执行和回调；需要其他异步线程支持。
+- **微任务特征**：没有明确的异步任务需要执行，只有回调；不需要其他异步线程支持。
+
+```js
+setTimeout(function () {
+    console.log("1");
+}, 0);
+async function async1() {
+    console.log("2");
+    const data = await async2();
+    console.log("3");
+    return data;
+}
+async function async2() {
+    return new Promise((resolve) => {
+        console.log("4");
+        resolve("async2的结果");
+    }).then((data) => {
+        console.log("5");
+        return data;
+    });
+}
+async1().then((data) => {
+    console.log("6");
+    console.log(data);
+});
+new Promise(function (resolve) {
+    console.log("7");
+  resolve()
+}).then(function () {
+    console.log("8");
+});
+// 2 4 7 5 8 3 6 async2的结果 1
+```
+
+## async/await
+
+async 是一个通过异步执行并隐式返回 Promise 作为结果的函数。是Generator函数的语法糖，并对Generator函数进行了改进。
+
+* 内置执行器，无需手动执行 next() 方法。
+* 更好的语义
+* 更广的适用性：co模块约定，yield命令后面只能是 Thunk 函数或 Promise 对象，而async函数的await命令后面，可以是 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时会自动转成立即 resolved 的 Promise 对象）。
+* 返回值是 Promise，比 Generator 函数返回的 Iterator 对象方便，可以直接使用 then() 方法进行调用。
+* async 隐式返回 Promise 作为结果的函数，那么可以简单理解为，await后面的函数执行完毕时，await会产生一个微任务(Promise.then是微任务)。
+
 # http协议
 
 ## 概述
@@ -344,12 +1033,6 @@ console.log(add10(2)); // 12
 *　http请求由三部分组成，分别是：请求行、消息报头、请求正文
 
 * HTTP消息报头包括普通报头、请求报头、响应报头、实体报头。
-
-1.支持客户/服务器模式。
-2.简单快速：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。
-3.灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。
-4.无连接：无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。
-5.无状态：HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。
 
 ## HTTP协议的主要特点
 
@@ -388,6 +1071,12 @@ console.log(add10(2)); // 12
 >500 Internal Server Error //服务器发生不可预期的错误
 >503 Server Unavailable  //服务器当前不能处理客户端的请求，一段时间后可能恢复正常
 
+## HTTPS
+
+- HTTP协议通常承载与 TCP协议之上，在HTTP和TCP之间添加一个安全协议层（SSL或TSL），这个时候，就成了我们常说的HTTPS
+- 默认HTTP的端口号为80，HTTPS的端口号为443
+- 因为网络请求需要中间有很多的服务器路由的转发，中间的节点都可能篡改信息，而如果使用HTTPS，密钥在你和终点站才有，https之所有说比http安全，是因为他利用ssl/tls协议传输。包含证书，流量转发，负载均衡，页面适配，浏览器适配，refer传递等，保障了传输过程的安全性
+
 # js常用函数
 
 ## 数组与字符串转换
@@ -414,7 +1103,553 @@ console.log(add10(2)); // 12
 }
 ```
 
+## valueOf和toString
 
+JavaScript 中的 valueOf() 方法用于返回指定对象的原始值，若对象没有原始值，则将返回对象本身。
+
+```js
+console.log([].valueOf() , [].toString()) // [] ,  ''
+console.lgo({}.valueOf(). {}.toString()) // {}, [object Object] 
+```
+
+# Js 函数内部的this指向
+
+## 函数内部的this指向
+
+ *this 的指向，是当我们调用函数的时候确定的。调用方式的不同决定了this 的指向不同一般指向我们的调用者.*
+
+**函数的不同使用场合，`this`有不同的值。总的来说，`this`就是函数运行时所在的环境对象。**
+
+| 调用方式     | this指向                                 |
+| ------------ | ---------------------------------------- |
+| 普通函数调用 | window                                   |
+| 构造函数调用 | 实例对象原型对象里面的方法也指向实例对象 |
+| 对象方法调用 | 该方法所属对象                           |
+| 事件绑定方法 | 绑定事件对象                             |
+| 定时器函数   | window                                   |
+| 立即执行函数 | window                                   |
+
+```kotlin
+// 普通函数调用
+function f1(){
+	console.log(this);
+}
+f1(); //window
+
+// 构造函数调用
+function fn(name,age,sex){
+this.name=username,
+this.age=userage,
+this.sex=sex
+console.log(this)
+}
+var fn1 = new fn('张三',20,'男')//输出结果为：fn {name: "张三", age: 20, sex: "男"}构造函数中的this指向的是new出来的实例化对象
+
+// 对象方法调用
+var obj = {
+            name: '张三',
+            age: 20,
+            sex: '男',
+            say: function () {
+                console.log(this);
+            }
+        }
+        obj.say()//输出结果为：{name: "张三", age: 20, sex: "男", say: ƒ},对象方法调用中的this指向的是该方法所属的对象
+
+// 事件绑定方法
+<button id="but">按钮</button>
+<script>
+$('#but').on('click', function () {
+    console.log(this);
+})
+</script>//输出结果为：<button id=​"but">​按钮​</button>​故：绑定事件方法中的this指向的是绑定事件的对象
+
+// 定时器函数
+setInterval(function () {
+            console.log(this);
+        }, 3000)//输出的结果为：Window,在定时器函数中this的指向是window
+
+// 立即执行函数
+(function fn(){
+console.log(this)
+})()
+//输出的结果为：Window ,在立即执行函数中this的指向是window
+```
+
+## 改变函数内部 this 指向
+
+### call 方法
+
+call()方法调用一个对象。简单理解为调用函数的方式，但是它可以改变函数的 this 指向
+
+**经常做继承**
+
+```kotlin
+var o = {
+	name: 'andy'
+}
+function fn(a, b) {
+    console.log(this);
+    console.log(a+b)
+};
+fn(1,2)// 此时的this指向的是window 运行结果为3
+fn.call(o,1,2)//此时的this指向的是对象o,参数使用逗号隔开,运行结果为3
+```
+
+### apply方法
+
+apply() 方法调用一个函数。简单理解为调用函数的方式，但是它可以改变函数的 this 指向。
+
+**应用场景：经常跟数组有关系**
+
+```kotlin
+var o = {
+	name: 'andy'
+}
+ function fn(a, b) {
+      console.log(this);
+      console.log(a+b)
+};
+fn(1，2)// 此时的this指向的是window 运行结果为3
+fn.apply(o,[1,2])//此时的this指向的是对象o,参数使用数组传递 运行结果为3
+```
+
+###  bind方法
+
+bind() 方法不会调用函数,但是能改变函数内部this 指向,返回的是原函数改变this之后产生的新函数。
+
+如果只是想改变 this 指向，并且不想调用这个函数的时候，可以使用 bind() 。
+
+```kotlin
+ var o = {
+ name: 'andy'
+ };
+ 
+function fn(a, b) {
+	console.log(this);
+	console.log(a + b);
+};
+var f = fn.bind(o, 1, 2); //此处的f是bind返回的新函数
+f();//调用新函数  this指向的是对象o 参数使用逗号隔开
+```
+
+### call、apply、bind 三者的异**同**
+
+共同点：都可以改变this指向
+
+不同点：
+
+* call 和 apply 会调用函数, 并且改变函数内部this指向
+* call 和 apply传递的参数不一样,call传递参数使用逗号隔开,apply使用数组传递
+* bind 不会调用函数, 可以改变函数内部this指向
+
+应用场景：
+
+* call 经常做继承
+* apply经常跟数组有关系. 比如借助于数学对象实现数组最大值最小值
+* bind 不调用函数,但是还想改变this指向. 比如改变定时器内部的this指向
+
+# 函数
+
+## 立即执行函数
+
+### 声明
+
+声明一个函数，并马上调用这个匿名函数就叫做立即执行函数；也可以说立即执行函数是一种语法，让你的函数在定义以后立即执行；
+
+```kotlin
+(function(){alert('我是一个匿名函数')})()
+先声明一个匿名函数并用小括号包起来，最后的括号是表示调用此函数
+```
+
+我们定义函数之后，立即调用该函数，这时不能在函数的定义后面直接加小括号，这会产生语法错误。产生语法错误的原因是，function 这个关键字，既可以当做语句，也可以当做表达式，比如下边：
+
+```kotlin
+//语句
+function fn() {};
+//表达式
+var fn = function (){};
+```
+
+为了避免解析上的歧义，JS引擎规定，如果function出现在行首，一律解析成语句。因此JS引擎看到行首是function关键字以后，认为这一段都是函数定义，不应该以小括号结尾，所以就报错了。
+
+解决方法就是不要让function出现在行首，让JS引擎将其理解为一个表达式，最简单的处理就是将其放在一个圆括号里，比如下边：
+
+```kotlin
+(function(){
+//code
+}())
+
+(function (){
+//code
+})()
+```
+
+上边的两种写法，都是以圆括号开头，引擎会意味后面跟的是表达式，而不是一个函数定义语句，所以就避免了错误，这就叫做"立即调用的函数表达式"。
+
+立即执行函数，还有一些其他的写法（加一些小东西，不让解析成语句就可以）
+
+### 作用
+
+不必为函数命名，避免了污染全局变量
+立即执行函数内部形成了一个单独的作用域，可以封装一些外部无法读取的私有变量
+封装变量
+总而言之：立即执行函数会形成一个单独的作用域，我们可以封装一些临时变量或者局部变量，避免污染全局变量
+
+```kotlin
+<body>
+    <ul id="list">
+        <li>公司简介</li>
+        <li>联系我们</li>
+        <li>营销网络</li>
+    </ul>
+    <script>
+       var list = document.getElementById("list");
+      var li = list.children;
+      for(var i = 0 ;i<li.length;i++){
+        li[i].onclick=function(){
+          alert(i);  // 结果总是3.而不是0，1，2
+        }
+      }
+     </script>  
+</body>
+```
+
+ 因为i是贯穿整个作用域的，而不是给每一个li分配一个i,点击事件使异步，用户一定是在for运行完了以后，才点击，此时i已经变成3了。
+那么怎么解决这个问题呢，可以用立即执行函数，给每个li创建一个独立的作用域,在立即执行函数执行的时候，i的值从0到2，对应三个立即执行函数，这3个立即执行函数里边的j分别是0，1，2所以就能正常输出了，看下边例子：
+
+```kotlin
+<body>
+    <ul id="list">
+        <li>公司简介</li>
+        <li>联系我们</li>
+        <li>营销网络</li>
+    </ul>
+    <script>
+       var list = document.getElementById("list");
+      var li = list.children;
+      for(var i = 0 ;i<li.length;i++){
+       ( function(j){
+            li[j].onclick = function(){
+              alert(j);
+          })(i); 把实参i赋值给形参j
+        }
+      }
+     </script>  
+</body>
+```
+
+也可以使用ES6的块级作用域解决整个问题
+
+```kotlin
+<body>
+    <ul id="list">
+        <li>公司简介</li>
+        <li>联系我们</li>
+        <li>营销网络</li>
+    </ul>
+    <script>
+       var list = document.getElementById("list");
+      var li = list.children;
+      for(let i = 0 ;i<li.length;i++){
+        li[i].onclick=function(){
+          alert(i);  // 结果是0，1，2
+        }
+      }
+     </script>  
+</body>
+```
+
+立即执行函数的返回值被赋值给了一个变量result，这个函数简单的返回了res的值，这个值事先被计算并被存储在立即执行行数的闭包中。
+
+```js
+var result=(function( ){
+    var res=2+2;// 私有，临时的变量
+    return function(){
+        return res ;
+    }
+})()
+console.log(result());//4
+```
+
+## 箭头函数定义
+
+箭头函数提供了一种更加简洁的函数书写方式。
+
+基本语法是：
+
+参数 => 函数体
+(参数) => {函数体}
+
+> 当箭头函数没有参数或者有多个参数，要用 **()** 括起来。
+>
+> 当箭头函数函数体有多行语句，用 **{}** 包裹起来，表示代码块，当只有一行语句，并且需要返回结果时，可以省略 **{}** , 结果会自动返回。
+>
+> 当箭头函数要返回对象的时候，为了区分于代码块，要用 **()** 将对象包裹起来
+>
+> ```kotlin
+> var f = (id,name) => ({id: id, name: name});
+> f(6,2);  // {id: 6, name: 2}
+> ```
+
+箭头函数没有自己的this，在箭头函数的函数体中使用this时，会取得其上下文中的this。箭头函数调用时并不会生成自身作用域下的this，它只会从自己的作用域链的上一层继承this。由于箭头函数没有自己的this指针，使用apply、call、bind仅能传递参数而不能动态改变箭头函数的this指向。
+
+* **不能作为构造器**
+
+  ```kotlin
+  let fn = () => {};
+  new fn()    // Uncaught TypeError: fn is not a constructor
+  ```
+
+* **不绑定arguments**
+
+  ```kotlin
+      let fn1 = (x, y) => {
+        console.log(x, y);
+        console.log("箭头函数中的arguments：",arguments);// 箭头函数中的arguments长度为0，即未绑定arguments对象
+      };
+   
+      let fn2 = function (x, y) {
+        console.log(x, y);
+        console.log("匿名函数function()中的arguments：",arguments);
+      };
+   
+      fn1(1, 2);
+      fn2(1, 2);
+  ```
+
+* **对象的方法使用箭头函数**
+
+  ```kotlin
+  //对象方法中使用箭头函数
+      let obj1 = {
+        name: "leo",
+        showName: () => {
+          console.log("this：", this);
+          console.log("this.name：", this.name);
+        },
+      };
+  //对象方法中使用匿名函数function()
+      let obj2 = {
+        name: "leo",
+        showName: function () {
+          console.log("this：", this);
+          console.log("this.name：", this.name);
+        },
+      };
+  ```
+
+  箭头函数中的this是当前组件实例（当前上下文对象），不是obj1，由于组件实例name未定义，因此为undefined；而匿名函数function()中的this指向调用该方法的对象，即obj2，因此name为leo。
+
+* **数组方法中使用箭头函数**
+
+  ```kotlin
+      let arr = ["leo"]
+      arr.forEach(()=>{
+        console.log(this)    //在vue中，则this表示当前组件实例
+      })
+  ```
+
+* **定时器中使用箭头函数**
+
+  ```kotlin
+      setTimeout(()=>{
+        console.log(this)    //在vue中，则this为当前组件实例
+      },100)
+   
+      setTimeout(function(){
+        console.log(this)      //this为Window
+      },100)
+  ```
+
+* **addEventListener使用箭头函数**
+
+  ```kotlin
+  let el = document.getElementById("pId")
+  el.addEventListener("click",() => {
+    console.log(this)    //在vue中，则this为当前组件实例，而不是el元素
+  })
+  
+  
+  el.addEventListener("click", function () {
+      console.log(this);      //this为当前el元素
+  });
+  ```
+
+### **apply、call、bind中使用箭头函数** 
+
+``` kotlin
+    let obj1 = {
+      name: "leo",
+      showName: function () {      //使用匿名函数function()，当前this.name为"leo"
+        console.log(this.name);
+      },
+    };
+    let obj2 = {
+      name: "lion",
+    };
+    obj1.showName.apply(obj2);     //可以改变this指向，此时this.name为"lion"，call、bind同理
+```
+
+```kotlin
+    let obj1 = {
+      name: "leo",
+      showName: () => {           //使用箭头函数，当前this.name为"undefined"
+        console.log(this.name);
+      },
+    };
+    let obj2 = {
+      name: "lion",
+    };
+    obj1.showName.apply(obj2);   //不能改变this指向，this.name仍为"undefined"，call、bind同理
+```
+
+**注意**：如果this依赖于当前作用域，使用匿名函数function()形式；如果this取上下文对象（没有自身作用域的this），则使用箭头函数形式。
+
+# js new
+
+## new 的基本用法
+
+1、创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
+2、属性和方法被加入到 this 引用的对象中。
+3、新创建的对象由 this 所引用，并且最后隐式的返回 this 。
+
+```js
+var 对象 = new 函数([参数])
+```
+
+这里的函数可以是内置构造器，也可以是用户自己定义的函数。
+
+例如：
+
+``` js
+var arr = new Array ();
+```
+
+此时，arr将可以使用Array.prototype上的全部方法。关于原型链你可以看看之前的文章去介绍原型链。
+
+使用自己定义的构造器:
+
+``` js
+function F(name,age){
+    this.name = name;
+    this.age = age
+}
+F.prototype.hello = function(){
+    console.log(this.name,this.age)
+}
+var f1 = new F('curry', 30);
+console.log(f1)
+f1.hello()// curry 30
+函数F在被调用的过程中,在前面加new ，所以这个函数是被当作构造器来使用了。f1之所以可以调用 hello方法，也是因为原型链的缘故
+```
+
+##  构造器的返回值
+
+一般来讲，如果要把一个函数当做构造函数来使用，在这个函数的内部是不应该去设置返回值的。但是，如果它设置了返回值呢？
+
+* return后面跟着不是对象，就会不管return语句，返回this对象；
+
+  ```kotlin
+  var Vehicle = function () {
+    this.price = 1000;
+    return 1000;
+  };
+  (new Vehicle()) === 1000// false
+  ```
+
+* return后面跟着一个对象，new会返回return语句指定的对象；
+
+  ```kotlin
+  var Vehicle = function (){
+    this.price = 1000;
+    return { price: 2000 };
+  };
+  (new Vehicle()).price
+  // 2000
+  ```
+
+## 不加new也能创建对象
+
+```kotlin
+function F(name,age){
+    this.name = name;
+    this.age = age
+}
+var f1 = F('curry', 30); // 不加new 
+console.log(f1)
+```
+
+此时，我们把F当作一个普通的函数来调用，由于在函数F内部并没有明确写出return语句，所以f1的值是undefined。同时上面的代码还会有另一个隐藏的后果：在执行F时，由于this的值是指向window，所以上面的代码还会给window对象添加两个属性。如下：
+
+<img src="../../../../../Download/Typora/image/image-20230301114128362.png" alt="image-20230301114128362" style="zoom:50%;" />
+
+为了保证构造函数必须与new命令一起使用，一个解决办法是，构造函数内部使用严格模式，即第一行加上use strict。这样的话，一旦忘了使用new命令，直接调用构造函数就会报错。
+
+```js
+function F(name,age){ 
+    'use strict'; // 这句新加的
+    this.name = name;
+    this.age = age
+}
+
+var f1 = F('curry', 30); // 不加new
+console.log(f1) // Uncaught TypeError: Cannot set property 'name' of undefined 
+// 因为在函数内部开启了严格模式之后，函数内部的this将不会默认指向window,它的值会是undefined。
+```
+
+可以在构造函数内部判断，当前调用是否使用new命令，如果发现没有使用new，则直接返回一个实例对象。
+
+```js
+function F(name,age){ 
+  // 如果没有用new，this就不会是F的实例
+  if (!(this instanceof F)) {
+    return new F(name,age);
+  }
+  this.name = name;
+  this.age = age
+}
+var f1 = new F('a','30');
+var f2 = F('b','30');
+console.log(f2)
+```
+
+## new 原理
+
+使用new命令时，在构造函数内部依次执行下面的步骤:
+
+1. 创建一个空对象，作为将要返回的对象;
+2. 将这个空对象的原型指向构造函数的prototype属性,作用是让这个对象能沿着原型链去使用构造函数中prototype上的方法;
+3. 将这个空对象赋值给构造函数内部的this关键字，执行构造函数,让构造器中设置在this上的属性最终设置在这个对象上
+4. 返回这个对象
+
+```js
+function F(name,age){ 
+  this.name = name;
+  this.age = age
+}
+F.prototype.hello = function(){
+    console.log(this.name,this.age)
+}
+var f = new F('a','30');
+```
+
+第一步：var obj = {}
+
+第二步：obj.__proto__ = F.prototype
+
+第三步：F.apply(obj,参数)
+
+第四步：return obj
+
+# 线程与进程的区别
+
+* 一个程序至少有一个进程,一个进程至少有一个线程.
+* 线程的划分尺度小于进程，使得多线程程序的并发性高。
+* 另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。
+* 线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。
+* 从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。
+  
 
 
 
