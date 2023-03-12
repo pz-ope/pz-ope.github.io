@@ -415,7 +415,14 @@ css中有很多选择器，比如
 
 盒模型由内到外依次分为内容（content）、填充（padding）、边框（border）和边界（margin）4部分。
 
-有两种， IE 盒子模型、W3C 盒子模型；IE 的 content 部分把 border 和 padding 计算了进去;
+有两种， IE 盒子模型、标准盒模型（W3C 盒子模型）；IE 的 content 部分把 border 和 padding 计算了进去;
+
+**元素在网页实际占位为`content + padding + border + margin`，标准盒子模型与低版本IE盒子模型区别就是取宽高的时不同，标准盒模型宽高指`content`的宽高；低版本IE盒子模型宽高指`content + padding + border`。**
+
+CSS中设置这两种模型：
+
+* 标准盒模型(默认)`box-sizing : content-box;`
+* `IE`盒模型`box-sizing : border-box`。
 
 ## css的居中方式
 
@@ -447,10 +454,10 @@ css中有很多选择器，比如
 
 ## px,em,rem,vw/vh,%
 
-* **px像素(Pixel)**:相对长度单位。像素px是相对于显示器屏幕分辨率而言的(特点: IE无法调整那些使用px作为单位的字体大小);
+* **px像素(Pixel)**:绝对长度单位。像素px是相对于显示器屏幕分辨率而言的(特点: IE无法调整那些使用px作为单位的字体大小);
 * **em是相对长度单位**:相对于当前对象内文本的字体尺寸。如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸。特点: em的值并不是固定的; em会继承父级元素的字体大小。
 * **rem是CSS3新增的一个相对单位**。使用rem为元素设定字体大小时，仍然是相对大小，但相对的只是HTML根元素。1rem等于html根元素设定font-size的px值；
-* vw/vh，全称是 Viewport Width 和 Viewport Height，视窗的宽度和高度，相当于 屏幕宽度和高度的 1%，不过，处理宽度的时候%单位更合适，处理高度的 话 vh 单位更好。
+* vw/vh，全称是 Viewport Width 和 Viewport Height，视窗的宽度和高度，相当于 屏幕宽度和高度的 1%，不过，处理宽度的时候%单位更合适，处理高度的 话 vh 单位更好。就是根据窗口的宽高，分成100等份，`100vh`就表示满高，`50vh`就表示一半高。
 
 **总结**:如果你的用户群都使用最新版的浏览器，那推荐使用rem,如果要考虑兼容性，那就使用px,或者两者同时使用。em是以自身父容器为参考对象的，而rem直接以HTML为参考对象的，在多层嵌套的情况下使用em很容易出现问题。所以rem更适合移动式开发。
 
@@ -786,6 +793,8 @@ opacity- box{
 * 音频、视频API(audio,video)
 * 表单控件，calendar、date、time、email、url、searc
 
+**H5 存储类型区别：H5能够本地存储数据，在之前都是使用cookies使用的。H5提供了下面两种本地存储方案： localStorage( 用于持久化的本地存储，数据永远不会过期，关闭浏览器也不会丢失)与sessionStorage(同一个会话中的页面才能访问并且当会话结束后数据也随之销毁。因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储)。**
+
 ## CSS3
 
 * 2d，3d变换
@@ -810,7 +819,7 @@ opacity- box{
 | \&emsp;     |          | 一个空白位             |
 | \&nbsp;     |          | 不断行的空白           |
 
+# 清除浮动
 
-
-
+# 深拷贝与浅拷贝
 

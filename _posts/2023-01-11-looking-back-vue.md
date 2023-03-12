@@ -13,9 +13,208 @@ tags:
 
 ---
 
+# Vue简介
+
+`Vue`是一套用于构建用户界面的渐进式`JavaScript`框架
+
+* 采用组件化模式，提高代码复用率且让代码更好维护；
+* 声明式编码，让编码人员无需直接操作`DOM`，提高开发效率；
+* 使用虚拟`DOM`+由优秀的`Diff`算法，尽量复用`DOM节点`
+
+<img src="../../../../../Download/Typora/image/image-20230312143302557.png" alt="image-20230312143302557" style="zoom:70%;" />
+
+## Vue模板语法
+
+```vue
+1.使用vue必须创建一个Vue实例,且要传入一个配置对象
+<head>
+  <script text="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">容器</div>
+</body>
+<script type="text/javascript">
+  Vue.config.productionTip = false;  //阻止Vue在启动时生成生产提示
+  2.创建Vue实例
+  const x = new Vue({
+    el: '#root', //用于指定当前Vue实例为哪个容器服务,通常为css选择器字符串(element)
+    data: {},
+  })
+</script>
+```
+
+*  插值语法：`功能：用于解析标签体内容`；`写法：{{xxx}}，xxx是js表达式，可以直接读取data中所有属性`
+* 指令语法：`功能：用于解析标签(包括：标签属性，标签体内容，绑定事件......)`；`写法：v-????`
+
+## 数据绑定
+
+**单向数据绑定v-bind**：数据只能从`data`流向页面，简写`:`
+
+**双向数据绑定v-model**：如下代码是错误的，`v-model`只能应用在表单类元素(输入类元素)
+
+```vue
+<h2 v-model:x="name">你好啊</h2>
+<textarea v-model.lazy="other"></textarea>
+v-model的三个修饰符：lazy失去焦点再收集数据；number输入字符串转为有效的数字；trim输入首位空格过滤。
+```
+
+## el与data
+
+el:
+
+* ```kotlin
+   <div id="root">容器</div>
+  const vm = new Vue({
+      el: '#root', /第一种写法,直接与容器关联/
+      data: {},
+    })
+  ```
+
+* ```kotlin
+   const vm = new Vue({
+        //el: '#root', //直接与容器关联
+        data: {},
+      });
+      vm.$mount('#root');  /这就是第二种写法挂载,意义:写法灵活,比如可以加定时器控制执行时间/
+  ```
+
+data:
+
+* ```kotlin
+  const vm = new Vue({
+      el: '#root',
+      data: {},   /data第一种写法,对象式/
+    })
+  ```
+
+* ```kotlin
+  const vm = new Vue({
+      el: '#root',
+      data: function(){  /data第二种写法,函数式,function可以省略,组件必须使用函数式/
+        return: 'xxx',
+      },
+    })
+  ```
+
+## 事件处理
+
+事件处理v-on
+
+* 使用`v-on:xxx`或`@xxx`绑定事件，其中`xxx`是事件名；
+* 事件的回调需要配置的在`methods对象`中，最终会在`vm`上；
+* `methods`中配置的函数，不要用箭头函数，否则`this`就不是`vm实例`；
+* `methods`中配置的函数，都是被`Vue`所管理的函数，`this指向`是`vm实例`或组件实例对象；
+* `@click="demo"`与`@click="demo($event)"`效果一致，但是后者可以传参;
+
+事件修饰符
+
+* `prevent`阻止默认事件(常用)；
+* `stop`阻止事件冒泡(常用)；
+* `once`事件只触发一次(常用)；
+* `capture`使用事件的捕获模式
+* `self`只有event.target是当前操作的元素时才触发事件；
+* `passive`事件的默认行为立即执行，无需等待事件回调执行完毕。
+
+键盘事件key:`Vue`未提供别名的按键，可以使用按键原始的`key值`去绑定，但注意要转为`kebab-case`(短横线命名);
+
+**`Vue.config.keyCode.自定义键名 = 键码`**：可以定制按键别名
+
+##  Vue检测数据改变的原理
+
+**`Vue`监视数据的原理**：`vue`会监视`data`中所有层次的数据。
+
+**如何监测对象中的数据**:
+
+* 通过`setter`实现监视，且要在`new Vue`时就传入要监测的数据;
+
+* 对象中后追加的属性，`Vue`默认不做响应式处理；
+
+* 如需给后添加的属性做响应式，请使用以下`API`
+
+  ```kotlin
+  Vue.set(target, propertyName/index, value)
+  vm.$set(target, propertyName/index, value)
+  ```
+
+**如何监测数据中的数据**
+
+* 通过包裹数组更元素的方法实现，本质就是做了两件事
+* 调用原生对应的方法对数组进行更新；
+* 重新解析模板，进而更新页面
+
+在Vue修改数组中的某个元素一定要用如下方法：
+
+* 使用这些API：push()、pop()、shift()、unshift()、splice()、sort()、reverse()； 
+* Vue.set() 或 vm.set()。
+  Vue.set()和vm.set()不能给vm或vm的根数据对象添加属性
+
+## 内置指令
+
+| 指令    | 作用                             |
+| ------- | -------------------------------- |
+| v-bind  | 单向绑定解析表达式，可简写为:xxx |
+| v-model | 双向数据绑定                     |
+| v-on    | 绑定事件监听，可简写为@          |
+| v-for   | 遍历数组/对象/字符串             |
+| v-if    | 条件渲染 (动态控制节点是否存在)  |
+| v-else  | 条件渲染 (动态控制节点是否存在)  |
+| v-show  | 条件渲染 (动态控制节点是否展示)  |
+
+* **v-text指令**
+
+  向其所在的节点中渲染文本内容
+
+  **`v-text`指令与插值语法区别**：`v-text`会替换掉节点中的内容，`{{xx}}`不会
+
+* **v-html指令**
+
+  向指定节点中渲染包含html结构的内容
+
+  `v-html`指令与插值语法的区别:`v-html`会替换掉节点中所有的内容，`{{xx}}`则不会；`v-html`可以识别html结构;
+
+* **v-cloak指令**
+
+  **`v-cloak`指令本质**：是一个特殊属性，`Vue实例`创建完毕并接管容器后，会删掉`v-cloak`属性；使用css配合`v-cloak`可以解决网速慢时页面展示出`{{xxx}}`的问题。
+
+  ```kotlin
+  <head>
+    //没有直接引用js文件夹中vue.js的原因,使用该文件延迟5秒才调用vue.js文件/
+    <script type="text/javascript" src="http://localhost:8080/resource/5s/vue.js"></script>
+    <style>
+      [v-cloak]{ display: none }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <h2 v-cloak>{{name}}</h2>  /如果不加v-cloak页面会显示{{name}},5秒之后插值表达式才会解析/
+    </div>
+  </body>
+  
+  <script type="text/javascript">
+    Vue.config.productionTip = false;
+    
+    new Vue({
+      el: '#root'
+      data: { name: '尚硅谷' }
+    })
+  </script>
+  ```
+
+* **v-once指令**
+
+  `v-once`所在节点在初次动态渲染后，就视为静态内容了；以后的数据的改变不会引起`v-once`所在结构的更新，可以用于优化性能。
+
+* **v-pre指令**
+
+  **`v-pre`指令**：`v-pre`可以跳过其所在节点的编译过程；可利用它跳过没有使用指令语法、没有使用插值语法的节点，会加快编译。
+
 # vue生命周期
 
 Vue实例从创建到销毁的过程，就是生命周期。详细来说也就是从开始创建、初始化数据、编译模板、挂载Dom、渲染→更新→渲染、卸载等一系列过程。
+
+生命周期中`this`指向是`vm实例` 或 `组件实例对象`
+
+<img src="../../../../../Download/Typora/image/ffff8d65e1ac474189e49ee20975d4dd.png" alt="image-20230208204253217"  />
 
 1. beforeCreate（Vue中的data和方法都是去不到的，并且是在wath之前执行）
 2. created（可以获取Vue的data，调用Vue方法，`获取原本HTML上的直接加载出来的DOM`，但是无法获取到通过挂载模板生成的DOM（例如：v-for循环遍历Vue.list生成li））
@@ -163,11 +362,17 @@ Vue 的父组件和子组件生命周期钩子函数执行顺序可以归类为�
 
 计算属性，依赖其它属性值，并且 computed 的值有缓存，只有它依赖的属性值发生改变，下一次获取 computed 的值时才会重新计算 computed 的值；
 
+**定义**：要用的属性不存在，要通过已有属性计算得来。
+
+**原理**：底层借助了`Object.defineproperty()`提供的`getter和setter`。
+
 * 支持缓存，只有依赖数据发生改变，才会重新进行计算；
 * 不支持异步，当 computed 内有异步操作时无效，无法监听数据的变化；
 * computed 属性值会默认走缓存，计算属性是基于它们的响应式依赖进行缓存的。也就是基于data中声明过或者父组件传递的 props 中的数据通过计算得到的值；
 * 如果一个属性是由其他属性计算而来的，这个属性依赖其他属性 是一个多对一或者一对一，一般用computed；
 * 如果 computed 属性值是函数，那么默认会走 get 方法，函数的返回值就是属性的属性值；在computed中的，属性都有一个get和一个 set 方法，当数据变化时，调用 set 方法；
+
+**优势**：与`methods`实现相比，内部有缓存机制(复用)，效率更高，调试更方便。
 
 ```kotlin
 computed:{
@@ -189,6 +394,9 @@ computed：{
 }
 ```
 
+* 计算属性最终出现在`vm实例`上，直接读取使用即可
+* 如果计算属性要被修改，那必须写在`set函数`去响应修改，且`set`中要引起计算时依赖的数据发生改变`。
+
 ## watch
 
 监听属性, 更多的是「观察」的作用，类似于某些数据的监听回调 ，每当监听的数据变化时都会执行回调进行后续操作；
@@ -202,7 +410,7 @@ computed：{
 
 immediate属性：组件加载立即触发回调函数执行；
 
-deep: 深度监听；为了发现对象内部值的变化，复杂类型的数据时使用，例如：数组中的对象内容的改变，注意：监听数组的变动不需要这么做。注意：deep无法监听到数组的变动和对象的新增，参考vue数组变异,只有以响应式的方式触发才会被监听到；
+deep: 深度监听；为了发现对象内部值的变化，复杂类型的数据时使用，例如：数组中的对象内容的改变，注意：监听数组的变动不需要这么做。注意：**deep无法监听到数组的变动和对象的新增**，参考vue数组变异,只有以响应式的方式触发才会被监听到；
 
 ```kotlin
 写法一：
@@ -261,7 +469,86 @@ vm.items.splice(newLength)
 * 当需要进行数值计算，并且依赖于其它数据时，应该使用 computed，因为可以利用 computed 的缓存特性，避免每次获取值时，都要重新计算；
 * 当需要在数据变化时执行异步或开销较大的操作时，应该使用 watch，使用 watch 选项允许我们执行异步操作 ( 访问一个 API )，限制执行该操作的频率，并在得到最终结果前，设置中间状态。这些都是计算属性无法做到的。
 
-# vue路由跳转的方式 
+# vue-router
+
+**`vue-router`定义**：`vue`的一个插件库，专门用来实现SPA应用。
+
+SPA:单页面应用
+
+* 单页面`Web`应用;
+* 整个应用只有一个完整页面;
+* 点击页面中的导航连接不会刷新页面，只会做页面的局部更新;
+* 数据需要通过`ajax`请求获取
+
+```kotlin
+//1.引入VueRouter 
+import VueRouter from 'vue-router'
+//2.引入路由组件
+import About from '../component/About'
+//创建实例对象, 管理一组组的路由规则
+export default new VueRouter({
+  routes:[
+    {path:'/about',component:About}
+  ]
+}) 
+
+// 实现切换(active-class可配置高亮样式)
+<router-link class="list" active-class="active" to="/about">About</router-link>
+// 指定展示位置
+<router-view></router-view>
+```
+
+* 1.路由组件通常存放在pages文件夹，以班组间通常存放在components文件夹。
+* 2.通过雀环，"隐藏"了路由组件，默认是被销毁的，需要的时候再去连接。
+* 3.每个组件都有自己的$route属性，里面存储着自己的路由信息。
+* 4.整个应用只有一个router，可以通过组件的$router属性获取到。
+
+## 嵌套(多级)路由
+
+配置路由规则，使用`children`配置项
+
+```vue
+{  这是一个三级路由
+  path:'/about',
+  component:About,
+  children:[
+    { path:'test',
+      component:Test,
+      children:[
+        { name:'hello',  //给路由命名
+          path:'welcome',
+          component:Hello,},
+        {
+		 name:'hello1',
+          path:'welcome/:id/:title',   //使用占位符声明接收params参数
+          component:Hello,
+        }
+      ]
+    }
+  ]
+}
+
+// 跳转(需要写完整路径)
+<router-link to="/about/test">Test</router-link>
+<-- 简化前, 需要写完整的路径 -->
+<router-link to="/about/test/welcome">跳转</router-link>
+<-- 简化后, 直接通过名字跳转 -->
+<router-link :to="{name:'hello'}">跳转</router-link>
+    
+<-- 跳转并携带params参数, to的字符串写法 -->
+<router-link to="/about/test/welcome/666/你好">跳转</router-link>
+
+<-- 跳转并携带params参数, to的对象写法 -->
+<router-link 
+  :to="{
+    name:'hello',  ⚠️//这个位置是特别注意⚠️
+    params:{id:666,title:'你好'}
+  }"
+>跳转</router-link>
+————————————————
+版权声明：本文为CSDN博主「仙女不下凡」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/weixin_55181759/article/details/119535441
+```
 
 ## router-link
 
@@ -288,6 +575,13 @@ vm.items.splice(newLength)
   ```vue
   <router-link : to="{name:'home',query:{id:1}}">
   // query传参数(类似get,urL后面会显示参数)
+      
+  // 跳转并携带query参数，to的字符串写法
+  <router-link :to="/home/message/detail?id=666&title=你好">跳转</router-link>
+      
+  // 接收参数
+  $route.query.id
+  $route.query.title
   ```
 
 ## this.$router.push()
@@ -317,6 +611,14 @@ vm.items.splice(newLength)
 
 ## this.$router.replace() 
 
+控制路由跳转时操作浏览器历史记录的模式
+
+**浏览器的历史记录有两种写入方式**：分别为`push`与`replace`，`push`是追加历史记录，`replace`是替换当前记录，路由跳转时默认为`push`
+
+```kotlin
+<router-link replace ......>跳转</router-link>
+```
+
 (用法同上,push)
 
 ## this.$router.go(n)
@@ -336,6 +638,106 @@ vm.items.splice(newLength)
 * **this.$router.go(n)**
 
   向前或者向后跳转n个页面，n可以为正整数和负整数；
+
+## 缓存路由组件
+
+缓存路由组件作用：让不展示的路由组件保持挂载，不被销毁，语法结构如下 
+
+```kotlin
+<keep-alive include="组件名"> //如不写include属性,代表所有的router-view中所有层级都缓存不销毁
+  <router-view></router-view>  
+</keep-alive>
+
+<keep-alive include="['组件名1,'组件名2'']"> //缓存多个
+  <router-view></router-view>  
+</keep-alive>
+
+```
+
+> 若某组件即含有**缓存路由组件**也有类似含有**定时器这样需要销毁的组件**
+>
+> 要解决该问题就引入了两个新的声明周期钩子，`activated()`激活的、`deactivated)()`失活的**，**该钩子是路由组件独有的。路由组件所独有的两个钩子，用于捕获路由组件的激活状态。
+
+## 路由守卫
+
+对路由进行权限控制
+
+* **全局路由守卫**：
+
+  **全局前置路由守卫**：初始化时会调用 ，每次路由切换之前调用
+
+  ```kotlin
+  router.beforeEach((to,form,next) => {
+    //`meta.isAuth`是在写路由信息时,定义在meta属性中isAuth信息,书写习惯
+    if(to.meta.isAuth) {  //判断当前路由是否需要进行权限控制
+      if(localStorage.getItem('school') === 'atguigu') {
+        alert('暂时无权限查看')
+      } else { next()  //放行  }
+    }
+  });
+  ```
+
+  **全局后置路由守卫**：初始化时被调用 ，每次路由切换之后调用
+
+  ```kotlin
+  router.afterEach((to,form) => {
+    if(to.meta.title) {
+      document.title = to.meta.title  //修改网页的title
+    } else {
+      next(   document.title = '登录页' )
+    }
+  })
+  ```
+
+* 独享路由守卫
+
+  独享路由守卫没有后置路由
+
+  ```kotlin
+    path:'/about',
+    component:About,
+    children:[
+      { path:'test',
+        component:Test,
+        beforeEnter(to,form,next){
+          if(localStorage.getItem('school') === 'atguigu') {
+            alert('暂时无权限查看')
+          } else { 
+            next() 
+          }
+        }
+      }
+    ]
+  ```
+
+* 组件内路由守卫
+
+  ```kotlin
+  export default {
+    name:'About',
+    mounted(){},
+    beforeRouterEnter(to,form,next){},  //通过路由规则, 进入该组件时被调用
+    beforeRouterLeave(to,form,next){},  //通过路由规则, 离开该组件时被调用
+  };
+  ```
+
+## 工作模式
+
+对于一个`url`来说，什么是`hash`值?----- `#`及其后面的内容就是`hash`值
+
+`hash`值不会包含在`HTTP`请求中，即：`hash`值不会带给服务器
+
+**hash模式**
+
+* 地址中永远带着`#`号;
+* 若以后将地址通过第三方手机`app`分享，若`app`校验严格，则地址会被标记为不合适;
+* 兼容性好;
+
+**history模式**
+
+* 地址干净，美观;
+* 兼容性和`hash`模式相比略差;
+* 应用部署上线时需要后端人员支持，解决刷新页面服务端404问题;
 
 # vue数据双向绑定的原理
 
@@ -386,6 +788,35 @@ v-model:实现双向数据绑定。
 	})
 </script>
 ```
+
+## 数据代理
+
+```kotlin
+let number = 18;
+let person = {
+  name: '张三',
+  sex: '男',
+  //age: number,
+};
+
+//需求当number改变时可以同步使age改变,这是就是使用到Object.defineproperty方法
+Object.defineproperty(person, 'age', {
+  /当有人读取person的age属性时,get函数(getter函数)就会被调用,且返回值就是age的值/
+  get:function(){  //function可以省略
+    return number;
+  },
+  /当有人修改person的age属性时,set函数(setter函数)就会被调用,且会收到修改的具体值/
+  set(value){
+    number = value
+  }
+})
+```
+
+**`Vue`中数据代理的好处**：更加方便的操作data中的数据。
+
+* 通过`Object.defineproperty()`把`data对象`所有属性添加到`vm`上；
+* 为每一个添加到`vm`的属性，都指定一个`getter/setter`；
+* 在`getter/setter`内部去操作(读/写)`data`中对应的属性。
 
 # 组件间的传参
 
@@ -874,6 +1305,11 @@ MVVM是将“数据模型数据双向绑定”的思想作为核心
 Model 和 View 并无直接关联，而是通过 ViewModel 来进行联系的，Model 和 ViewModel 之间有着双向数据绑定的联系。因此当 Model 中的数据改变时会触发 View 层的刷新，View 中由于用户交互操作而改变的数据也会在 Model 中同步。
 这种模式实现了 Model 和 View 的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作 dom。
 
+<img src="../../../../../Download/Typora/image/image-20230312143916075.png" alt="image-20230312143916075" style="zoom:50%;" />
+
+* `data`中所有的属性，最后都出现在了`vm`身上；
+* `vm`身上所有的属性及`Vue原型`上所有属性，在`Vue模板`中都可以直接使用。
+
 # v-if 和 v-show
 
 ## 共同点
@@ -894,6 +1330,65 @@ v-show 由false变为true的时候不会触发组件的生命周期
 v-if由false变为true的时候，触发组件的beforeCreate、create、beforeMount、mounted钩子，由true变为false的时候触发组件的beforeDestory、destoryed方法
 
 **性能消耗**：v-if有更高的切换消耗；v-show有更高的初始渲染消耗；
+
+# v-for
+
+```kotlin
+<body>
+  <div id="root">
+    <!--遍历数组-->
+    <ul>
+      <li v-for="(p,index) in persons" :key="index">{{p.name}}-{{p.age}}</li>
+    </ul>
+    <!--遍历对象-->
+    <ul>
+      <li v-for="(value,k) of car" :key="k">{{k}}-{{value}}</li>
+    </ul>
+    <!--遍历字符串-->
+    <ul>
+      <li v-for="(char,index) of str" :key="index">{{index}}-{{char}}</li>
+    </ul>
+    <!--遍历指定次数 (用得少) -->
+    <ul>
+      <li v-for="(number,index) of 5" :key="index">{{number}}-{{index}}</li>
+    </ul>
+  </div>
+</body>
+<script type="text/javascript">
+  Vue.config.productionTip = false;
+  new Vue({
+    el: 'root',
+    data: {
+     persons: [
+       {id:'001',name:'张三',age:'18'},
+       {id:'002',name:'李四',age:'17'},
+       {id:'003',name:'王五',age:'18'},
+     ],
+     car: {name:'奥迪A8',price:'70万',color:''},
+     str: 'hello'
+    }
+  })
+</script>
+```
+
+## key的原理
+
+ **虚拟`DOM`中`key`的作用**：`key`是`虚拟DOM对象`的标示，当数据发生变化时，`Vue`会根据`新数据`生成`新的虚拟DOM`，随后`Vue`进行`新虚拟DOM`与`旧虚拟DOM`的差异比较。比较规则如下：
+
+**对比规则**：
+
+* `旧虚拟DOM`中找到了与`新虚拟DOM`相同的`key`；若`虚拟DOM`中内容没变，直接使用之前的`真实DOM`；若`虚拟DOM`中内容变了，则生成`新的真实DOM`，随后替换掉页面中之前的`真实DOM`。
+* `旧虚拟DOM`中未找到与`新虚拟DOM`相同的`key`创建`新的真实DOM`，随后渲染到页面。
+
+**用`index`作为`key`可能会引发的问题**
+
+* 若对数据进行：逆序添加、逆序删除破坏操作( 会产生没有必要的`真实DOM`更新 ==> 界面效果没问题，但效率低 )。
+* 如果结构中还包含输入类的`DOM`( 会产生错误`DOM`更新 ==> 界面有问题 )
+
+**开发中如何选择`key`**
+
+* 最好使用每条数据的唯一标识作为`key`，比如id、手机号、身份证号、学号等唯一值。
+* 如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，使用`index`作为`key`是没有问题的
 
 # SPA 单页面
 

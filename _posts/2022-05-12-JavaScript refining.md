@@ -50,6 +50,8 @@ null 转为数值是 0 ; undefined 转为数值是 NAN（not a number）。
 null 通过 typeof 判断类型的时候结果的输出是 object ; 而 undefined 的类型是 undefined 。
 
 > null 和 undefined 都是js语言的基础数据类型, 都是原始值类型，但是 typeof null 是 object ，是因为不同的对象在底层都表现为二进制，在  JavaScript  中二进制前三位都为 0 的话会被判断为 object  类型，null 的二进制全部都为 0 ，前三位自然也是 0 ，所以执行 typeof 值会返回 object 。
+>
+> `ES6`之后引入两种新数据类型`Symbol`与`bigInt`。
 
 ## 判断类型
 
@@ -449,8 +451,6 @@ console.log(x) // 1
 * web服务器响应请求，并返回指定url的数据（或错误信息，或重定向的新的url地址）；
 * 浏览器下载web服务器返回的数据及解析html源文件；
 * 生成DOM树，解析css和js，渲染页面，直至显示完成；
-
-
 
 ## 浏览器渲染页面流程
 
@@ -959,6 +959,10 @@ console.log(add10(2)); // 12
 
 - 在IE中虽然JavaScript对象通过标记清除的方式进行垃圾回收，但BOM与DOM对象却是通过引用计数回收垃圾的， 也就是说只要涉及BOM及DOM就会出现循环引用问题。
 
+# Cookie、session和localStorage、sessionStorage
+
+在实际开发中前端展示的数据大都是通过`http`网络请求后后台服务器返回的数据，所以这就引出了`Cookies、Session、SessionStore、LocalStore`这几个浏览器的缓存机制，来保存必要的数据，这样就大大的减少了请求次数！
+
 # js事件队列
 
 事件队列可以分为微任务（micro task）队列和宏任务（macro task）队列。
@@ -1029,10 +1033,81 @@ async 是一个通过异步执行并隐式返回 Promise 作为结果的函数�
 ## 概述
 
 * http（超文本传输协议）是一个基于请求与响应模式的、无状态的、应用层的协议，常基于TCP的连接方式
-
-*　http请求由三部分组成，分别是：请求行、消息报头、请求正文
-
+* http请求由三部分组成，分别是：请求行、消息报头、请求正文
 * HTTP消息报头包括普通报头、请求报头、响应报头、实体报头。
+
+HTTP分为 **请求Request** 和 **响应Response**，如图：
+
+<img src="../../../../../Download/Typora/image/image-20230312123507240.png" alt="image-20230312123507240" style="zoom:60%;" />
+
+## Request 
+
+| Request Header      | 规定                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| Accept              | 浏览器端接受的格式                                           |
+| Accept-Encoding     | 浏览器端接收的编码方式                                       |
+| Accept-Language     | 浏览器端接受的语言，用于服务端判断多语言                     |
+| Cache-Control       | 控制缓存的时效性                                             |
+| Connection          | 连接方式，如果是keep-alive， 且服务端支持，则会复用连接      |
+| Host                | HTTP访问使用的域名                                           |
+| If- Modified- Since | 上次访问时的更改时间，如果服务端认为此时间后自己没有更新，则会给出304响应 |
+| If-None -Match      | 上次访问时使用的E-Tag，通常是页面的信息摘要，这个比更改时间更准确一些。 |
+| User-Agent          | 客户端标识，因为一些历史原因，这是一笔糊涂账，多数浏览器的这个字段都十分复杂，区别十分微妙 |
+| Cookie              | 客户端存储的cookie字符串                                     |
+
+**Body**
+
+一般请求体就是以下4种格式
+
+- application/json
+- application/x-www-form-urlencoded
+- mutipart/form-data
+- text/xml
+
+```js
+GET / HTTP/1.1
+Host: time.geekbang.org
+```
+
+## Response
+
+| Response Header   | 规定                                                         |
+| ----------------- | ------------------------------------------------------------ |
+| Cache-Control     | 缓存控制，用于通知各级缓存保存的时间，例如max-age=0， 表示不要缓存。 |
+| Connection        | 连接类型，Keep-Alive表示复用连接                             |
+| Content- Encoding | 内容编码方式， 通常是gzip                                    |
+| Content-Length    | 内容的长度，有利于浏览器判断内容是否已经结束                 |
+| Content-Type      | 内容类型，所有请求网页的都是text/html                        |
+| Date              | 当前的服务器日期                                             |
+| ETag              | 页面的信息摘要，用于判断是否需要重新到服务端取回页面         |
+| Expires           | 过期时间，用于判断下次请求是否需要到服务端取回页面           |
+| Keep-Alive        | 保持连接不断时需要的一些信息，如timeout=5, max=100           |
+| Last-Modified     | 页面上次修改的时间                                           |
+| Server            | 服务端软件的类型                                             |
+| Set-Cookie        | 设置cookie，可以存在多个                                     |
+| Via               | 服务端的请求链路，对一些调试场景至关重要的一个头             |
+
+**Body:**
+
+一般响应体就是HTML、JSON 或者 二进制多媒体数据
+
+```js
+HTTP/1.1 301 Moved Permanently
+Date: Fri, 25 Jan 2019 13:28:12 GMT
+Content-Type: text/html
+Content-Length: 182
+Connection: keep-alive
+Location: https://time.geekbang.org/
+Strict-Transport-Security: max-age=15768000
+
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body bgcolor="white">
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>openresty</center>
+</body>
+</html>
+```
 
 ## HTTP协议的主要特点
 
@@ -1052,6 +1127,30 @@ async 是一个通过异步执行并隐式返回 Promise 作为结果的函数�
 * TRACE   请求服务器回送收到的请求信息，主要用于测试或诊断；
 * CONNECT 保留将来使用；
 * OPTIONS 请求查询服务器的性能，或者查询与资源相关的选项和需求；
+
+> GET与POST请求方式的区别:
+>
+> GET/POST都是TCP链接
+>
+> `GET`比`POST`不安全，因为`GET`提交的数据放在`URL`中，`POST`则不是(`POST`也不安全，因为`HTTP`是明文传输抓包就能获取数据内容，要想安全还得加密)。GET参数通过URL传递，POST放在Request body中。
+>
+> GET在浏览器回退时是无害的，而POST会再次提交请求(`GET`有缓存中拿结果，`POST`没缓存);
+>
+> GET请求会被浏览器主动缓存，而POST不会，除非手动设置;
+>
+> GET请求参数会被完整保留在浏览器历史记录里，而POST中的参数不会被保留。
+>
+> GET请求只能进行url编码，而POST支持多种编码方式;GET请求在URL中传送的参数是有长度限制的，而POST没有；
+>
+> GET和POST还有一个重大区别，简单的说：GET产生一个TCP数据包，POST产生两个TCP数据包。换句话说：对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200(返回数据)，而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok(返回数据)。也就是网络请求的两次握手，我记得在哪见过解释
+>
+> 因为POST需要两步，时间上消耗的要多一点，看起来GET比POST更有效。因此Yahoo团队有推荐用GET替换POST来优化网站性能。但这是一个坑!跳入需谨慎。为什么?
+>
+> 1. GET与POST都有自己的语义，不能随便混用。
+>
+> 2. 据研究，在网络环境好的情况下，发一次包的时间和发两次包的时间差别基本可以无视。而在网络环境差的情况下，两次包的TCP在验证数据包完整性上，有非常大的优点。
+>
+> 3. 并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次。
 
 ## 状态代码
 
@@ -1078,6 +1177,85 @@ async 是一个通过异步执行并隐式返回 Promise 作为结果的函数�
 - 因为网络请求需要中间有很多的服务器路由的转发，中间的节点都可能篡改信息，而如果使用HTTPS，密钥在你和终点站才有，https之所有说比http安全，是因为他利用ssl/tls协议传输。包含证书，流量转发，负载均衡，页面适配，浏览器适配，refer传递等，保障了传输过程的安全性
 
 # js常用函数
+
+## js中数组操作方法
+
+* join()：将数组中所有元素都转化为字符串并连接在一起；
+
+* reverse()：将数组中的元素颠倒顺序；
+
+* concat()：数组拼接的功能 ,返回新数组，**原数组不受影响**；
+
+* slice()：截取数组生成新数组，**原数组不受影响**；
+
+  返回的数组包含第一个参数指定的位置和所有到但不含第二个参数指定位置之间的所有元素。如果为负数，表示相对于数组中最后一个元素的位置。如果只有一个参数，表示到数组末尾。
+
+  ```jsx
+  var aa = [1,2,3,4,5,6];
+  console.log(aa.slice(2)); //[3,4,5,6]
+  console.log(aa.slice(2,8)); //[3,4,5,6] 超过最大长度，只显示到最后结果
+  console.log(aa.slice(2,-1)); //[3,4,5] 相对于倒数第一个之前
+  console.log(aa.slice(2,-2)); //[3,4] 相对于倒数第二个之前
+  console.log(aa.slice(3)); //[4,5,6] 一个参数从第三个到最后
+  console.log(aa.slice(-2));//[5,6] 一个参数负值从倒数第二个到最后
+  ```
+
+* splice()：从数组中删除元素、插入元素到数组中或者同时完成这两种操作。
+
+  输入：第一个参数为指定插入或删除的起始位置，第二个参数为要删除的个数。之后的参数表示需要插入到数组中的元素 。如果只有一个参数，默认删除参数后边的所有元素。
+   输出：返回一个由删除元素组成的数组。
+   **新建了一个数组，并修改了原数组**
+
+  ```jsx
+  var aa = [1,2,3,4,5,6];
+  console.log(aa.splice(4)); //[5,6]  返回删除后的数组
+  aa; // [1,2,3,4]
+  console.log(aa.splice(2,2)); //[3,4] 从第二位起删除两个元素
+  aa; //[1,2]
+  console.log(aa.splice(1,0,7,8)); //[]从第一位起删除0个元素，添加7,8到原数组
+  aa;//[1,7,8,2]
+  ```
+
+* push()：在数组末尾添加一个或多个元素，并返回新数组长度；
+
+* pop()：从数组末尾删除1个元素(删且只删除1个), 并返回 被删除的元素；
+
+* shift()：在数组开始添加一个或多个元素，并返回新数组长度；
+
+* unshift()：在数组开始删除一个元素(删且只删除1个),并返回 被删除的元素；
+
+* toString()和toLocaleString()：将数组的每个元素转化为字符串，并且输入用逗号分隔的字符串列表。功能类似join();
+
+*  indexOf()和lastIndexOf()：
+
+  indexOf() 两个参数：要查找的项和（可选的）表示查找起点位置的索引。其中， 从数组的开头（位置 0）开始向后查找。没找到返回-1. 返回查找项的索引值
+   lastIndexOf() 从数组的末尾开始向前查找。返回查找项的索引值(索引值永远是正序的索引值),没找到返回-1；
+
+* sort()：默认情况下sort()方法没有传比较函数的话，默认按字母升序，如果不是元素不是字符串的话，会调用toString()方法将元素转化为字符串的Unicode(万国码)位点，然后再比较字符。所以用默认方法排序数据是有问题的。
+
+* forEach()：从头至尾遍历数组，为每个元素调用指定函数，输入为一个待遍历函数，函数的参数依次为：数组元素、元素的索引、数组本身
+
+* map()：调用的数组的每一个元素传递给指定的函数，并返回一个新数组 ,不修改原数组。
+
+* filter()：过滤功能，数组中的每一项运行给定函数，返回满足过滤条件组成的数组。
+
+* every()和some()：
+
+  every() 判断数组中每一项都是否满足条件，只有所有项都满足条件，才会返回true。
+  some() 判断数组中是否存在满足条件的项，只要有一项满足条件，就会返回true。
+
+* reduce()和reduceRight()
+
+  reduce() 两个参数：函数和递归的初始值。从数组的第一项开始，逐个遍历到最后
+  reduceRight() 从数组的最后一项开始，向前遍历到第一项
+
+  ```jsx
+  //可以用reduce快速求数组之和
+  var arr=[1,2,3,4];
+  arr.reduce(function(a,b){
+    return a+b;
+  }); //10
+  ```
 
 ## 数组与字符串转换
 
